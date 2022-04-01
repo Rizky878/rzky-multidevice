@@ -2,10 +2,12 @@ module.exports = {
 	name: "wikipedia",
 	alias: ["wikimedia", "wiki", "wikimed"],
 	category: "search",
+        options: {
 	wait: true,
 	use: "<topik>",
+        query: `Masukan sesuatu topik yang ingin dicari`,
+        }
 	desc: "Mencari hal hal yang berkaitan di Wikipedia",
-	query: `Masukan sesuatu topik yang ingin dicari`,
 	async run(msg, conn, q, isOwner, body, map, config, args) {
 		var wiki = await rzky.search.wiki(q);
 		if (wiki.img == "https://telegra.ph/file/1cde98e7bc902331edc90.png") return msg.reply(`Tidak ditemukan`);
