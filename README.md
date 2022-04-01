@@ -18,7 +18,7 @@
 - [√] Mudah untuk dirawat/diperbaiki
 
 ## Config
-Isi semua yang dibutuhkan di file `config.json`(https://github.com/Rizky878/rzky-multidevice/blob/main/config.json)<br />
+Isi semua yang dibutuhkan di file [`config.json`](https://github.com/Rizky878/rzky-multidevice/blob/main/config.json)<br />
 
 ## Request or report
 Untuk request dan report bisa chat saya disini [Whatsapp](https://wa.me/6282387804410)
