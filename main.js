@@ -45,6 +45,7 @@ const ReadFitur = () => {
 				isBotAdmin: false,
 				query: false,
 				isPrivate: false,
+                                isSpam: false,
 				isUrl: false,
 				run: () => {},
 			};
