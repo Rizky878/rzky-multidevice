@@ -3,9 +3,11 @@ module.exports = {
 	alias: ["wmusic", "whatmusik", "wmusik"],
 	category: "search",
 	use: "<reply audio>",
+        options: {
 	wait: true,
 	isQuoted: true,
 	isQAudio: true,
+        }
 	desc: "Search for song titles through music or voice",
 	async run(msg, conn, q, isOwner, body, map, config, args) {
 		//if(!msg.quoted) return msg.reply('Reply Audio')
