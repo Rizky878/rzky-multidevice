@@ -36,6 +36,7 @@ Options Pada command, yang akan mempermudah kamu untuk membuat fitur<br />
 	isPrivate: <Boolean>, //Ex: false
 	isUrl: <Boolean> //Ex: false
 }
+```
 
 ## Example Options
 
@@ -48,7 +49,7 @@ Example From Command : [`command/umum/help.js`](https://github.com/Rizky878/rzky
   category: "umum",
   wait: true
 }
-
+```
 
 ## Highlights
 
