@@ -6,7 +6,7 @@
 
 ## [![JavaScript](https://img.shields.io/badge/JavaScript-d6cc0f?style=for-the-badge&logo=javascript&logoColor=white)](https://javascript.com) [![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 
-> Build with Baileys and new Map() ( as a command handler ) <br />
+> Build with Baileys and Map() ( as a command handler ) <br />
 
 </div><br />
 <br />
@@ -40,7 +40,7 @@ Options Pada command, yang akan mempermudah kamu untuk membuat fitur<br />
 
 ## Example Options
 
-Example From Command : [`command/umum/help.js`](https://github.com/Rizky878/rzky-multidevice/blob/main/command/umum/help.js)<br />
+Example From Command : [`./command/umum/help.js`](https://github.com/Rizky878/rzky-multidevice/blob/main/command/umum/help.js)<br />
 ```js
 {
   name: "help",
