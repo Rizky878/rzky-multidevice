@@ -5,6 +5,7 @@ module.exports = {
 	alias: ["stick", "stik", "stiker", "stickergif", "stikergif", "gifstiker", "gifsticker"],
 	category: "converter",
 	desc: "Create a sticker from image or video",
+        isSpam: true,
 	async run(msg, conn) {
 		const { quoted, from, type } = msg;
 
