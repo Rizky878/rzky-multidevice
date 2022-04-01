@@ -4,8 +4,10 @@ module.exports = {
 	use: "#ytmp3 <url youtube>",
 	category: "",
 	desc: "Download audio from YouTube",
+        options: {
 	wait: false,
 	isUrl: true,
+        }
 	async run(msg, conn, q, isOwner, body, map, config, args) {
 		var yt = await rzky.yt.ytmp3(args[0]);
 		var img = yt.thumb;
