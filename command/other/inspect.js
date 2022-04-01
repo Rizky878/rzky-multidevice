@@ -7,6 +7,7 @@ module.exports = {
     use: "<link>",
     query: "No invite url.",
     wait: true,
+    isSpam: true,
     async run(msg, conn, q) {
         const rex1 = /chat.whatsapp.com\/([\w\d]*)/g;
         const queryInvite = async (code) => {
