@@ -16,39 +16,39 @@ Options Pada command, yang akan mempermudah kamu untuk membuat fitur<br />
 
 ```js
 {
-    name: <String>, //Ex: "menu"
-    alias: <Array>, //Ex: ["cmd","help"]
-    desc: <String>, //Ex: "Menu adalah command"
-    use: <String>,  //Ex: "<teks>"
-    category: <String>, //Ex: "umum"
-    wait: <Boolean>, //Ex: true
-    isOwner: <Boolean>, //Ex: false
-    isAdmin: <Boolean>, //Ex: false
-    isQuoted: <Boolean>, //Ex: false
-    isQVideo: <Boolean>, //Ex: false
-    isQAudio: <Boolean>, //Ex: false
-    isQImage: <Boolean>, //Ex: false
-    isQSticker: <Boolean>, //Ex: false
-    isQDocument: <Boolean>, //Ex: false
-    isGroup: <Boolean>, //Ex: false
-    isBotAdmin: <Boolean>, //Ex: false
-    query: <Boolean and String>, //Ex: "Tunggu Sebentar" / true
-    isPrivate: <Boolean>, //Ex: false
-    isUrl: <Boolean> //Ex: false
+   name: <String>, //Ex: "menu"
+   alias: <Array>, //Ex: ["cmd","help"]
+   desc: <String>, //Ex: "Menu adalah command"
+   use: <String>,  //Ex: "<teks>"
+   category: <String>, //Ex: "umum"
+   wait: <Boolean>, //Ex: true
+   isOwner: <Boolean>, //Ex: false
+   isAdmin: <Boolean>, //Ex: false
+   isQuoted: <Boolean>, //Ex: false
+   isQVideo: <Boolean>, //Ex: false
+   isQAudio: <Boolean>, //Ex: false
+   isQImage: <Boolean>, //Ex: false
+   isQSticker: <Boolean>, //Ex: false
+   isQDocument: <Boolean>, //Ex: false
+   isGroup: <Boolean>, //Ex: false
+   isBotAdmin: <Boolean>, //Ex: false
+   query: <Boolean and String>, //Ex: "Tunggu Sebentar" / true
+   isPrivate: <Boolean>, //Ex: false
+   isUrl: <Boolean> //Ex: false
 }
 ```
 
 ## Example Options
 
 Example From Command : [`command/umum/help.js`](https://github.com/Rizky878/rzky-multidevice/blob/main/command/umum/help.js)<br />
-```json
-[{
+```js
+{
   name: "help",
   alias: ["h","menu","cmd"],
   desc: "menampilkan menu",
   category: "umum",
   wait: true
-}]
+}
 ```
 
 ## Highlights
