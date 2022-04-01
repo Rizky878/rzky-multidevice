@@ -15,7 +15,7 @@
 
 ## Options
 
-Options Pada command, yang akan mempermudah kamu untuk membuat fitur<br />
+Options pada command, yang akan mempermudah kamu untuk membuat/menambahkan fitur<br />
 ```js
 {
    name: <String>, // Ex: "menu"
