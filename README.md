@@ -65,7 +65,7 @@ Isi semua yang dibutuhkan di file [`config.json`](https://github.com/Rizky878/rz
 ## Request or report
 Untuk request dan report bisa chat saya disini [Whatsapp](https://wa.me/6282387804410)
 
-## Installasi
+## Installation
 
 ### Dibutuhkan
 1. [nodejs](https://nodejs.org/en/download) 16x/17x
