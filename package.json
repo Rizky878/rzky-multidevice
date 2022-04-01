@@ -42,13 +42,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rizky878/rzky-md.git"
+    "url": "git+https://github.com/Rizky878/rzky-multidevice.git"
   },
   "keywords": [
-    "bot-md"
+    "bot-md",
+    "multi-device",
+    "adiwajshing",
+    "baileys",
+    "baileys-md",
+    "bot-wa",
+    "bot-whatsapp",
+    "WhatsApp"
   ],
   "bugs": {
-    "url": "https://github.com/Rizky878/rzky-md/issues"
+    "url": "https://github.com/Rizky878/rzky-multidevice/issues"
   },
-  "homepage": "https://github.com/Rizky878/rzky-md#readme"
+  "homepage": "https://github.com/Rizky878/rzky-multidevice#readme"
 }
