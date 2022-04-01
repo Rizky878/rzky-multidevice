@@ -10,10 +10,12 @@
 
 </div><br />
 <br />
+
+
+
 ## Options
 
 Options Pada command, yang akan mempermudah kamu untuk membuat fitur<br />
-
 ```js
 {
    name: <String>, // Ex: "menu"
