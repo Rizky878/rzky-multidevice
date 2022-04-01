@@ -2,7 +2,9 @@ module.exports = {
 	name: "quotesanime",
 	alias: ["quotes", "animequotes", "quote", "quoteanime"],
 	category: "random",
+        options: {
 	wait: true,
+        }
 	async run(msg, conn, q, isOwner, body, map, config, args) {
 		var animquote = await rzky.random.quotesAnime();
 		var animrandom = animquote.result[Math.floor(Math.random() * animquote.result.length)];
