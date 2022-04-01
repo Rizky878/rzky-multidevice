@@ -1,7 +1,7 @@
 module.exports = {
 	name: "whatmusic",
 	alias: ["wmusic", "whatmusik", "wmusik"],
-	
+	category: "search",
 	use: "<reply audio>",
 	wait: true,
 	isQuoted: true,
