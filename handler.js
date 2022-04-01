@@ -134,9 +134,11 @@ module.exports = handler = async (m, conn, map) => {
 				}
 			}
 		}
-		timestamps.set(from, now);
-		setTimeout(() => timestamps.delete(from), cdAmount);
 		const options = cmd.options;
+                if (options.isSpam) {
+                     timestamps.set(from, now);
+                }
+                setTimeout(() => timestamps.delete(from), cdAmount);
 		if (options.isAdmin && !isAdmin) {
 			await msg.reply(response.GroupAdmin);
 			return true;
