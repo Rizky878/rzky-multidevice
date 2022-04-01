@@ -5,10 +5,8 @@ module.exports = {
     alias: ["check","inspectlink"],
     category: "other",
     use: "<link>",
-    options: {
     query: "No invite url.",
     wait: true,
-    }
     async run(msg, conn, q) {
         const rex1 = /chat.whatsapp.com\/([\w\d]*)/g;
         const queryInvite = async (code) => {
