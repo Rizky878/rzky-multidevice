@@ -36,6 +36,7 @@ Options pada command, yang akan mempermudah kamu untuk membuat/menambahkan fitur
    isBotAdmin: <Boolean>, // Ex: false
    query: <Boolean and String>, // Ex: "Tunggu Sebentar" / true
    isPrivate: <Boolean>, // Ex: false
+   isSpam: <Boolean>, // Ex: true
    isUrl: <Boolean> // Ex: false
 }
 ```
