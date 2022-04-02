@@ -25,7 +25,7 @@ module.exports = {
         if (code === null) return await msg.reply("No invite url detected.");
         code = code[0].replace("chat.whatsapp.com/", "");
         const check = await queryInvite(code).catch(async () => {
-            await msg.reply("Invalid invite url.");
+            return msg.reply("Invalid invite url.");
         })
         const text = `Subject: ${check.subject}\nGroupId: ${check.id}${check.creator ? `\nCreator: ${check.creator.split("@")[0]}` : ''}\nCreate At: ${new Date(check.creation * 1000).toLocaleString()}`
             + `${check.desc ? `\nDesc: ${check.desc}\nDescId: ${check.descId}` : ''}\n\nJSON\n\`\`\`${JSON.stringify(check, null, 4)}\`\`\``
