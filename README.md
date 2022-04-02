@@ -8,7 +8,7 @@
 ## [![JavaScript](https://img.shields.io/badge/JavaScript-d6cc0f?style=for-the-badge&logo=javascript&logoColor=white)](https://javascript.com) [![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 <a href="https://chat.whatsapp.com/HJonYuPOQk4DO6bmQ5Naru"> <img src="https://img.shields.io/badge/whatsapp-Support_Group-blue?style=social&logo=whatsapp" alt="support" /></a>
 
-> Build with Baileys and Map() ( as a command handler ) <br />
+> Dibangun dengan Baileys dan Map() ( sebagai command handler ) <br />
 
 </div><br />
 <br />
@@ -43,7 +43,7 @@ Options pada command, yang akan mempermudah kamu untuk membuat/menambahkan fitur
 }
 ```
 
-## Example Options
+## Contoh Options
 
 Example From Command : [`./command/umum/help.js`](https://github.com/Rizky878/rzky-multidevice/blob/main/command/umum/help.js)<br />
 ```js
@@ -58,17 +58,18 @@ Example From Command : [`./command/umum/help.js`](https://github.com/Rizky878/rz
 
 ## Highlights
 
-- [√] Simple Penggunaan
-- [√] Mudah digunakan dan,
-- [√] Mudah untuk dirawat/diperbaiki
+- [√] Simple Penggunaan,
+- [√] Mudah digunakan,
+- [√] Mudah untuk dirawat/diperbaiki,
+- [√] Dan ringan
 
 ## Config
 Isi semua yang dibutuhkan di file [`config.json`](https://github.com/Rizky878/rzky-multidevice/blob/main/config.json)<br />
 
-## Request or report
-Untuk request dan report bisa chat saya disini [Whatsapp](https://wa.me/6282387804410)
+## Request atau report bug
+Untuk request atau report bisa chat saya disini [Whatsapp](https://wa.me/6282387804410)
 
-## Installation
+## Instalasi
 
 ### Dibutuhkan
 1. [nodejs](https://nodejs.org/en/download) 16x/17x
