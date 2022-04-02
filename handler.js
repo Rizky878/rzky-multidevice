@@ -18,12 +18,12 @@ function printSpam(isGc, sender, groupName) {
 	}
 }
 
-function printLog(isCmd, sender, groupName, isGc) {
+function printLog(isCmd, sender, body, groupName, isGc) {
 	if (isCmd && isGc) {
-		return console.log(color("[EXEC]", "aqua"), color(sender, "lime"), "in", color(groupName, "lime"));
+		return console.log(color("[EXEC]", "aqua"), color(sender, "lime"),color(body,'aqua'), "in", color(groupName, "lime"));
 	}
 	if (isCmd && !isGc) {
-		return console.log(color("[EXEC]", "aqua"), color(sender, "lime"));
+		return console.log(color("[EXEC]", "aqua"), color(sender, "lime"), color(body, 'aqua'));
 	}
 }
 module.exports = handler = async (m, conn, map) => {
@@ -81,7 +81,7 @@ module.exports = handler = async (m, conn, map) => {
 		const isQLocation = type === "extendedTextMessage" && contentQ.includes("locationMessage");
 
 		// Log
-		printLog(isCmd, sender, groupName, isGroup);
+		printLog(isCmd, sender,body, groupName, isGroup);
 
 		const cmdName = body.slice(temp_pref.length).trim().split(/ +/).shift().toLowerCase();
 		const cmd = map.command.get(cmdName) || [...map.command.values()].find((x) => x.alias.find((x) => x.toLowerCase() == cmdName));
