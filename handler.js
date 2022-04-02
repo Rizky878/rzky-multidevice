@@ -180,7 +180,7 @@ module.exports = handler = async (m, conn, map) => {
 			return true;
 		}
 		if (options.query && !q) {
-			await msg.reply(options.query == "true" ? `Masukan query` : options.query);
+			await msg.reply(typeof options.query == "boolean" && options.query ? `Masukan query` : options.query);
 			return true;
 		}
 		if (options.isPrivate && !isPrivate) {
