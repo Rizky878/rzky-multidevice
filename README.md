@@ -1,5 +1,6 @@
 <div align="center">
 <img src="https://telegra.ph/file/1ad6f99162dc762ccabc2.jpg" width="150" height="150" border="0" alt="PFP">
+<a href="https://chat.whatsapp.com/HJonYuPOQk4DO6bmQ5Naru"> <img src="https://img.shields.io/badge/whatsapp-Support_Group-blue?style=social&logo=whatsapp" alt="support" /></a>
 
 # Rzky Multi Device
 ### Gunakan dengan risiko Anda sendiri!
