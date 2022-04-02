@@ -1,11 +1,12 @@
 <div align="center">
-<img src="https://telegra.ph/file/1ad6f99162dc762ccabc2.jpg" width="150" height="150" border="0" alt="PFP">
-[(https://img.shields.io/badge/whatsapp-Support_Group-blue?style=social&logo=whatsapp)](https://chat.whatsapp.com/HJonYuPOQk4DO6bmQ5Naru)
+<img src="https://telegra.ph/file/1ad6f99162dc762ccabc2.jpg" width="150" height="150" border="0" alt="PFFP">
+
 
 # Rzky Multi Device
 ### Gunakan dengan risiko Anda sendiri!
 
 ## [![JavaScript](https://img.shields.io/badge/JavaScript-d6cc0f?style=for-the-badge&logo=javascript&logoColor=white)](https://javascript.com) [![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+<a href="https://chat.whatsapp.com/HJonYuPOQk4DO6bmQ5Naru"> <img src="https://img.shields.io/badge/whatsapp-Support_Group-blue?style=social&logo=whatsapp" alt="support" /></a>
 
 > Build with Baileys and Map() ( as a command handler ) <br />
 
