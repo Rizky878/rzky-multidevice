@@ -13,10 +13,11 @@ const { color } = require("./lib");
 const { session } = require("./config.json");
 const handler = require("./handler");
 const utils = require("./utils");
-
+const { self } = require("./config.json");
 const { state, saveState } = useSingleFileAuthState(path.join(__dirname, `./${session}`), log({ level: "silent" }));
 attribute.prefix = "#";
 attribute.command = new Map();
+attribute.isSelf = self
 
 const ReadFitur = () => {
 	let pathdir = path.join(__dirname, "./command");
