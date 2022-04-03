@@ -10,7 +10,7 @@ const formatSize = sizeFormatter({
 module.exports = {
     name: 'stats',
     alias: ['status'],
-    category: 'other',
+    category: 'info',
     desc: 'Bot status',
     isSpam: true,
     wait:true,
