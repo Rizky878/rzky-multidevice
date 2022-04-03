@@ -8,12 +8,12 @@ module.exports = {
 			const name = q.toLowerCase();
 			const { command, prefix } = map;
 			const cmd = command.get(name) || [...command.values()].find((x) => x.alias.find((x) => x == args[0]));
-			if (!cmd || cmd.category === "private") return await msg.reply("No command found");
-			else data.push(`*Name:* ` + cmd.name);
+			if (!cmd || cmd.category === "private") return await msg.reply("Command tidak ditemukan");
+			else data.push(`*Nama:* ` + cmd.name);
 			if (cmd.alias) data.push(`*Alias:* ${cmd.alias.join(", ")}`);
-			if (cmd.desc) data.push(`*Description:* ${cmd.desc}`);
+			if (cmd.desc) data.push(`*Deskripsi:* ${cmd.desc}`);
 			if (cmd.use)
-				data.push(`*Usage:* ${prefix}${cmd.name} ${cmd.use}\n\nNote: [] = optional, | = or, <> = must filled`);
+				data.push(`*Penggunaan:* ${prefix}${cmd.name} ${cmd.use}\n\nCatatan: [] = opsional, | = atau, <> = harus diisi`);
 
 			return await msg.reply(data.join("\n"));
 		} else {
@@ -38,10 +38,10 @@ module.exports = {
 				"```" +
 				config.namebot +
 				"```\n\n" +
-				`Hello, ${pushName === undefined ? sender.split("@")[0] : pushName}\n*Here My Command List*\n\n`;
+				`Halo, ${pushName === undefined ? sender.split("@")[0] : pushName}\n*Disini List Commandnya*\n\n`;
 			const keys = Object.keys(category);
 			for (const key of keys) {
-				str += `*${key.toUpperCase()}*\n${category[key].map((cmd) => `• *${cmd.name}*`).join("\n")}\nUsage : *#${
+				str += `*${key.toUpperCase()}*\n${category[key].map((cmd) => `• *${cmd.name}*`).join("\n")}\nPenggunaan : *#${
 					category[key].map((cmd) => cmd.name)[0]
 				}*\n\n`;
 			}
