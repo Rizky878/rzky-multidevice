@@ -2,7 +2,7 @@ const { sticker } = require("../../lib/convert");
 
 module.exports = {
 	name: "sticker",
-	alias: ["stick", "stik", "stiker", "stickergif", "stikergif", "gifstiker", "gifsticker"],
+	alias: ["s","stick", "stik", "stiker", "stickergif", "stikergif", "gifstiker", "gifsticker"],
 	category: "converter",
 	desc: "Create a sticker from image or video",
         isSpam: true,
