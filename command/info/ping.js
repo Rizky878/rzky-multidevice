@@ -10,7 +10,7 @@ module.exports = {
     category: 'info',
     desc: 'Bot response in second.',
     isSpam: true,
-    async run(msg, sock) {
+    async run(msg) {
         await msg.reply(`*_${ping(msg.messageTimestamp, Date.now())} second(s)_*`)
     }
 }
