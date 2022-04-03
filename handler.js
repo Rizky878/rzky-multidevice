@@ -31,7 +31,12 @@ module.exports = handler = async (m, conn, map) => {
 		if (m.type !== "notify") return;
 		let msg = await serialize(JSON.parse(JSON.stringify(m.messages[0])), conn);
 		if (!msg.message) return;
-
+		
+		//self
+        if(map.isSelf) {
+        if(!msg.isSelf) return 
+        }
+        
 		//detect msg type senderKey and delete in order to be able to respond
 		if (Object.keys(msg.message)[0] == "senderKeyDistributionMessage")
 			delete msg.message.senderKeyDistributionMessage;
@@ -135,10 +140,10 @@ module.exports = handler = async (m, conn, map) => {
 			}
 		}
 		const options = cmd.options;
-                if (options.isSpam) {
-                     timestamps.set(from, now);
-                }
-                setTimeout(() => timestamps.delete(from), cdAmount);
+        if (options.isSpam) {
+            timestamps.set(from, now);
+        }
+            setTimeout(() => timestamps.delete(from), cdAmount);
 		if (options.isAdmin && !isAdmin) {
 			await msg.reply(response.GroupAdmin);
 			return true;
