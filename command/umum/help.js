@@ -27,7 +27,7 @@ module.exports = {
 				if (!cmd) continue;
 				if (config.ignore.directory.includes(info.category.toLowerCase())) continue;
 				cteg = info.category || "No Category";
-				if (!cteg || cteg === "private") continue;
+				if (!cteg || cteg === "private") cteg = 'owner command';
 				if (Object.keys(category).includes(cteg)) category[cteg].push(info);
 				else {
 					category[cteg] = [];
@@ -60,4 +60,4 @@ module.exports = {
 			);
 		}
 	},
-};
+}; 
