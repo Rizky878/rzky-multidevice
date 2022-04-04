@@ -5,13 +5,13 @@ module.exports = {
 	alias: ["ig","igdl", "igstory", "instagramdl", "instagramstory"],
 	category: "downloader",
 	use: "<url>",
-	desc: "download video and photo from instagram",
-	query: `Pilihan:\n1. #igdl - Mendownload Video Atau Foto Dari postingan\n\n2. #igstory - Mendownload Video atau foto dari story\n\nExample: \n1. #igdl https://www.instagram.com/p/CbxLLgKJXOa/?utm_source=ig_web_copy_link\n2. #igstory petanikode`,
+	desc: "Download video dan photo dari instagram",
+	query: `Pilihan:\n1. #igdl - Mendownload video atau foto dari postingan\n\n2. #igstory - Mendownload video atau foto dari story\n\nContoh: \n1. #igdl https://www.instagram.com/p/CbxLLgKJXOa/?utm_source=ig_web_copy_link\n2. #igstory petanikode`,
 	wait: true,
     isSpam: true,
 	async run(msg, conn, q) {
 		var command = msg.body.split(/ +/)[0].slice(1)
-		if(command == "ig" || command == "instagram") return msg.reply(`Pilihan:\n1. #igdl - Mendownload Video Atau Foto Dari postingan\n\n2. #igstory - Mendownload Video atau foto dari story\n\nExample: \n1. #igdl https://www.instagram.com/p/CbxLLgKJXOa/?utm_source=ig_web_copy_link\n2. #igstory petanikode`)
+		if(command == "ig" || command == "instagram") return msg.reply(`Pilihan:\n1. #igdl - Mendownload video atau foto dari postingan\n\n2. #igstory - Mendownload video atau foto dari story\n\nContoh: \n1. #igdl https://www.instagram.com/p/CbxLLgKJXOa/?utm_source=ig_web_copy_link\n2. #igstory petanikode`)
 		var ig;
 		if(command == "igstory" || command == "instagramstory" && !isUrl(q)) {
 	    ig = await rzky.downloader.igStory(q)
