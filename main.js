@@ -49,7 +49,7 @@ const ReadFitur = () => {
 				isBotAdmin: false,
 				query: false,
 				isPrivate: false,
-        isLimit: false,
+                                isLimit: false,
 				isLimitGame: false,
 				isSpam: false,
 				isPremium: false,
