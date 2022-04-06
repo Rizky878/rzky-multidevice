@@ -39,6 +39,9 @@ Options pada command, yang akan mempermudah kamu untuk membuat/menambahkan fitur
    query: <Boolean and String>, // Ex: "Tunggu Sebentar" / true
    isPrivate: <Boolean>, // Ex: false
    isSpam: <Boolean>, // Ex: true
+   isLimit: <Boolean>, // Ex: true
+   isLimitGame: <Boolean>, // Ex: false
+   isPremium: <Boolean>, // Ex: false
    isUrl: <Boolean> // Ex: false
 }
 ```
