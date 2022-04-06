@@ -17,8 +17,10 @@ const { self } = require("./config.json");
 const { state, saveState } = useSingleFileAuthState(path.join(__dirname, `./${session}`), log({ level: "silent" }));
 attribute.prefix = "#";
 attribute.command = new Map();
-attribute.tebakbendera = new Map()
-attribute.isSelf = self
+attribute.isSelf = self;
+
+//Database game
+attribute.tebakbendera = new Map();
 
 const ReadFitur = () => {
 	let pathdir = path.join(__dirname, "./command");
