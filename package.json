@@ -46,7 +46,14 @@
     "url": "git+https://github.com/Rizky878/rzky-multidevice.git"
   },
   "keywords": [
-    "bot-md"
+    "bot-md",
+    "multi-device",
+    "adiwajshing",
+    "baileys",
+    "baileys-md",
+    "bot-wa",
+    "bot-whatsapp",
+    "WhatsApp"
   ],
   "bugs": {
     "url": "https://github.com/Rizky878/rzky-multidevice/issues"
