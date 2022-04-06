@@ -1,5 +1,7 @@
 const { getBinaryNodeChild } = require("@adiwajshing/baileys");
 const { serialize } = require("./lib/serialize");
+const fs = require('fs')
+const{isLimit:isLimit,limitAdd:limitAdd,getLimit:getLimit,giveLimit:giveLimit,addBalance:addBalance,kurangBalance:kurangBalance,getBalance:getBalance,isGame:isGame,gameAdd:gameAdd,givegame:givegame,cekGLimit:cekGLimit}=require("./lib/limit");global.prem=require("./lib/premium"),global.limit=JSON.parse(fs.readFileSync("./database/limit.json")),global.glimit=JSON.parse(fs.readFileSync("./database/glimit.json")),global.balance=JSON.parse(fs.readFileSync("./database/balance.json")),global.premium=JSON.parse(fs.readFileSync("./database/premium.json")),global.isLimit=isLimit,global.limitAdd=limitAdd,global.getLimit=getLimit,global.giveLimit=giveLimit,global.addBalance=addBalance,global.kurangBalance=kurangBalance,global.getBalance=getBalance,global.isGame=isGame,global.gameAdd=gameAdd,global.givegame=givegame,global.cekGLimit=cekGLimit;
 const { color, getAdmin, isUrl } = require("./lib");
 const rzkyClient = require("rzkyfdlh-api");
 global.rzky = new rzkyClient("237991cy34fq2ct245fr2ojoqoset92ooua71r49i121x6b21k");
@@ -18,7 +20,8 @@ function printSpam(isGc, sender, groupName) {
 	}
 }
 
-function printLog(isCmd, sender, body, groupName, isGc) {
+function printLog(isCmd, sender,msg, body, groupName, isGc) {
+	addBalance(msg.sender, Math.floor(Math.random() * 20), balance)
 	if (isCmd && isGc) {
 		return console.log(color("[EXEC]", "aqua"), color(sender, "lime"),color(body,'aqua'), "in", color(groupName, "lime"));
 	}
@@ -84,10 +87,22 @@ module.exports = handler = async (m, conn, map) => {
 		const isQDocument = type === "extendedTextMessage" && contentQ.includes("documentMessage");
 		const isQSticker = type === "extendedTextMessage" && contentQ.includes("stickerMessage");
 		const isQLocation = type === "extendedTextMessage" && contentQ.includes("locationMessage");
+global.isPremium = prem.checkPremiumUser(msg.sender, premium)
+global.gcount = isPremium ? 30 : 10
+global.limitCount = 30
 
+//Prem expired
+prem.expiredCheck(conn,msg,premium)
 		// Log
-		printLog(isCmd, sender,body, groupName, isGroup);
+		printLog(isCmd, sender,msg,body, groupName, isGroup);
 
+//waktu
+require('./lib/optiongame').cekWaktu(conn, map, 'tebakbendera')
+//game
+if(isGroup) {
+await require('./lib/game')(msg, conn, map)
+}
+			
 		const cmdName = body.slice(temp_pref.length).trim().split(/ +/).shift().toLowerCase();
 		const cmd = map.command.get(cmdName) || [...map.command.values()].find((x) => x.alias.find((x) => x.toLowerCase() == cmdName));
 		if (isCmd && !cmd) {
@@ -144,6 +159,20 @@ module.exports = handler = async (m, conn, map) => {
             timestamps.set(from, now);
         }
             setTimeout(() => timestamps.delete(from), cdAmount);
+        if (options.isPremium && !isPremium) {
+			await msg.reply(response.OnlyPrem);
+			return true;
+		}
+		if (options.isLimit && !isPremium) {
+			if (isLimit(msg.sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+			limitAdd(msg.sender, limit)
+		
+		}
+		if (options.isLimitGame) {
+			if (isGame(msg.sender, isOwner, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
+			gameAdd(msg.sender, glimit)
+			
+		}
 		if (options.isAdmin && !isAdmin) {
 			await msg.reply(response.GroupAdmin);
 			return true;

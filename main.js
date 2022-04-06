@@ -17,6 +17,7 @@ const { self } = require("./config.json");
 const { state, saveState } = useSingleFileAuthState(path.join(__dirname, `./${session}`), log({ level: "silent" }));
 attribute.prefix = "#";
 attribute.command = new Map();
+attribute.tebakbendera = new Map()
 attribute.isSelf = self
 
 const ReadFitur = () => {
@@ -46,7 +47,10 @@ const ReadFitur = () => {
 				isBotAdmin: false,
 				query: false,
 				isPrivate: false,
-                                isSpam: false,
+        isLimit: false,
+				isLimitGame: false,
+				isSpam: false,
+				isPremium: false,
 				isUrl: false,
 				run: () => {},
 			};
