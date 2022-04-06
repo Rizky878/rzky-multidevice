@@ -8,7 +8,7 @@ module.exports = {
 			const name = q.toLowerCase();
 			const { command, prefix } = map;
 			const cmd = command.get(name) || [...command.values()].find((x) => x.alias.find((x) => x == args[0]));
-			if (!cmd || cmd.category === "private") return await msg.reply("Command tidak ditemukan");
+			if (!cmd || cmd.category === "private" && !isOwner) return await msg.reply("Command tidak ditemukan");
 			else data.push(`*Nama:* ` + cmd.name);
 			if (cmd.alias) data.push(`*Alias:* ${cmd.alias.join(", ")}`);
 			if (cmd.desc) data.push(`*Deskripsi:* ${cmd.desc}`);
