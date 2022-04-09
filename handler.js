@@ -211,14 +211,14 @@ module.exports = handler = async (m, conn, map) => {
     }
     if (options.isLimit && !isPremium) {
       if (isLimit(msg.sender, isPremium, isOwner, limitCount, limit))
-        return reply(
+        return msg.reply(
           `Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`
         );
       limitAdd(msg.sender, limit);
     }
     if (options.isLimitGame) {
       if (isGame(msg.sender, isOwner, gcount, glimit))
-        return reply(`Limit game kamu sudah habis`);
+        return msg.reply(`Limit game kamu sudah habis`);
       gameAdd(msg.sender, glimit);
     }
     if (options.isAdmin && !isAdmin) {
