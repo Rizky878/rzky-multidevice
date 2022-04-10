@@ -59,6 +59,7 @@ module.exports = handler = async (m, conn, map) => {
 
     //self
     if (map.isSelf) {
+      if (!owner.includes(conn.decodeJid(conn.user.id)) owner.push(conn.decodeJid(conn.user.id))
       if (!msg.isSelf) return;
     }
 
