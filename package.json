@@ -39,7 +39,9 @@
   },
   "description": "Bot Whatsapp multi-device using Javascript",
   "directories": {
-    "lib": "lib"
+    "lib": "lib",
+    "utils": "utils",
+    "command": "command"
   },
   "repository": {
     "type": "git",
