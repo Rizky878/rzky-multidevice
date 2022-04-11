@@ -2,6 +2,7 @@ module.exports = {
 	name: "help",
 	alias: ["h", "cmd", "menu"],
 	category: "umum",
+	isLimit: true,
 	async run(msg, conn, q, isOwner, body, map, config, args) {
 		if (q) {
 			const data = [];
@@ -38,21 +39,19 @@ module.exports = {
 				"```" +
 				config.namebot +
 				"```\n\n" +
-				`Halo, ${pushName === undefined ? sender.split("@")[0] : pushName}\n*Disini List Commandnya*\n\n`;
+				`Halo, ${pushName === undefined ? sender.split("@")[0] : pushName}\n*Disini Daftar Commandnya*\n\n`;
 			const keys = Object.keys(category);
 			for (const key of keys) {
-				str += `*${key.toUpperCase()}*\n${category[key].map((cmd) => `• *${cmd.name}*`).join("\n")}\nPenggunaan : *#${
-					category[key].map((cmd) => cmd.name)[0]
-				}*\n\n`;
+				str += `*${key.toUpperCase()}*\n${category[key].map((cmd) => `• *#${cmd.name}*\n*+ Alias:* \n${cmd.alias.map(a => `_• ${a ? "#" : ""}${a || "Tidak ada" }_`).join("\n")}\n`).join("\n")}\n\n`;
 			}
-			str += `typing *${prefix}help sticker* for get the details and example use`;
+			str += `Typing *${prefix}help sticker* for get the details and example use`;
 			await conn.sendMessage(
 				msg.from,
 				{
 					text: str,
-					footer: config.namebot + " • " + config.ownername,
+					footer: config.namebot + " - " + config.ownername,
 					templateButtons: [
-						{ urlButton: { displayText: "Report Bug", url: "https://chat.rzkyfdlh.tech" } },
+						{ urlButton: { displayText: "Source Code", url: "https://github.com/Rizky878/rzky-multidevice/" } },
 						{ urlButton: { displayText: "Downloader Website", url: "https://downloader.rzkyfdlh.tech" } },
 					],
 				},
