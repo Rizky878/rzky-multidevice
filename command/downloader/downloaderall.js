@@ -2,10 +2,10 @@ const yts = require('yt-search')
 
 module.exports = {
     name: "downloaderall",
-    alias: ["ytmp3", "ytmp4", "play", "tiktokaudio", "tiktok", "fbdl", "fb", "soundcloud", "facebook"],
+    alias: ["ytmp3", "ytmp4", "play", "pinterest", "pindl", "tiktokaudio", "tiktok", "fbdl", "fb", "soundcloud", "facebook"],
     use: "<url>",
     category: "downloader",
-    desc: "Download audio/video from Facebook, Imgur, SoundCloud, Tiktok, dan YouTube",
+    desc: "Download audio/video from Facebook, Imgur, SoundCloud,  Pinterest, Tiktok, dan YouTube",
     wait: true,
     query: true,
     isSpam: true,
@@ -19,7 +19,7 @@ module.exports = {
             teks = vid.url
         }
         var yt = await rzky.downloader.downloaderAll(teks);
-        if (pilih == "downloaderall") return msg.reply("Silahkan Pilih Downloader: ytmp3,ytmp4,play,tiktok,soundcloud,facebook")
+        if (pilih == "downloaderall") return msg.reply("Silahkan Pilih Downloader: ytmp3,ytmp4,pindl,pinterestplay,tiktok,soundcloud,facebook")
         var mp3 = yt.mp3[yt.mp3.length - 1]
         var mp4 = yt.mp4[yt.mp4.length - 1]
         var img = yt.image;
@@ -33,6 +33,7 @@ module.exports = {
         var result = await rzky.tools.parseResult(yt, {
             title: "Downloader"
         });
+        try {
         switch (pilih) {
             case 'ytmp3':
             case 'play':
@@ -74,6 +75,19 @@ module.exports = {
                     quoted: msg
                 })
                 break
+             case 'pindl':
+            case 'pinterest':
+                await conn.sendMessage(msg.from, {
+                    video: {
+                        url: mp4.url
+                    },
+                    mimetype: "video/mp4",
+                    caption: result.replace(/downloader_from/gi, 'Downloader From'),
+                    fileName: "pinterest.mp4"
+                }, {
+                    quoted: msg
+                })
+                break
             case 'soundcloud':
                 await conn.sendFile(msg.from, img, "yt.jpg", result.replace(/downloader_from/gi, 'Downloader From'), msg);
                 await conn.sendMessage(msg.from, {
@@ -110,6 +124,9 @@ module.exports = {
                     quoted: msg
                 })
                 break
+        }
+        } catch {
+        	await msg.reply(response.error.api)
         }
     },
 };
