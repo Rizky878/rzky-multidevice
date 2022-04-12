@@ -41,6 +41,7 @@ Options pada command, yang akan mempermudah kamu untuk membuat/menambahkan fitur
    isSpam: <Boolean>, // Ex: true
    isLimit: <Boolean>, // Ex: true
    isLimitGame: <Boolean>, // Ex: false
+   noPrefix: <Boolean>, // Ex: true
    isPremium: <Boolean>, // Ex: false
    isUrl: <Boolean> // Ex: false
 }
