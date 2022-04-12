@@ -52,6 +52,7 @@ const ReadFitur = () => {
                                 isLimit: false,
 				isLimitGame: false,
 				isSpam: false,
+                                noPrefix: false,
 				isPremium: false,
 				isUrl: false,
 				run: () => {},
