@@ -75,6 +75,8 @@ Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/628
 
 ## Instalasi On Termux
 
+### Clone Repo
+
 ```bash
 > pkg install
 > pkg upgrade
@@ -84,7 +86,6 @@ Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/628
 > git clone https://github.com/Rizky878/rzky-multidevice/
 > cd rzky-multidevice
 > npm install --arch=x64 --platform=linux sharp
-> npm install
 > node .
 # Scan QR
 ```
