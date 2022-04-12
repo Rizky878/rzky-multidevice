@@ -41,15 +41,16 @@ module.exports = {
 				"```\n\n" +
 				`Halo, ${pushName === undefined ? sender.split("@")[0] : pushName}\n*Disini Daftar Commandnya*\n\n`;
 			const keys = Object.keys(category);
+			//var a = 1
 			for (const key of keys) {
-				str += `*${key.toUpperCase()}*\n${category[key].map((cmd) => `• *#${cmd.name}*\n*+ Alias:* \n${cmd.alias.map(a => `_• ${a ? "#" : ""}${a || "Tidak ada" }_`).join("\n")}\n`).join("\n")}\n\n`;
+				str += `==== [ *${key.toUpperCase()}* ] ====\n${category[key].map((cmd) => `➤ *${cmd.name}*\n*⋙ Alias:* \n${cmd.alias.map(a => `_*▸* ${a || "Tidak ada" }_`).join("\n")}\n*⋙ Use:* _*${cmd.use || "No Parameter"}*_\n*⋙ Use Prefix:* *_${cmd.options.noPrefix ? "❎" : "✅"}_*  \n`).join("\n")}\n\n`;
 			}
-			str += `Typing *${prefix}help sticker* for get the details and example use`;
+			str += `typing *${prefix}help sticker* for get the details and example use`;
 			await conn.sendMessage(
 				msg.from,
 				{
 					text: str,
-					footer: config.namebot + " - " + config.ownername,
+					footer: config.namebot + " • " + config.ownername,
 					templateButtons: [
 						{ urlButton: { displayText: "Source Code", url: "https://github.com/Rizky878/rzky-multidevice/" } },
 						{ urlButton: { displayText: "Downloader Website", url: "https://downloader.rzkyfdlh.tech" } },
