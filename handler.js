@@ -209,11 +209,12 @@ module.exports = handler = async (m, conn, map) => {
       }
     }
     const options = cmd.options;
-    if (!options.noPrefix && !body) {
-       return true
-    } else if (options.noPrefix) {
-       q = msg.body.split(" ").splice(1).join(" ")
-     }
+    if (options.noPrefix) {
+            if(isCmd) return
+             q = msg.body.split(" ").splice(1).join(" ")
+          } else if(!options.noPrefix) {
+              if(!isCmd) return
+          }
     if (options.isSpam) {
       timestamps.set(from, now);
     }
