@@ -10,9 +10,7 @@ global.rzky = new rzkyClient(
 global.response = require("./lib/response.json");
 const cooldown = new Map();
 const prefix = "#";
-const multi_pref = new RegExp(
-  "^[" + "!#$%&?/;:,.<>~-+=".replace(/[|\\{}()[\]^$+*?.\-\^]/g, "\\$&") + "]"
-);
+const multi_pref = new RegExp("^[" + "!#%&?/;:,.~-+=".replace(/[|\\{}()[\]^$+*?.\-\^]/g, "\\$&") + "]");
 global.config = require("./config.json");
 const owner = config.owner;
 function printSpam(isGc, sender, groupName) {
