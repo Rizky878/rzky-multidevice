@@ -261,7 +261,7 @@ module.exports = handler = async (m, conn, map) => {
       await msg.reply(`Silahkan reply document`);
       return true;
     }
-    if (options.isOwner && !isOwner && !msg.isSelf) {
+    if (options.isOwner && !isOwner) {
       await msg.reply(response.OnlyOwner);
       return true;
     }
