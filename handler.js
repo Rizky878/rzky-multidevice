@@ -144,10 +144,17 @@ module.exports = handler = async (m, conn, map) => {
       .shift()
       .toLowerCase();
     const cmd =
-      map.command.get(cmdName) ||
-      [...map.command.values()].find((x) =>
-        x.alias.find((x) => x.toLowerCase() == cmdName)
-      );
+  map.command.get(msg.body.trim().split(/ +/).shift().toLowerCase()) ||
+  [...map.command.values()].find((x) =>
+    x.alias.find(
+      (x) =>
+        x.toLowerCase() == msg.body.trim().split(/ +/).shift().toLowerCase()
+    )
+  ) ||
+  map.command.get(cmdName) ||
+  [...map.command.values()].find((x) =>
+    x.alias.find((x) => x.toLowerCase() == cmdName)
+  );
     if (isCmd && !cmd) {
       var data = [...map.command.keys()];
       var result = rzky.tools.detectTypo(cmdName, data);
