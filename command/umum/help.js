@@ -3,7 +3,7 @@ module.exports = {
 	alias: ["h", "cmd", "menu"],
 	category: "umum",
 	isLimit: true,
-	async run(msg, conn, q, isOwner, body, map, config, args) {
+	async run(msg, conn, q, map, args) {
 		if (q) {
 			const data = [];
 			const name = q.toLowerCase();
