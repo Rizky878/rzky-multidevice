@@ -8,7 +8,7 @@ module.exports = {
   query: "Penggunaan :\n*#delprem* @tag\n*#delprem* nomor",
   isSpam: true,
   isOwner: true,
-  async run(msg, conn, q, isOwner, body, map, config, args, arg) {
+  async run(msg, conn, q, map, args, arg) {
     if (args.length < 1)
       return reply(`Penggunaan :\n*#delprem* @tag\n*#delprem* nomor`);
     if (msg.mentions.length !== 0) {
