@@ -7,7 +7,7 @@ module.exports = {
 	desc: "Bermain game, menebak bendera negara",
 	isSpam: true,
 	isLimitGame: true,
-    async run(msg, conn, q, isOwner, body, map) {
+    async run(msg, conn, q, map) {
     if(cekStatus(msg.from, map, "tebakbendera")) throw "Group Ini masih dalam sesi permainan"
     let waktugame = 60
     let tebakbendera = await rzky.game.tebakbendera()
