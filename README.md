@@ -73,6 +73,21 @@ Isi semua yang dibutuhkan di file [`config.json`](https://github.com/Rizky878/rz
 ## Request atau report bug
 Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/6282387804410)
 
+## Instalasi On Termux
+
+```bash
+> pkg install
+> pkg upgrade
+> pkg install git
+> pkg install nodejs
+> git clone https://github.com/Rizky878/rzky-multidevice/
+> cd rzky-multidevice
+> npm install --arch=x64 --platform=linux sharp
+> npm install
+> node .
+# Scan QR
+```
+
 ## Instalasi
 
 ### Dibutuhkan
