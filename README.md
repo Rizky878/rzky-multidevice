@@ -79,6 +79,7 @@ Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/628
 > pkg install
 > pkg upgrade
 > pkg install git
+> pkg install ffmpeg && pkg install libwebp
 > pkg install nodejs
 > git clone https://github.com/Rizky878/rzky-multidevice/
 > cd rzky-multidevice
