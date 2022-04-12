@@ -1,11 +1,12 @@
 module.exports = {
 	name: "eval",
-	alias: [">>", "ev"],
+	alias: [">>", ">"],
 	category: "private",
+        noPrefix: true,
+        isOwner: true,
 	desc: "running javascript code via command can also test something code",
 	use: `">" <code javascript> with await and ">>" <code> live return or immediately show the result`,
-	async run(msg, conn, q, isOwner, body, map, config, args, arg) {
-		if (!isOwner) return;
+	async run(msg, conn, q, map, args, arg) {
 		let kode = body.trim().split(/ +/);
 		let teks;
 		try {
