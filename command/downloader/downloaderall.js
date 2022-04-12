@@ -9,7 +9,7 @@ module.exports = {
     wait: true,
     query: true,
     isSpam: true,
-    async run(msg, conn, q, isOwner, body, map, config, args) {
+    async run(msg, conn, q, map, args) {
         var pilih = msg.body.split(/ +/)[0].slice(1)
         var teks = args[0]
         if (pilih == "play") {
