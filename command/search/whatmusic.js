@@ -8,7 +8,7 @@ module.exports = {
 	isQuoted: true,
 	isQAudio: true,
 	desc: "Search for song titles through music or voice",
-	async run(msg, conn, q, isOwner, body, map, config, args) {
+	async run(msg, conn, q, map, args) {
 		//if(!msg.quoted) return msg.reply('Reply Audio')
 		const content = JSON.stringify(msg.quoted);
 		const isQAudio = msg.type === "extendedTextMessage" && content.includes("audioMessage");
