@@ -15,7 +15,6 @@
     "chalk": "4.1.2",
     "cheerio": "1.0.0-rc.10",
     "express": "^4.17.3",
-    "ffmpeg-static": "^5.0.0",
     "assert": "^2.0.0",
     "file-type": "16.5.3",
     "fluent-ffmpeg": "2.1.2",
