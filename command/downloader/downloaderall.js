@@ -1,25 +1,17 @@
-const yts = require('yt-search')
-
 module.exports = {
     name: "downloaderall",
-    alias: ["ytmp3", "ytmp4", "play", "pinterest", "pindl", "tiktokaudio", "tiktok", "fbdl", "fb", "soundcloud", "facebook"],
+    alias: ["pinterest", "pindl", "tiktokaudio", "tiktok", "fbdl", "fb", "soundcloud", "facebook"],
     use: "<url>",
     category: "downloader",
-    desc: "Download audio/video from Facebook, Imgur, SoundCloud,  Pinterest, Tiktok, dan YouTube",
+    desc: "Download audio/video from Facebook, Imgur, SoundCloud,  Pinterest, Dan Tiktok",
     wait: true,
-    query: true,
+    isUrl: true,
     isSpam: true,
-    async run(msg, conn, q, map, args) {
+    async run(msg, conn, q, isOwner, body, map, config, args) {
         var pilih = msg.body.split(/ +/)[0].slice(1)
         var teks = args[0]
-        if (pilih == "play") {
-            yets = await yts(args[0]);
-            var results = await yets.all.filter((s) => s.type == "video");
-            var vid = results.find((video) => video.seconds < 3600);
-            teks = vid.url
-        }
         var yt = await rzky.downloader.downloaderAll(teks);
-        if (pilih == "downloaderall") return msg.reply("Silahkan Pilih Downloader: ytmp3,ytmp4,pindl,pinterestplay,tiktok,soundcloud,facebook")
+        if (pilih == "downloaderall") return msg.reply("Silahkan Pilih Downloader: tiktok,soundcloud,facebook")
         var mp3 = yt.mp3[yt.mp3.length - 1]
         var mp4 = yt.mp4[yt.mp4.length - 1]
         var img = yt.image;
@@ -35,32 +27,6 @@ module.exports = {
         });
         try {
         switch (pilih) {
-            case 'ytmp3':
-            case 'play':
-                await conn.sendFile(msg.from, img, "yt.jpg", result.replace(/downloader_from/gi, 'Downloader From'), msg);
-                await conn.sendMessage(msg.from, {
-                    audio: {
-                        url: mp3.url
-                    },
-                    mimetype: "audio/mpeg",
-                    fileName: yt.title + ".mp3"
-                }, {
-                    quoted: msg
-                })
-                break
-
-            case 'ytmp4':
-                await conn.sendMessage(msg.from, {
-                    video: {
-                        url: mp4.url
-                    },
-                    mimetype: "video/mp4",
-                    caption: result.replace(/downloader_from/gi, 'Downloader From'),
-                    fileName: yt.title + ".mp4"
-                }, {
-                    quoted: msg
-                })
-                break
             case 'facebook':
             case 'fb':
             case 'fbdl':
@@ -114,19 +80,12 @@ module.exports = {
                 break
             case 'tiktokaudio':
                 await conn.sendFile(msg.from, img, "yt.jpg", result.replace(/downloader_from/gi, 'Downloader From'), msg);
-                await conn.sendMessage(msg.from, {
-                    audio: {
-                        url: mp3.url
-                    },
-                    mimetype: "audio/mpeg",
-                    fileName: yt.title.substr(0, 19) + ".mp3"
-                }, {
-                    quoted: msg
-                })
+                await await conn.sendFile(msg.from, mp3.url , yt.title + ".mp3", "", msg)
                 break
         }
-        } catch {
-        	await msg.reply(response.error.api)
+        } catch(err) {
+            console.log(err)
+            await msg.reply(response.error.api)
         }
     },
 };
