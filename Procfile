@@ -1,1 +1,1 @@
-worker: npm run test && npm start
+worker: node test.js && npm start
