@@ -86,7 +86,7 @@ Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/628
 > git clone https://github.com/Rizky878/rzky-multidevice/
 > cd rzky-multidevice
 > npm install --arch=x64 --platform=linux sharp
-> node .
+> npm start
 # Scan QR
 ```
 
