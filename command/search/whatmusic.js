@@ -3,7 +3,7 @@ module.exports = {
 	alias: ["wmusic", "whatmusik", "wmusik"],
 	category: "search",
 	use: "<reply audio>",
-        isSpam: true,
+	isSpam: true,
 	wait: true,
 	isQuoted: true,
 	isQAudio: true,

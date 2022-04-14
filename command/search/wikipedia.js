@@ -2,10 +2,10 @@ module.exports = {
 	name: "wikipedia",
 	alias: ["wikimedia", "wiki", "wikimed"],
 	category: "search",
-        isSpam: true,
+	isSpam: true,
 	wait: true,
 	use: "<topik>",
-        query: `Masukan sesuatu topik yang ingin dicari`,
+	query: `Masukan sesuatu topik yang ingin dicari`,
 	desc: "Mencari hal hal yang berkaitan di Wikipedia",
 	async run(msg, conn, q, isOwner, body, map, config, args) {
 		var wiki = await rzky.search.wiki(q);

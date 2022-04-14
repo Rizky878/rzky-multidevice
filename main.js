@@ -49,25 +49,26 @@ const ReadFitur = () => {
 				isBotAdmin: false,
 				query: false,
 				isPrivate: false,
-                                isLimit: false,
+				isLimit: false,
 				isLimitGame: false,
 				isSpam: false,
-                                noPrefix: false,
+				noPrefix: false,
 				isPremium: false,
 				isUrl: false,
 				run: () => {},
 			};
 			let cmd = utils.parseOptions(cmdOptions, command);
 			let options = {};
-			for (var k in cmd) typeof cmd[k] == "boolean" ? (options[k] = cmd[k]) : k == "query" ? (options[k] = cmd[k]) : "";
+			for (var k in cmd)
+				typeof cmd[k] == "boolean" ? (options[k] = cmd[k]) : k == "query" ? (options[k] = cmd[k]) : "";
 			let cmdObject = {
-			    name: cmd.name,
-			    alias: cmd.alias,
-			    desc: cmd.desc,
-			    use: cmd.use,
-			    category: cmd.category,
-			    options: options,
-			    run: cmd.run,
+				name: cmd.name,
+				alias: cmd.alias,
+				desc: cmd.desc,
+				use: cmd.use,
+				category: cmd.category,
+				options: options,
+				run: cmd.run,
 			};
 			attribute.command.set(cmd.name, cmdObject);
 		}

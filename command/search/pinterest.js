@@ -2,7 +2,7 @@ module.exports = {
 	name: "pinterest",
 	alias: ["pint", "pin"],
 	category: "search",
-        isSpam: true,
+	isSpam: true,
 	query: `Masukan teks yang ingin dicari`,
 	use: "<teks>",
 	wait: true,

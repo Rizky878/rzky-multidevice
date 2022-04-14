@@ -9,12 +9,15 @@ module.exports = {
 			const name = q.toLowerCase();
 			const { command, prefix } = map;
 			const cmd = command.get(name) || [...command.values()].find((x) => x.alias.find((x) => x == args[0]));
-			if (!cmd || cmd.category === "private" && !config.owner.includes(msg.sender)) return await msg.reply("Command tidak ditemukan");
+			if (!cmd || (cmd.category === "private" && !config.owner.includes(msg.sender)))
+				return await msg.reply("Command tidak ditemukan");
 			else data.push(`*Nama:* ` + cmd.name);
 			if (cmd.alias) data.push(`*Alias:* ${cmd.alias.join(", ")}`);
 			if (cmd.desc) data.push(`*Deskripsi:* ${cmd.desc}`);
 			if (cmd.use)
-				data.push(`*Penggunaan:* ${prefix}${cmd.name} ${cmd.use}\n\nCatatan: [] = opsional, | = atau, <> = harus diisi`);
+				data.push(
+					`*Penggunaan:* ${prefix}${cmd.name} ${cmd.use}\n\nCatatan: [] = opsional, | = atau, <> = harus diisi`
+				);
 
 			return await msg.reply(data.join("\n"));
 		} else {
@@ -28,7 +31,7 @@ module.exports = {
 				if (!cmd) continue;
 				if (config.ignore.directory.includes(info.category.toLowerCase())) continue;
 				cteg = info.category || "No Category";
-				if (!cteg || cteg === "private") cteg = 'owner command';
+				if (!cteg || cteg === "private") cteg = "owner command";
 				if (Object.keys(category).includes(cteg)) category[cteg].push(info);
 				else {
 					category[cteg] = [];
@@ -43,7 +46,16 @@ module.exports = {
 			const keys = Object.keys(category);
 			//var a = 1
 			for (const key of keys) {
-				str += `==== [ *${key.toUpperCase()}* ] ====\n${category[key].map((cmd) => `➤ *${cmd.name}*\n*⋙ Alias:* \n${cmd.alias.map(a => `_*▸* ${a || "Tidak ada" }_`).join("\n")}\n*⋙ Use:* _*${cmd.use || "No Parameter"}*_\n*⋙ Use Prefix:* *_${cmd.options.noPrefix ? "❎" : "✅"}_*  \n`).join("\n")}\n\n`;
+				str += `==== [ *${key.toUpperCase()}* ] ====\n${category[key]
+					.map(
+						(cmd) =>
+							`➤ *${cmd.name}*\n*⋙ Alias:* \n${cmd.alias
+								.map((a) => `_*▸* ${a || "Tidak ada"}_`)
+								.join("\n")}\n*⋙ Use:* _*${cmd.use || "No Parameter"}*_\n*⋙ Use Prefix:* *_${
+								cmd.options.noPrefix ? "❎" : "✅"
+							}_*  \n`
+					)
+					.join("\n")}\n\n`;
 			}
 			str += `typing *${prefix}help sticker* for get the details and example use`;
 			await conn.sendMessage(
@@ -52,7 +64,12 @@ module.exports = {
 					text: str,
 					footer: config.namebot + " • " + config.ownername,
 					templateButtons: [
-						{ urlButton: { displayText: "Source Code", url: "https://github.com/Rizky878/rzky-multidevice/" } },
+						{
+							urlButton: {
+								displayText: "Source Code",
+								url: "https://github.com/Rizky878/rzky-multidevice/",
+							},
+						},
 						{ urlButton: { displayText: "Downloader Website", url: "https://downloader.rzkyfdlh.tech" } },
 					],
 				},
@@ -60,4 +77,4 @@ module.exports = {
 			);
 		}
 	},
-}; 
+};

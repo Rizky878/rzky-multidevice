@@ -2,7 +2,7 @@ module.exports = {
 	name: "meme",
 	alias: ["randommeme", "memeindo"],
 	category: "random",
-        isSpam: true,
+	isSpam: true,
 	async run(msg, conn) {
 		await msg.reply(response.wait);
 		const buttons = [{ buttonId: "#meme", buttonText: { displayText: "Get Again" }, type: 1 }];

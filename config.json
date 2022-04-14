@@ -3,8 +3,8 @@
 	"session": "rzky-multidevice.json",
 	"ownername": "Rizky",
 	"namebot": "KurumiBot",
-        "self": false,
+	"self": false,
 	"ignore": {
-	    "directory": ["umum"]
+		"directory": ["umum"]
 	}
 }
