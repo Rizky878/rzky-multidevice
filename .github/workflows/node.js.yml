@@ -27,4 +27,4 @@ jobs:
         node-version: ${{ matrix.node-version }}
     # Because we are only check SyntaxError
     # - run: npm i
-    - run: npm run pretty
+    - run: node test.js
