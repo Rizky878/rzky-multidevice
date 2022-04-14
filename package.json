@@ -5,7 +5,8 @@
   "license": "MIT",
   "author": "RizkyFadilah",
   "scripts": {
-    "start": "node ."
+    "start": "node .",
+    "pretty": "prettier --write '**/*.{js,json}'"
   },
   "dependencies": {
     "@adiwajshing/baileys": "4.0.1",
