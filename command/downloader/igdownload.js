@@ -19,7 +19,7 @@ module.exports = {
 		if (command == "igstory" || (command == "instagramstory" && !isUrl(q))) {
 			ig = await rzky.downloader.igStory(q);
 		} else {
-			if (isUrl(q) && q.includes("instagram.com")) return msg.reply(`Invalid Url`);
+			if (!isUrl(q) && !q.includes("instagram.com")) return msg.reply(`Invalid Url`);
 			ig = await rzky.downloader.igdl(q);
 		}
 		var img = ig.user.profilePicUrl;
