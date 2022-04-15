@@ -10,7 +10,7 @@ module.exports = {
 		let ane = Number(Math.floor(q) * 150);
 		if (getBalance(msg.sender, balance) < ane) throw `Balance kamu tidak mencukupi untuk pembelian ini`;
 		kurangBalance(msg.sender, ane, balance);
-		givegame(msg.sender, Math.floor(args[1]), glimit);
+		givegame(msg.sender, Math.floor(q), glimit);
 		await msg.reply(
 			`Pembeliaan game limit sebanyak ${q} berhasil\n\nSisa Balance : $${getBalance(
 				msg.sender,
