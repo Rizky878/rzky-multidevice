@@ -10,12 +10,12 @@ module.exports = {
 		let ane = Number(Math.floor(q) * 150);
 		if (getBalance(msg.sender, balance) < ane) throw `Balance kamu tidak mencukupi untuk pembelian ini`;
 		kurangBalance(msg.sender, ane, balance);
-		givegame(sender, nebal(args[1]), glimit);
+		givegame(msg.sender, Math.floor(args[1]), glimit);
 		await msg.reply(
 			`Pembeliaan game limit sebanyak ${q} berhasil\n\nSisa Balance : $${getBalance(
-				sender,
+				msg.sender,
 				balance
-			)}\nSisa Game Limit : ${cekGLimit(sender, gcount, glimit)}/${gcount}`
+			)}\nSisa Game Limit : ${cekGLimit(msg.sender, gcount, glimit)}/${gcount}`
 		);
 	},
 };
