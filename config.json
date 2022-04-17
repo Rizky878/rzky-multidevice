@@ -1,9 +1,12 @@
 {
-	"owner": ["YourPhoneNumber@s.whatsapp.net"],
-	"session": "rzky-multidevice.json",
+	"owner": ["YouNumberPhone@s.whatsapp.net"],
+	"thumbvideo": "https://uploader.caliph.my.id/file/hU0F0HZ9K4.mp4",
+	"thumb": "https://i.waifu.pics/0r1Bn88.jpg",
+	"session": "rzkyfdlh-md.json",
 	"ownername": "Rizky",
-	"namebot": "KurumiBot",
 	"self": false,
+	"packInfo": { "packname": "@rizkyfadilah8", "author": "6282387804410" },
+	"namebot": "KurumiBot",
 	"ignore": {
 		"directory": ["umum"]
 	}
