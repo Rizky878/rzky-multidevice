@@ -23,13 +23,7 @@ function printSpam(isGc, sender, groupName) {
 function printLog(isCmd, sender, msg, body, groupName, isGc) {
 	addBalance(msg.sender, Math.floor(Math.random() * 20), balance);
 	if (isCmd && isGc) {
-		return console.log(
-			color("[EXEC]", "aqua"),
-			color(sender, "lime"),
-			color(body, "aqua"),
-			"in",
-			color(groupName, "lime")
-		);
+		return console.log(color("[EXEC]", "aqua"), color(sender, "lime"), color(body, "aqua"), "in", color(groupName, "lime"));
 	}
 	if (isCmd && !isGc) {
 		return console.log(color("[EXEC]", "aqua"), color(sender, "lime"), color(body, "aqua"));
@@ -43,22 +37,14 @@ module.exports = handler = async (m, conn, map) => {
 
 		//self
 		if (map.isSelf) {
-			if (!owner.includes(conn.decodeJid(conn.user.id))) owner.push(conn.decodeJid(conn.user.id));
 			if (!msg.isSelf) return;
 		}
 
 		//detect msg type senderKey and delete in order to be able to respond
-		if (Object.keys(msg.message)[0] == "senderKeyDistributionMessage")
-			delete msg.message.senderKeyDistributionMessage;
+		if (Object.keys(msg.message)[0] == "senderKeyDistributionMessage") delete msg.message.senderKeyDistributionMessage;
 		if (Object.keys(msg.message)[0] == "messageContextInfo") delete msg.message.messageContextInfo;
 		if (msg.key && msg.key.remoteJid === "status@broadcast") return;
-		if (
-			msg.type === "protocolMessage" ||
-			msg.type === "senderKeyDistributionMessage" ||
-			!msg.type ||
-			msg.type === ""
-		)
-			return;
+		if (msg.type === "protocolMessage" || msg.type === "senderKeyDistributionMessage" || !msg.type || msg.type === "") return;
 
 		let { body, type } = msg;
 		const { isGroup, sender, from } = msg;
@@ -77,7 +63,10 @@ module.exports = handler = async (m, conn, map) => {
 		}
 
 		const arg = body.substring(body.indexOf(" ") + 1);
-		const args = body.trim().split(/ +/).slice(1);
+		const args = body
+			.trim()
+			.split(/ +/)
+			.slice(1);
 		const comand = body.trim().split(/ +/)[0];
 		q = args.join(" ");
 		const isCmd = body.startsWith(temp_pref);
@@ -85,7 +74,6 @@ module.exports = handler = async (m, conn, map) => {
 		//type message
 		const isVideo = type === "videoMessage";
 		const isImage = type === "imageMessage";
-		const isMedia = type === "imageMessage" || type === "videoMessage";
 		const isLocation = type === "locationMessage";
 		const contentQ = msg.quoted ? JSON.stringify(msg.quoted) : [];
 		const isQAudio = type === "extendedTextMessage" && contentQ.includes("audioMessage");
@@ -97,6 +85,25 @@ module.exports = handler = async (m, conn, map) => {
 		global.isPremium = prem.checkPremiumUser(msg.sender, premium);
 		global.gcount = isPremium ? 30 : 10;
 		global.limitCount = 30;
+		const Media = (media = {}) => {
+			list = [];
+			if (media.isQAudio) {
+				list.push("audioMessage");
+			}
+			if (media.isQVideo) {
+				list.push("videoMessage");
+			}
+			if (media.isQImage) {
+				list.push("imageMessage");
+			}
+			if (media.isQDocument) {
+				list.push("documentMessage");
+			}
+			if (media.isQSticker) {
+				list.push("stickerMessage");
+			}
+			return list ? list : [];
+		};
 
 		//Prem expired
 		prem.expiredCheck(conn, msg, premium);
@@ -110,14 +117,36 @@ module.exports = handler = async (m, conn, map) => {
 			await require("./lib/game")(msg, conn, map);
 		}
 
-		const cmdName = body.slice(temp_pref.length).trim().split(/ +/).shift().toLowerCase();
+		//topdf
+		require("./lib/topdf")(msg, conn, map);
+
+		const cmdName = body
+			.slice(temp_pref.length)
+			.trim()
+			.split(/ +/)
+			.shift()
+			.toLowerCase();
 		const cmd =
-			map.command.get(msg.body.trim().split(/ +/).shift().toLowerCase()) ||
-			[...map.command.values()].find((x) =>
-				x.alias.find((x) => x.toLowerCase() == msg.body.trim().split(/ +/).shift().toLowerCase())
+			map.command.get(
+				msg.body
+					.trim()
+					.split(/ +/)
+					.shift()
+					.toLowerCase()
+			) ||
+			[...map.command.values()].find(x =>
+				x.alias.find(
+					x =>
+						x.toLowerCase() ==
+						msg.body
+							.trim()
+							.split(/ +/)
+							.shift()
+							.toLowerCase()
+				)
 			) ||
 			map.command.get(cmdName) ||
-			[...map.command.values()].find((x) => x.alias.find((x) => x.toLowerCase() == cmdName));
+			[...map.command.values()].find(x => x.alias.find(x => x.toLowerCase() == cmdName));
 		if (isCmd && !cmd) {
 			var data = [...map.command.keys()];
 			var result = rzky.tools.detectTypo(cmdName, data);
@@ -125,7 +154,7 @@ module.exports = handler = async (m, conn, map) => {
 			teks = "";
 			angka = 1;
 			for (let i of result.result) {
-				var alias = [...map.command.values()].find((x) => x.name == i.teks);
+				var alias = [...map.command.values()].find(x => x.name == i.teks);
 				teks += `Mungkin ini yang kamu maksud?\n\n`;
 				teks += `*${angka++}. ${map.prefix}${i.teks}*\n`;
 				teks += `Alias: *${alias.alias.join(", ")}*\n`;
@@ -133,8 +162,7 @@ module.exports = handler = async (m, conn, map) => {
 			}
 			teks += `Jika benar silahkan command ulang`;
 			await msg.reply(teks);
-		}
-		if (!cmd) return;
+		} else if (!cmd) return;
 		if (!cooldown.has(from)) {
 			cooldown.set(from, new Map());
 		}
@@ -167,24 +195,26 @@ module.exports = handler = async (m, conn, map) => {
 				}
 			}
 		}
+		setTimeout(() => timestamps.delete(from), cdAmount);
 		const options = cmd.options;
 		if (options.noPrefix) {
 			if (isCmd) return;
-			q = msg.body.split(" ").splice(1).join(" ");
+			q = msg.body
+				.split(" ")
+				.splice(1)
+				.join(" ");
 		} else if (!options.noPrefix) {
 			if (!isCmd) return;
 		}
 		if (options.isSpam) {
 			timestamps.set(from, now);
 		}
-		setTimeout(() => timestamps.delete(from), cdAmount);
 		if (options.isPremium && !isPremium) {
 			await msg.reply(response.OnlyPrem);
 			return true;
 		}
 		if (options.isLimit && !isPremium) {
-			if (isLimit(msg.sender, isPremium, isOwner, limitCount, limit))
-				return msg.reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`);
+			if (isLimit(msg.sender, isPremium, isOwner, limitCount, limit)) return msg.reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`);
 			limitAdd(msg.sender, limit);
 		}
 		if (options.isLimitGame) {
@@ -206,6 +236,12 @@ module.exports = handler = async (m, conn, map) => {
 		if (options.isQAudio && !isQAudio) {
 			await msg.reply(`Silahkan reply audio`);
 			return true;
+		}
+		if (options.isMedia) {
+			let medianya = Media(options.isMedia ? options.isMedia : {});
+			console.log(medianya);
+			if (!medianya.includes(msg.quoted ? msg.quoted.mtype : []))
+				return msg.reply(`Silahkan reply *${medianya.map(a => `${((aa = a.charAt(0).toUpperCase()), aa + a.slice(1).replace(/message/gi, ""))}`).join("/")}*`);
 		}
 		if (options.isQSticker && !isQSticker) {
 			await msg.reply(`Silahkan reply sticker`);
@@ -247,7 +283,7 @@ module.exports = handler = async (m, conn, map) => {
 			await msg.reply(typeof options.wait == "string" ? options.wait : response.wait);
 		}
 		try {
-			await cmd.run(msg, conn, q, map, args, arg);
+			await cmd.run(msg, conn, q, isOwner, body, map, config, args, arg);
 		} catch (e) {
 			await msg.reply(require("util").format(e));
 		}
