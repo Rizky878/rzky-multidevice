@@ -5,8 +5,7 @@ module.exports = {
 	use: "<reply audio>",
 	isSpam: true,
 	wait: true,
-	isQuoted: true,
-	isQAudio: true,
+	isMedia: { isQVideo: true, isQAudio: true },
 	desc: "Search for song titles through music or voice",
 	async run(msg, conn, q, map, args) {
 		//if(!msg.quoted) return msg.reply('Reply Audio')
