@@ -6,7 +6,7 @@
   "author": "RizkyFadilah",
   "scripts": {
     "start": "node .",
-    "pretty": "prettier --write '**/*.{css,js,json}'"
+    "pretty": "prettier --write '**/*.{js,json}'"
   },
   "dependencies": {
     "@adiwajshing/baileys": "github:adiwajshing/Baileys",
