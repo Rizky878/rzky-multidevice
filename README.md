@@ -29,11 +29,6 @@ Options pada command, yang akan mempermudah kamu untuk membuat/menambahkan fitur
    isOwner: <Boolean>, // Ex: false
    isAdmin: <Boolean>, // Ex: false
    isQuoted: <Boolean>, // Ex: false
-   isQVideo: <Boolean>, // Ex: false
-   isQAudio: <Boolean>, // Ex: false
-   isQImage: <Boolean>, // Ex: false
-   isQSticker: <Boolean>, // Ex: false
-   isQDocument: <Boolean>, // Ex: false
    isGroup: <Boolean>, // Ex: false
    isBotAdmin: <Boolean>, // Ex: false
    query: <Boolean and String>, // Ex: "Tunggu Sebentar" / true
@@ -43,6 +38,13 @@ Options pada command, yang akan mempermudah kamu untuk membuat/menambahkan fitur
    isLimitGame: <Boolean>, // Ex: false
    noPrefix: <Boolean>, // Ex: true
    isPremium: <Boolean>, // Ex: false
+   isMedia: { 
+      isQVideo: <Boolean>, // Ex: false
+      isQAudio: <Boolean>, // Ex: false
+      isQImage: <Boolean>, // Ex: false
+      isQSticker: <Boolean>, // Ex: false
+      isQDocument: <Boolean>, // Ex: false
+   }
    isUrl: <Boolean> // Ex: false
 }
 ```
