@@ -283,7 +283,7 @@ module.exports = handler = async (m, conn, map) => {
 			await msg.reply(typeof options.wait == "string" ? options.wait : response.wait);
 		}
 		try {
-			await cmd.run(msg, conn, q, isOwner, body, map, config, args, arg);
+			await cmd.run(msg, conn, q, map, args, arg);
 		} catch (e) {
 			await msg.reply(require("util").format(e));
 		}
