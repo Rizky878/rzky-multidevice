@@ -229,31 +229,11 @@ module.exports = handler = async (m, conn, map) => {
 			await msg.reply(`Silahkan reply pesan`);
 			return true;
 		}
-		if (options.isQVideo && !isQVideo) {
-			await msg.reply(`Silahkan reply video`);
-			return true;
-		}
-		if (options.isQAudio && !isQAudio) {
-			await msg.reply(`Silahkan reply audio`);
-			return true;
-		}
 		if (options.isMedia) {
 			let medianya = Media(options.isMedia ? options.isMedia : {});
 			console.log(medianya);
 			if (!medianya.includes(msg.quoted ? msg.quoted.mtype : []))
 				return msg.reply(`Silahkan reply *${medianya.map(a => `${((aa = a.charAt(0).toUpperCase()), aa + a.slice(1).replace(/message/gi, ""))}`).join("/")}*`);
-		}
-		if (options.isQSticker && !isQSticker) {
-			await msg.reply(`Silahkan reply sticker`);
-			return true;
-		}
-		if (options.isQImage && !isQImage) {
-			await msg.reply(`Silahkan reply foto`);
-			return true;
-		}
-		if (options.isQDocument && !isQDocument) {
-			await msg.reply(`Silahkan reply document`);
-			return true;
 		}
 		if (options.isOwner && !isOwner) {
 			await msg.reply(response.OnlyOwner);
