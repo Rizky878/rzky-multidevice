@@ -44,7 +44,13 @@ const ReadFitur = () => {
 				isSpam: false,
 				noPrefix: false,
 				isPremium: false,
-                                isMedia: false,
+                                isMedia: { 
+                                   isQVideo: false,
+                                   isQAudio: false,
+                                   isQImage: false,
+                                   isQSticker: false,
+                                   isQDocument: false,
+                                },
 				isUrl: false,
 				run: () => {},
 			};
