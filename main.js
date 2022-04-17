@@ -1,10 +1,5 @@
-const {
-	fetchLatestBaileysVersion,
-	default: Baileys,
-	useSingleFileAuthState,
-	DisconnectReason,
-} = require("@adiwajshing/baileys");
-const log = require("pino");
+const { fetchLatestBaileysVersion, makeInMemoryStore, default: Baileys, useSingleFileAuthState, DisconnectReason } = require("@adiwajshing/baileys");
+const log = (pino = require("pino"));
 const attribute = {};
 const fs = require("fs");
 const path = require("path");
@@ -17,16 +12,16 @@ const { self } = require("./config.json");
 const { state, saveState } = useSingleFileAuthState(path.join(__dirname, `./${session}`), log({ level: "silent" }));
 attribute.prefix = "#";
 attribute.command = new Map();
+attribute.tebakbendera = new Map();
 attribute.isSelf = self;
 
-//Database game
-attribute.tebakbendera = new Map();
+global.store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
 
 const ReadFitur = () => {
 	let pathdir = path.join(__dirname, "./command");
 	let fitur = fs.readdirSync(pathdir);
-	fitur.forEach(async (res) => {
-		const commands = fs.readdirSync(`${pathdir}/${res}`).filter((file) => file.endsWith(".js"));
+	fitur.forEach(async res => {
+		const commands = fs.readdirSync(`${pathdir}/${res}`).filter(file => file.endsWith(".js"));
 		for (let file of commands) {
 			const command = require(`${pathdir}/${res}/${file}`);
 			if (typeof command.run != "function") continue;
@@ -59,8 +54,7 @@ const ReadFitur = () => {
 			};
 			let cmd = utils.parseOptions(cmdOptions, command);
 			let options = {};
-			for (var k in cmd)
-				typeof cmd[k] == "boolean" ? (options[k] = cmd[k]) : k == "query" ? (options[k] = cmd[k]) : "";
+			for (var k in cmd) typeof cmd[k] == "boolean" ? (options[k] = cmd[k]) : k == "query" ? (options[k] = cmd[k]) : "";
 			let cmdObject = {
 				name: cmd.name,
 				alias: cmd.alias,
@@ -88,8 +82,10 @@ const connect = async () => {
 		version,
 	});
 
+	store.bind(conn.ev);
+
 	conn.ev.on("creds.update", saveState);
-	conn.ev.on("connection.update", async (up) => {
+	conn.ev.on("connection.update", async up => {
 		const { lastDisconnect, connection } = up;
 		if (connection) {
 			console.log("Connection Status: ", connection);
@@ -123,8 +119,30 @@ const connect = async () => {
 			}
 		}
 	});
+
+	//anticall
+	conn.ws.on("CB:call", async json => {
+		if (json.content[0].tag == "offer") {
+			conn.sendMessage(json.content[0].attrs["call-creator"], {
+				text: `Terdeteksi Menelpon BOT!\nSilahkan Hubungi Owner Untuk Membuka Block !\n\nNomor Owner: \n${config.owner
+					.map(a => `*wa.me/${a.split(`@`)[0]}* | ${conn.getName(a).includes("+62") ? "No Detect" : conn.getName(a)}`)
+					.join("\n")}`,
+			});
+			await require("delay")(8000);
+			await conn.updateBlockStatus(json.content[0].attrs["call-creator"], "block");
+		}
+	});
+
+	//contact update
+	conn.ev.on("contacts.update", m => {
+		for (let kontak of m) {
+			let jid = conn.decodeJid(kontak.id);
+			if (store && store.contacts) store.contacts[jid] = { jid, name: kontak.notify };
+		}
+	});
+
 	// messages.upsert
-	conn.ev.on("messages.upsert", async (m) => {
+	conn.ev.on("messages.upsert", async m => {
 		handler(m, conn, attribute);
 	});
 };
