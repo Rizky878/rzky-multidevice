@@ -49,12 +49,13 @@ const ReadFitur = () => {
 				isSpam: false,
 				noPrefix: false,
 				isPremium: false,
+                                isMedia: false,
 				isUrl: false,
 				run: () => {},
 			};
 			let cmd = utils.parseOptions(cmdOptions, command);
 			let options = {};
-			for (var k in cmd) typeof cmd[k] == "boolean" ? (options[k] = cmd[k]) : k == "query" ? (options[k] = cmd[k]) : "";
+			for (var k in cmd) typeof cmd[k] == "boolean" ? (options[k] = cmd[k]) : k == "query" || k == "isMedia" ? (options[k] = cmd[k]) : "";
 			let cmdObject = {
 				name: cmd.name,
 				alias: cmd.alias,
