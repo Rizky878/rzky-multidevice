@@ -102,7 +102,7 @@ module.exports = handler = async (m, conn, map) => {
 			if (media.isQSticker) {
 				list.push("stickerMessage");
 			}
-			return list ? list : [];
+			return list;
 		};
 
 		//Prem expired
@@ -231,8 +231,7 @@ module.exports = handler = async (m, conn, map) => {
 		}
 		if (options.isMedia) {
 			let medianya = Media(options.isMedia ? options.isMedia : {});
-			console.log(medianya);
-			if (!medianya.includes(msg.quoted ? msg.quoted.mtype : []))
+			if (typeof medianya[0] != "undefined" && !medianya.includes(msg.quoted ? msg.quoted.mtype : []))
 				return msg.reply(`Silahkan reply *${medianya.map(a => `${((aa = a.charAt(0).toUpperCase()), aa + a.slice(1).replace(/message/gi, ""))}`).join("/")}*`);
 		}
 		if (options.isOwner && !isOwner) {
