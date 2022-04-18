@@ -117,9 +117,6 @@ module.exports = handler = async (m, conn, map) => {
 			await require("./lib/game")(msg, conn, map);
 		}
 
-		//topdf
-		require("./lib/topdf")(msg, conn, map);
-
 		const cmdName = body
 			.slice(temp_pref.length)
 			.trim()
