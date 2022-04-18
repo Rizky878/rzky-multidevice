@@ -1,7 +1,8 @@
 {
   "name": "rzky-multidevice",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "index.js",
+  "depecrated": false,
   "license": "MIT",
   "author": "RizkyFadilah",
   "scripts": {
