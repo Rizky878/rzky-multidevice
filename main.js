@@ -12,9 +12,14 @@ const { self } = require("./config.json");
 const { state, saveState } = useSingleFileAuthState(path.join(__dirname, `./${session}`), log({ level: "silent" }));
 attribute.prefix = "#";
 attribute.command = new Map();
+
+// Database game
 attribute.tebakbendera = new Map();
+
+// Self
 attribute.isSelf = self;
 
+// store
 global.store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
 
 const ReadFitur = () => {
@@ -67,6 +72,8 @@ const ReadFitur = () => {
 				run: cmd.run,
 			};
 			attribute.command.set(cmd.name, cmdObject);
+                        require('delay')(100)
+                        global.reloadFile(`./command/${res}/${file}`)
 		}
 	});
 	console.log(color("[INFO]", "yellow"), "command loaded!");
