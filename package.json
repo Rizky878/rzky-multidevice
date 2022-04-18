@@ -1,0 +1,15 @@
+{
+  "name": "tes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "release": "standard-version"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "standard-version": "^9.3.2"
+  }
+}
