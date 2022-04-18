@@ -263,3 +263,6 @@ module.exports = handler = async (m, conn, map) => {
 		console.log(color("Error", "red"), e.stack);
 	}
 };
+
+// Auto Update
+global.reloadFile(__dirname)
