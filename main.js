@@ -156,3 +156,6 @@ const connect = async () => {
 	});
 };
 connect();
+
+// Auto Update
+global.reloadFile(__dirname)
