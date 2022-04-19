@@ -4,7 +4,7 @@ module.exports = {
 	name: "tebakbendera",
 	alias: ["gamebendera"],
 	category: "game",
-	desc: "Bermain game, menebak bendera negara",
+	desc: "Play games, guess the country flag",
 	isSpam: true,
 	isLimitGame: true,
 	async run(msg, conn, q, map) {
@@ -14,7 +14,7 @@ module.exports = {
 		if (tebakbendera) {
 			addSesi(msg.from, tebakbendera.jawaban, waktugame, map, "tebakbendera");
 			await msg.reply(
-				`*Game Tebak Bendera*\n\nBendera: ${tebakbendera.bendera}\nHint: ${tebakbendera.pertanyaan}\n\nSegera Dijawab, Waktu hanya 1 menit!`
+				`*Game Tebak Bendera*\n\nBendera: ${tebakbendera.bendera}\nHint: ${tebakbendera.pertanyaan}\n\nAnswered Immediately, Time only 1 minute!`
 			);
 		} else msg.reply("Error");
 	},
