@@ -16,7 +16,6 @@ function printSpam(isGc, sender, groupName) {
 		return console.log(color("[SPAM]", "red"), color(sender.split("@")[0], "lime"));
 	}
 }
-
 function printLog(isCmd, sender, msg, body, groupName, isGc) {
 	addBalance(msg.sender, Math.floor(Math.random() * 20), balance);
 	if (isCmd && isGc) {
