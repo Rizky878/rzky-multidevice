@@ -33,7 +33,6 @@
     "node-fetch": "^2.0.0",
     "parse-ms": "^2.1.0",
     "rzkyfdlh-api": "latest",
-    "sharp": "^0.29.3",
     "string-crypto": "^2.0.2",
     "wikijs": "^6.3.3",
     "yt-search": "^2.10.3"
