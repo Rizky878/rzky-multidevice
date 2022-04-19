@@ -25,6 +25,9 @@ attribute.tebakbendera = new Map();
 // Self
 attribute.isSelf = self;
 
+// Lock cmd
+map.lockcmd = new Map()
+
 // store
 global.store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
 
