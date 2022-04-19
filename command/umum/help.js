@@ -61,7 +61,6 @@ module.exports = {
 						{ quickReplyButton: {displayText: 'Script Bot📑', id: '#script'}},
             { quickReplyButton: {displayText: 'Owner👥', id: '#owner'}},
 					],
-					gifAttribution: "GIPHY",
 				},
 				{ quoted: msg }
 			);
