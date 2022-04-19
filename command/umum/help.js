@@ -8,22 +8,12 @@ module.exports = {
 			const data = [];
 			const name = q.toLowerCase();
 			const { command, prefix } = map;
-			const cmd = command.get(name) || [...command.values()].find((x) => x.alias.find((x) => x == args[0]));
-			if (!cmd || (cmd.category === "private" && !isOwner)) return await msg.reply("Command tidak ditemukan");
+			const cmd = command.get(name) || [...command.values()].find(x => x.alias.find(x => x == args[0]));
+			if (!cmd || (cmd.category === "private" && !config.owner.includes(msg.sender))) return await msg.reply("Command tidak ditemukan");
 			else data.push(`*Nama:* ` + cmd.name);
 			if (cmd.alias) data.push(`*Alias:* ${cmd.alias.join(", ")}`);
-<<<<<<< HEAD
-			if (cmd.desc) data.push(`*Description:* ${cmd.desc}`);
-			if (cmd.use)
-				data.push(
-					`*Use:* ${prefix}${cmd.name} ${cmd.use}\n\nNotes: [] = optional, | = or, <> = must be filled`
-=======
 			if (cmd.desc) data.push(`*Deskripsi:* ${cmd.desc}`);
-			if (cmd.use)
-				data.push(
-					`*Penggunaan:* ${prefix}${cmd.name} ${cmd.use}\n\nCatatan: [] = opsional, | = atau, <> = harus diisi`
->>>>>>> 8557a35 (Add fiture Set Language)
-				);
+			if (cmd.use) data.push(`*Penggunaan:* ${prefix}${cmd.name} ${cmd.use}\n\nCatatan: [] = opsional, | = atau, <> = harus diisi`);
 
 			return await msg.reply(data.join("\n"));
 		} else {
@@ -44,20 +34,14 @@ module.exports = {
 					category[cteg].push(info);
 				}
 			}
-			let str =
-				"```" +
-				config.namebot +
-				"```\n\n" +
-				`Halo, ${pushName === undefined ? sender.split("@")[0] : pushName}\n*Disini Daftar Commandnya*\n\n`;
+			let str = "```" + config.namebot + "```\n\n" + `Halo, ${pushName === undefined ? sender.split("@")[0] : pushName}\n*Disini Daftar Commandnya*\n\n`;
 			const keys = Object.keys(category);
 			//var a = 1
 			for (const key of keys) {
 				str += `==== [ *${key.toUpperCase()}* ] ====\n${category[key]
 					.map(
-						(cmd) =>
-							`➤ *${cmd.name}*\n*⋙ Alias:* \n${cmd.alias
-								.map((a) => `_*▸* ${a || "Tidak ada"}_`)
-								.join("\n")}\n*⋙ Use:* _*${cmd.use || "No Parameter"}*_\n*⋙ Use Prefix:* *_${
+						cmd =>
+							`➤ *${cmd.name}*\n*⋙ Alias:* \n${cmd.alias.map(a => `_*▸* ${a || "Tidak ada"}_`).join("\n")}\n*⋙ Use:* _*${cmd.use || "No Parameter"}*_\n*⋙ Use Prefix:* *_${
 								cmd.options.noPrefix ? "❎" : "✅"
 							}_*  \n`
 					)
@@ -66,17 +50,18 @@ module.exports = {
 			str += `typing *${prefix}help sticker* for get the details and example use`;
 			await conn.sendMessage(
 				msg.from,
-				{
+				{ 
 					video: await conn.getBuffer(config.thumbvideo),
 					gifPlayback: true,
 					caption: str,
 					footer: config.namebot + " • " + config.ownername,
 					templateButtons: [
-						{ urlButton: { displayText: "Shortlink", url: "https://sl.rzkyfdlh.tech" } },
+					  { urlButton: { displayText: "Shortlink", url: "https://sl.rzkyfdlh.tech" } },
 						{ urlButton: { displayText: "Downloader", url: "https://downloader.rzkyfdlh.tech" } },
-						{ quickReplyButton: { displayText: "Script Bot📑", id: "#script" } },
-						{ quickReplyButton: { displayText: "Owner👥", id: "#owner" } },
+						{ quickReplyButton: {displayText: 'Script Bot📑', id: '#script'}},
+            { quickReplyButton: {displayText: 'Owner👥', id: '#owner'}},
 					],
+					gifAttribution: "GIPHY",
 				},
 				{ quoted: msg }
 			);
