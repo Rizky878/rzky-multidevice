@@ -2,10 +2,6 @@ let fs = require("fs");
 let path = require("path");
 let assert = require("assert");
 let { spawn } = require("child_process");
-<<<<<<< HEAD
-
-=======
->>>>>>> 8557a35 (Add fiture Set Language)
 let folders = [".", ...Object.keys(require("./package.json").directories)];
 let files = [];
 for (let i of fs.readdirSync(folders[3]))
