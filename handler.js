@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 require("./global.js")
 const { getBinaryNodeChild } = require("@adiwajshing/baileys");
+=======
+require("./global.js");
+const { getBinaryNodeChild } = require("@adiwajshing/baileys");
+const Baileys = require("@adiwajshing/baileys");
+>>>>>>> 8557a35 (Add fiture Set Language)
 const { serialize } = require("./lib/serialize");
 const fs = require("fs");
 const { color, getAdmin, isUrl } = require("./lib");
@@ -19,7 +25,17 @@ function printSpam(isGc, sender, groupName) {
 function printLog(isCmd, sender, msg, body, groupName, isGc) {
 	addBalance(msg.sender, Math.floor(Math.random() * 20), balance);
 	if (isCmd && isGc) {
+<<<<<<< HEAD
 		return console.log(color("[EXEC]", "aqua"), color(sender, "lime"), color(body, "aqua"), "in", color(groupName, "lime"));
+=======
+		return console.log(
+			color("[EXEC]", "aqua"),
+			color(sender, "lime"),
+			color(body, "aqua"),
+			"in",
+			color(groupName, "lime")
+		);
+>>>>>>> 8557a35 (Add fiture Set Language)
 	}
 	if (isCmd && !isGc) {
 		return console.log(color("[EXEC]", "aqua"), color(sender, "lime"), color(body, "aqua"));
@@ -37,12 +53,29 @@ module.exports = handler = async (m, conn, map) => {
 		}
 
 		//detect msg type senderKey and delete in order to be able to respond
+<<<<<<< HEAD
 		if (Object.keys(msg.message)[0] == "senderKeyDistributionMessage") delete msg.message.senderKeyDistributionMessage;
 		if (Object.keys(msg.message)[0] == "messageContextInfo") delete msg.message.messageContextInfo;
 		if (msg.key && msg.key.remoteJid === "status@broadcast") return;
 		if (msg.type === "protocolMessage" || msg.type === "senderKeyDistributionMessage" || !msg.type || msg.type === "") return;
 
 		let { body, type } = msg;
+=======
+		if (Object.keys(msg.message)[0] == "senderKeyDistributionMessage")
+			delete msg.message.senderKeyDistributionMessage;
+		if (Object.keys(msg.message)[0] == "messageContextInfo") delete msg.message.messageContextInfo;
+		if (msg.key && msg.key.remoteJid === "status@broadcast") return;
+		if (
+			msg.type === "protocolMessage" ||
+			msg.type === "senderKeyDistributionMessage" ||
+			!msg.type ||
+			msg.type === ""
+		)
+			return;
+
+		let { body, type } = msg;
+		global.customLanguage = JSON.parse(fs.readFileSync("./database/language.json"));
+>>>>>>> 8557a35 (Add fiture Set Language)
 		const { isGroup, sender, from } = msg;
 		const groupMetadata = isGroup ? await conn.groupMetadata(from) : "";
 		const groupName = isGroup ? groupMetadata.subject : "";
@@ -59,10 +92,14 @@ module.exports = handler = async (m, conn, map) => {
 		}
 
 		const arg = body.substring(body.indexOf(" ") + 1);
+<<<<<<< HEAD
 		const args = body
 			.trim()
 			.split(/ +/)
 			.slice(1);
+=======
+		const args = body.trim().split(/ +/).slice(1);
+>>>>>>> 8557a35 (Add fiture Set Language)
 		const comand = body.trim().split(/ +/)[0];
 		q = args.join(" ");
 		const isCmd = body.startsWith(temp_pref);
@@ -101,6 +138,38 @@ module.exports = handler = async (m, conn, map) => {
 			return list;
 		};
 
+<<<<<<< HEAD
+=======
+		// gk tw
+		conn.sendMessage = async (jid, content, options = { isTranslate: true }) => {
+			if (options.isTranslate) {
+				const cotent = content.caption || content.text || "";
+				const footer = content.footer || false;
+				const customLang = customLanguage.find((x) => x.jid == msg.sender);
+				const language = customLang ? customLang.country : false;
+				if (customLang) {
+					if (footer) footer = await rzky.tools.translate(footer, language);
+					translate = await rzky.tools.translate(cotent, language);
+					console.log(translate);
+					if (content.video || content.image) {
+						content.caption = translate || cotent;
+					} else {
+						content.text = translate || cotent;
+					}
+				}
+			}
+			const contentMsg = await Baileys.generateWAMessageContent(content, { upload: conn.waUploadToServer });
+			const fromContent = await Baileys.generateWAMessageFromContent(jid, contentMsg, options);
+			fromContent.key.id = "RZKY" + require("crypto").randomBytes(13).toString("hex").toUpperCase();
+			await conn.relayMessage(jid, fromContent.message, { messageId: fromContent.key.id });
+			conn.ev.emit("messages.upsert", {
+				messages: [fromContent],
+				type: "append",
+			});
+			return fromContent;
+		};
+
+>>>>>>> 8557a35 (Add fiture Set Language)
 		//Prem expired
 		prem.expiredCheck(conn, msg, premium);
 		// Log
@@ -113,6 +182,7 @@ module.exports = handler = async (m, conn, map) => {
 			await require("./lib/game")(msg, conn, map);
 		}
 
+<<<<<<< HEAD
 		const cmdName = body
 			.slice(temp_pref.length)
 			.trim()
@@ -142,12 +212,36 @@ module.exports = handler = async (m, conn, map) => {
 			[...map.command.values()].find(x => x.alias.find(x => x.toLowerCase() == cmdName));
 		if (isCmd && !cmd) {
 			var data = [...map.command.keys()];
+=======
+		const cmdName = body.slice(temp_pref.length).trim().split(/ +/).shift().toLowerCase();
+		const cmd =
+			map.command.get(msg.body.trim().split(/ +/).shift().toLowerCase()) ||
+			[...map.command.values()].find((x) =>
+				x.alias.find((x) => x.toLowerCase() == msg.body.trim().split(/ +/).shift().toLowerCase())
+			) ||
+			map.command.get(cmdName) ||
+			[...map.command.values()].find((x) => x.alias.find((x) => x.toLowerCase() == cmdName));
+		if (isCmd && !cmd) {
+			var data = [...map.command.keys()];
+			[...map.command.values()]
+				.map((x) => x.alias)
+				.join(" ")
+				.replace(/ +/gi, ",")
+				.split(",")
+				.map((a) => data.push(a));
+>>>>>>> 8557a35 (Add fiture Set Language)
 			var result = rzky.tools.detectTypo(cmdName, data);
 			if (result.status == 404) return;
 			teks = "";
 			angka = 1;
 			for (let i of result.result) {
+<<<<<<< HEAD
 				var alias = [...map.command.values()].find(x => x.name == i.teks);
+=======
+				var alias =
+					[...map.command.values()].find((x) => x.name == i.teks) ||
+					[...map.command.values()].find((x) => x.alias.find((x) => x.toLowerCase() == i.teks));
+>>>>>>> 8557a35 (Add fiture Set Language)
 				teks += `Mungkin ini yang kamu maksud?\n\n`;
 				teks += `*${angka++}. ${map.prefix}${i.teks}*\n`;
 				teks += `Alias: *${alias.alias.join(", ")}*\n`;
@@ -192,10 +286,14 @@ module.exports = handler = async (m, conn, map) => {
 		const options = cmd.options;
 		if (options.noPrefix) {
 			if (isCmd) return;
+<<<<<<< HEAD
 			q = msg.body
 				.split(" ")
 				.splice(1)
 				.join(" ");
+=======
+			q = msg.body.split(" ").splice(1).join(" ");
+>>>>>>> 8557a35 (Add fiture Set Language)
 		} else if (!options.noPrefix) {
 			if (!isCmd) return;
 		}
@@ -203,11 +301,28 @@ module.exports = handler = async (m, conn, map) => {
 			timestamps.set(from, now);
 		}
 		if (options.isPremium && !isPremium) {
+<<<<<<< HEAD
 			await msg.reply(response.OnlyPrem);
 			return true;
 		}
 		if (options.isLimit && !isPremium) {
 			if (isLimit(msg.sender, isPremium, isOwner, limitCount, limit)) return msg.reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`);
+=======
+			await conn.sendMessage(msg.from, { text: response.OnlyPrem }, { quoted: msg });
+			return true;
+		}
+		if (map.lockcmd.has(cmdName)) {
+			let alasan = map.lockcmd.get(cmdName);
+			return msg.reply(
+				`Maaf kak "${conn.getName(sender)}"" command "${cmdName}" telah dinonaktifkan oleh owner\nAlasan: *${
+					alasan || "-"
+				}*`
+			);
+		}
+		if (options.isLimit && !isPremium) {
+			if (isLimit(msg.sender, isPremium, isOwner, limitCount, limit))
+				return msg.reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`);
+>>>>>>> 8557a35 (Add fiture Set Language)
 			limitAdd(msg.sender, limit);
 		}
 		if (options.isLimitGame) {
@@ -215,7 +330,11 @@ module.exports = handler = async (m, conn, map) => {
 			gameAdd(msg.sender, glimit);
 		}
 		if (options.isAdmin && !isAdmin) {
+<<<<<<< HEAD
 			await msg.reply(response.GroupAdmin);
+=======
+			await conn.sendMessage(msg.from, { text: response.GroupAdmin }, { quoted: msg });
+>>>>>>> 8557a35 (Add fiture Set Language)
 			return true;
 		}
 		if (options.isQuoted && !msg.quoted) {
@@ -225,6 +344,7 @@ module.exports = handler = async (m, conn, map) => {
 		if (options.isMedia) {
 			let medianya = Media(options.isMedia ? options.isMedia : {});
 			if (typeof medianya[0] != "undefined" && !medianya.includes(msg.quoted ? msg.quoted.mtype : []))
+<<<<<<< HEAD
 				return msg.reply(`Silahkan reply *${medianya.map(a => `${((aa = a.charAt(0).toUpperCase()), aa + a.slice(1).replace(/message/gi, ""))}`).join("/")}*`);
 		}
 		if (options.isOwner && !isOwner) {
@@ -237,6 +357,24 @@ module.exports = handler = async (m, conn, map) => {
 		}
 		if (options.isBotAdmin && !botAdmin) {
 			await msg.reply(response.BotAdmin);
+=======
+				return msg.reply(
+					`Silahkan reply *${medianya
+						.map((a) => `${((aa = a.charAt(0).toUpperCase()), aa + a.slice(1).replace(/message/gi, ""))}`)
+						.join("/")}*`
+				);
+		}
+		if (options.isOwner && !isOwner) {
+			await conn.sendMessage(msg.from, { text: response.OnlyOwner }, { quoted: msg });
+			return true;
+		}
+		if (options.isGroup && !isGroup) {
+			await conn.sendMessage(msg.from, { text: response.OnlyGrup }, { quoted: msg });
+			return true;
+		}
+		if (options.isBotAdmin && !botAdmin) {
+			await conn.sendMessage(msg.from, { text: response.BotAdmin }, { quoted: msg });
+>>>>>>> 8557a35 (Add fiture Set Language)
 			return true;
 		}
 		if (options.query && !q) {
@@ -244,6 +382,7 @@ module.exports = handler = async (m, conn, map) => {
 			return true;
 		}
 		if (options.isPrivate && !isPrivate) {
+<<<<<<< HEAD
 			await msg.reply(response.OnlyPM);
 			return true;
 		}
@@ -253,16 +392,38 @@ module.exports = handler = async (m, conn, map) => {
 		}
 		if (options.wait) {
 			await msg.reply(typeof options.wait == "string" ? options.wait : response.wait);
+=======
+			await conn.sendMessage(msg.from, { text: response.OnlyPM }, { quoted: msg });
+			return true;
+		}
+		if (options.isUrl && !isUrl(q ? q : "p")) {
+			await conn.sendMessage(msg.from, { text: response.error.Iv }, { quoted: msg });
+			return true;
+		}
+		if (options.wait) {
+			await conn.sendMessage(
+				msg.from,
+				{ text: typeof options.wait == "string" ? options.wait : response.wait },
+				{ quoted: msg }
+			);
+>>>>>>> 8557a35 (Add fiture Set Language)
 		}
 		try {
 			await cmd.run(msg, conn, q, map, args, arg);
 		} catch (e) {
+<<<<<<< HEAD
 			await msg.reply(require("util").format(e));
+=======
+			await msg.reply(require("util").format(e), { isTranslate: false });
+>>>>>>> 8557a35 (Add fiture Set Language)
 		}
 	} catch (e) {
 		console.log(color("Error", "red"), e.stack);
 	}
 };
+<<<<<<< HEAD
 
 // Auto Update
 global.reloadFile(__dirname)
+=======
+>>>>>>> 8557a35 (Add fiture Set Language)
