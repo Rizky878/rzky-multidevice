@@ -6,7 +6,7 @@ module.exports = {
 	category: "downloader",
 	use: "<url>",
 	desc: "download video and photo from instagram",
-	query: `Pilihan:\n1. #igdl - Mendownload Video Atau Foto Dari postingan\n\n2. #igstory - Mendownload Video atau foto dari story\n\nExample: \n1. #igdl https://www.instagram.com/p/CbxLLgKJXOa/?utm_source=ig_web_copy_link\n2. #igstory petanikode`,
+	query: `Options:\n1. #igdl - Download Video Or Photo From Post\n\n2. #igstory - Download Video or photo from story\n\nExample: \n1. #igdl https://www.instagram.com/p/CbxLLgKJXOa/?utm_source=ig_web_copy_link\n2. #igstory petanikode`,
 	wait: true,
 	isSpam: true,
 	async run(msg, conn, q) {
