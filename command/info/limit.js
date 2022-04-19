@@ -2,7 +2,7 @@ module.exports = {
 	name: "limit",
 	alias: ["cekglimit", "ceklimit", "glimit"],
 	category: "info",
-	desc: "mengecek limit",
+	desc: "check limit",
 	isSpam: true,
 	async run(msg, conn, q, map) {
 		prefix = map.prefix;
@@ -15,7 +15,7 @@ module.exports = {
 				}\nLimit Game : ${cekGLimit(msg.mentions[0], gcount, glimit)}/${gcount}\nBalance : $${getBalance(
 					msg.mentions[0],
 					balance
-				)}\n\nKamu dapat membeli limit dengan ${prefix}buylimit dan ${prefix}buyglimit untuk membeli game limit`
+				)}\n\nYou can buy limit with ${prefix}buylimit and ${prefix}buyglimit to buy game limit`
 			);
 		} else {
 			msg.reply(
@@ -24,7 +24,7 @@ module.exports = {
 				}\nLimit Game : ${cekGLimit(msg.sender, gcount, glimit)}/${gcount}\nBalance : $${getBalance(
 					msg.sender,
 					balance
-				)}\n\nKamu dapat membeli limit dengan ${prefix}buylimit dan ${prefix}buyglimit untuk membeli game limit`
+				)}\n\nYou can buy limit with ${prefix}buylimit dan ${prefix}buyglimit to buy game limit`
 			);
 		}
 	},
