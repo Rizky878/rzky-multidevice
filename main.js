@@ -159,3 +159,9 @@ connect();
 
 // Auto Update
 global.reloadFile(__dirname)
+
+
+// Detect Error'
+process.on("uncaughtException", function (err) {
+	console.error(err);
+});
