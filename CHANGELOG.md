@@ -3,7 +3,4 @@
 ### [v2.0.4](https://github.com/Rizky878/rzky-multidevice/tree/v2.0.4) (19/04/2022)
 - [922f471](https://github.com/Rizky878/rzky-multidevice/commit/63b7912eb7ba6743ed174699c176bfbf08d5c885)<br>***added function so that there are no kill problems in the terminal***
 - [390d494](https://github.com/Rizky878/rzky-multidevice/commit/922f471cc3942cde767a9aa9c65803331281c5e0)<br>***fixed error "cannot of undefined" if it happens again please report***
-<<<<<<< HEAD
-- [77dada7](https://github.com/Rizky878/rzky-multidevice/commit/0dfb4d721cada99e8b54dbcb8e409ad4e705e8dc)<br>***added function set language***
-=======
->>>>>>> 8557a35 (Add fiture Set Language)
+- [77dada7](https://github.com/Rizky878/rzky-multidevice/commit/0dfb4d721cada99e8b54dbcb8e409ad4e705e8dc)<br> > ***added function set language***
