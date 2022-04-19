@@ -5,5 +5,5 @@
    > Added function so that there are no kill problems in the terminal
 * [390d494](https://github.com/Rizky878/rzky-multidevice/commit/922f471cc3942cde767a9aa9c65803331281c5e0)<br>
    > Fixed error "cannot of undefined" if it happens again please report
-* [77dada7](https://github.com/Rizky878/rzky-multidevice/commit/0dfb4d721cada99e8b54dbcb8e409ad4e705e8dc)<br> 
-   > Added function set language
+* [cd990d1](https://github.com/Rizky878/rzky-multidevice/commit/1b1e33b29b47b8b6302bdd2866638204ef13cd0d)<br> 
+   > Added fiture set language all text and no need to customize it anymore
