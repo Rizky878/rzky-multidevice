@@ -4,7 +4,7 @@
 		"Iv": "The link you provided is not valid",
 		"api": "Sorry an error occurred"
 	},
-	"OnlyGrup": "Perintah ini hanya bisa digunakan di grup",
+	"OnlyGrup": "This command can only be used in groups",
 	"OnlyPM": "This command can only be used in private messages",
 	"GrupAdmin": "This command can only be used by Group Admin",
 	"BotAdmin": "Bot Must be admin",
