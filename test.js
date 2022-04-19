@@ -4,6 +4,7 @@ let assert = require("assert");
 let { spawn } = require("child_process");
 let folders = [".", ...Object.keys(require("./package.json").directories)];
 let files = [];
+
 for (let i of fs.readdirSync(folders[3]))
 	for (let is of fs.readdirSync(path.join(folders[3], i)))
 		files.push(path.resolve(path.join(folders[3], i) + "/" + is));
