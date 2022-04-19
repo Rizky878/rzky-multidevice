@@ -33,16 +33,16 @@ module.exports = {
 	name: "emojimix",
 	use: "<emoji+emoji>",
 	category: "fun",
-	desc: "Mengirim sticker Emoji ditambah dengan emoji yang lain",
+	desc: "Sending Emoji stickers plus other emojis",
 	wait: true,
-	query: "Masukan Emoji\nContoh: #emojimix 😅+😅",
+	query: "Enter Emoji\nExample: #emojimix 😅+😅",
 	isSpam: true,
 	async run(msg, conn, q, map, args) {
 		try {
 			const [teks1, teks2, teks3] = q;
-			if (!isEmoji(teks1) && !isEmoji(teks3)) throw "Masukan Emoji dengan benar";
+			if (!isEmoji(teks1) && !isEmoji(teks3)) throw "Enter Emojis Correctly";
 			const result = await rzky.fun.emojimix(teks1, teks3);
-			if (result.status !== 200) throw "Emoji tidak ditemukan";
+			if (result.status !== 200) throw "Emojis not found";
 			stickerBuff = await sticker(await getBuffer(result.url), { isImage: true, cmdType: "1" });
 			await conn.sendMessage(msg.from, { sticker: stickerBuff }, { quoted: msg });
 		} catch (e) {
