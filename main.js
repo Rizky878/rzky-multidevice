@@ -1,4 +1,10 @@
-const { fetchLatestBaileysVersion, makeInMemoryStore, default: Baileys, useSingleFileAuthState, DisconnectReason } = require("@adiwajshing/baileys");
+const {
+	fetchLatestBaileysVersion,
+	makeInMemoryStore,
+	default: Baileys,
+	useSingleFileAuthState,
+	DisconnectReason,
+} = require("@adiwajshing/baileys");
 const log = (pino = require("pino"));
 const attribute = {};
 const fs = require("fs");
@@ -25,8 +31,8 @@ global.store = makeInMemoryStore({ logger: pino().child({ level: "silent", strea
 const ReadFitur = () => {
 	let pathdir = path.join(__dirname, "./command");
 	let fitur = fs.readdirSync(pathdir);
-	fitur.forEach(async res => {
-		const commands = fs.readdirSync(`${pathdir}/${res}`).filter(file => file.endsWith(".js"));
+	fitur.forEach(async (res) => {
+		const commands = fs.readdirSync(`${pathdir}/${res}`).filter((file) => file.endsWith(".js"));
 		for (let file of commands) {
 			const command = require(`${pathdir}/${res}/${file}`);
 			if (typeof command.run != "function") continue;
@@ -49,19 +55,24 @@ const ReadFitur = () => {
 				isSpam: false,
 				noPrefix: false,
 				isPremium: false,
-                                isMedia: { 
-                                   isQVideo: false,
-                                   isQAudio: false,
-                                   isQImage: false,
-                                   isQSticker: false,
-                                   isQDocument: false,
-                                },
+				isMedia: {
+					isQVideo: false,
+					isQAudio: false,
+					isQImage: false,
+					isQSticker: false,
+					isQDocument: false,
+				},
 				isUrl: false,
 				run: () => {},
 			};
 			let cmd = utils.parseOptions(cmdOptions, command);
 			let options = {};
-			for (var k in cmd) typeof cmd[k] == "boolean" ? (options[k] = cmd[k]) : k == "query" || k == "isMedia" ? (options[k] = cmd[k]) : "";
+			for (var k in cmd)
+				typeof cmd[k] == "boolean"
+					? (options[k] = cmd[k])
+					: k == "query" || k == "isMedia"
+					? (options[k] = cmd[k])
+					: "";
 			let cmdObject = {
 				name: cmd.name,
 				alias: cmd.alias,
@@ -72,8 +83,8 @@ const ReadFitur = () => {
 				run: cmd.run,
 			};
 			attribute.command.set(cmd.name, cmdObject);
-                        require('delay')(100)
-                        global.reloadFile(`./command/${res}/${file}`)
+			require("delay")(100);
+			global.reloadFile(`./command/${res}/${file}`);
 		}
 	});
 	console.log(color("[INFO]", "yellow"), "command loaded!");
@@ -94,7 +105,7 @@ const connect = async () => {
 	store.bind(conn.ev);
 
 	conn.ev.on("creds.update", saveState);
-	conn.ev.on("connection.update", async up => {
+	conn.ev.on("connection.update", async (up) => {
 		const { lastDisconnect, connection } = up;
 		if (connection) {
 			console.log("Connection Status: ", connection);
@@ -130,11 +141,16 @@ const connect = async () => {
 	});
 
 	//anticall
-	conn.ws.on("CB:call", async json => {
+	conn.ws.on("CB:call", async (json) => {
 		if (json.content[0].tag == "offer") {
 			conn.sendMessage(json.content[0].attrs["call-creator"], {
 				text: `Terdeteksi Menelpon BOT!\nSilahkan Hubungi Owner Untuk Membuka Block !\n\nNomor Owner: \n${config.owner
-					.map(a => `*wa.me/${a.split(`@`)[0]}* | ${conn.getName(a).includes("+62") ? "No Detect" : conn.getName(a)}`)
+					.map(
+						(a) =>
+							`*wa.me/${a.split(`@`)[0]}* | ${
+								conn.getName(a).includes("+62") ? "No Detect" : conn.getName(a)
+							}`
+					)
 					.join("\n")}`,
 			});
 			await require("delay")(8000);
@@ -143,7 +159,7 @@ const connect = async () => {
 	});
 
 	//contact update
-	conn.ev.on("contacts.update", m => {
+	conn.ev.on("contacts.update", (m) => {
 		for (let kontak of m) {
 			let jid = conn.decodeJid(kontak.id);
 			if (store && store.contacts) store.contacts[jid] = { jid, name: kontak.notify };
@@ -151,15 +167,14 @@ const connect = async () => {
 	});
 
 	// messages.upsert
-	conn.ev.on("messages.upsert", async m => {
+	conn.ev.on("messages.upsert", async (m) => {
 		handler(m, conn, attribute);
 	});
 };
 connect();
 
 // Auto Update
-global.reloadFile(__dirname)
-
+global.reloadFile(__dirname);
 
 // Detect Error'
 process.on("uncaughtException", function (err) {

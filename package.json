@@ -1,6 +1,6 @@
 {
   "name": "rzky-multidevice",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "main": "index.js",
   "depecrated": false,
   "license": "MIT",
@@ -19,6 +19,7 @@
     "brainly-scraper-v2": "1.1.2",
     "chalk": "4.1.2",
     "cheerio": "1.0.0-rc.10",
+    "country-language": "^0.1.7",
     "delay": "^5.0.0",
     "escape-html": "^1.0.3",
     "file-type": "16.5.3",
@@ -32,6 +33,7 @@
     "node-fetch": "^2.0.0",
     "parse-ms": "^2.1.0",
     "rzkyfdlh-api": "latest",
+    "sharp": "^0.29.3",
     "string-crypto": "^2.0.2",
     "wikijs": "^6.3.3",
     "yt-search": "^2.10.3"
@@ -45,9 +47,7 @@
   },
   "description": "Bot Whatsapp multi-device using Javascript",
   "directories": {
-    "lib": "lib",
-    "utils": "utils",
-    "command": "command"
+    "lib": "lib"
   },
   "repository": {
     "type": "git",
