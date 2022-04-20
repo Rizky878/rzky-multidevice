@@ -16,6 +16,7 @@ function printSpam(isGc, sender, groupName) {
 		return console.log(color("[SPAM]", "red"), color(sender.split("@")[0], "lime"));
 	}
 }
+
 function printLog(isCmd, sender, msg, body, groupName, isGc) {
 	addBalance(msg.sender, Math.floor(Math.random() * 20), balance);
 	if (isCmd && isGc) {
@@ -114,7 +115,7 @@ module.exports = handler = async (m, conn, map) => {
 
 		// gk tw
 		conn.sendMessage = async (jid, content, options = { isTranslate: true }) => {
-                   const cotent = content.caption || content.text || "";
+			const cotent = content.caption || content.text || "";
 			if (options.isTranslate) {
 				const footer = content.footer || false;
 				const customLang = customLanguage.find((x) => x.jid == msg.sender);
@@ -122,7 +123,6 @@ module.exports = handler = async (m, conn, map) => {
 				if (customLang) {
 					if (footer) footer = await rzky.tools.translate(footer, language);
 					translate = await rzky.tools.translate(cotent, language);
-					console.log(translate);
 					if (content.video || content.image) {
 						content.caption = translate || cotent;
 					} else {
@@ -130,7 +130,20 @@ module.exports = handler = async (m, conn, map) => {
 					}
 				}
 			}
-                        content.withTag ? content.mentions = [...cotent.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + "@s.whatsapp.net") : "";
+			content.withTag
+				? (content.mentions = [...cotent.matchAll(/@([0-9]{5,16}|0)/g)].map((v) => v[1] + "@s.whatsapp.net"))
+				: "";
+			content.contextInfo = {
+				externalAdReply: {
+					title: "© " + config.namebot,
+					mediaType: "VIDEO",
+					renderLargerThumbnail: true,
+					showAdAttribution: true,
+					body: config.namebot + " multi-device whatsapp bot using JavaScript and made by " + config.ownername,
+					thumbnail: await conn.getBuffer(config.thumb),
+					sourceUrl: "https://github.com/Rizky878/rzky-multidevice/",
+				},
+			};
 			const contentMsg = await Baileys.generateWAMessageContent(content, { upload: conn.waUploadToServer });
 			const fromContent = await Baileys.generateWAMessageFromContent(jid, contentMsg, options);
 			fromContent.key.id = "RZKY" + require("crypto").randomBytes(13).toString("hex").toUpperCase();
