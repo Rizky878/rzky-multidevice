@@ -169,6 +169,33 @@ const connect = async () => {
 		}
 	});
 
+// thumbnail
+if (!fs.existsSync('./src') || !fs.existsSync('./src/rzky-md.jpg') ) {
+  fs.mkdir('./src', async function (err) {
+    if (err) {
+        if(!fs.existsSync('./src/rzky-md.jpg')) {
+           fs.writeFile("./src/rzky-md.jpg", (await require('axios')(config.thumb)).data, function(err) {
+            if (err) {
+                console.log(color("[INFO]", "yellow"),'error writing file', err);
+            } else {
+                console.log(color("[INFO]", "yellow"),'writing thumbnail succeeded');
+            }
+        });
+        }
+       fs.existsSync('./src/rzky-md.jpg') ? console.log(color("[INFO]", "yellow"), 'failed to create directory', err) : "";
+    } else {
+        console.log(color("[INFO]", "yellow"), `Succes create a "src" file`)
+        fs.writeFile("./src/rzky-md.jpg", (await require('axios')(config.thumb)).data, function(err) {
+            if (err) {
+                console.log(color("[INFO]", "yellow"),'error writing file', err);
+            } else {
+                console.log(color("[INFO]", "yellow"),'writing thumbnail succeeded');
+            }
+        });
+    }
+});
+}
+
 	// messages.upsert
 	conn.ev.on("messages.upsert", async (m) => {
 		handler(m, conn, attribute);
