@@ -5,6 +5,7 @@ const {
 	useSingleFileAuthState,
 	DisconnectReason,
 } = require("@adiwajshing/baileys");
+
 const log = (pino = require("pino"));
 const attribute = {};
 const fs = require("fs");
@@ -17,16 +18,18 @@ const utils = require("./utils");
 const { self } = require("./config.json");
 const { state, saveState } = useSingleFileAuthState(path.join(__dirname, `./${session}`), log({ level: "silent" }));
 attribute.prefix = "#";
+
+// command
 attribute.command = new Map();
 
-// Database game
+// database game
 attribute.tebakbendera = new Map();
 
-// Self
-attribute.isSelf = self;
+// lock cmd (not released yet)
+attribute.lockcmd = new Map();
 
-// Lock cmd
-attribute.lockcmd = new Map()
+// self
+attribute.isSelf = self;
 
 // store
 global.store = makeInMemoryStore({ logger: pino().child({ level: "silent", stream: "store" }) });
@@ -57,7 +60,6 @@ const ReadFitur = () => {
 				isLimitGame: false,
 				isSpam: false,
 				noPrefix: false,
-				isPremium: false,
 				isMedia: {
 					isQVideo: false,
 					isQAudio: false,
@@ -65,6 +67,7 @@ const ReadFitur = () => {
 					isQSticker: false,
 					isQDocument: false,
 				},
+				isPremium: false,
 				isUrl: false,
 				run: () => {},
 			};
@@ -169,32 +172,34 @@ const connect = async () => {
 		}
 	});
 
-// thumbnail
-if (!fs.existsSync('./src') || !fs.existsSync('./src/rzky-md.jpg') ) {
-  fs.mkdir('./src', async function (err) {
-    if (err) {
-        if(!fs.existsSync('./src/rzky-md.jpg')) {
-           fs.writeFile("./src/rzky-md.jpg", (await require('axios')(config.thumb)).data, function(err) {
-            if (err) {
-                console.log(color("[INFO]", "yellow"),'error writing file', err);
-            } else {
-                console.log(color("[INFO]", "yellow"),'writing thumbnail succeeded');
-            }
-        });
-        }
-       fs.existsSync('./src/rzky-md.jpg') ? console.log(color("[INFO]", "yellow"), 'failed to create directory', err) : "";
-    } else {
-        console.log(color("[INFO]", "yellow"), `Succes create a "src" file`)
-        fs.writeFile("./src/rzky-md.jpg", (await require('axios')(config.thumb)).data, function(err) {
-            if (err) {
-                console.log(color("[INFO]", "yellow"),'error writing file', err);
-            } else {
-                console.log(color("[INFO]", "yellow"),'writing thumbnail succeeded');
-            }
-        });
-    }
-});
-}
+	// I don't know what's the point hehe
+	if (!fs.existsSync("./src") || !fs.existsSync("./src/rzky-md.jpg")) {
+		fs.mkdir("./src", async function (err) {
+			if (err) {
+				if (!fs.existsSync("./src/rzky-md.jpg")) {
+					fs.writeFile("./src/rzky-md.jpg", (await require("axios")(config.thumb)).data, function (err) {
+						if (err) {
+							console.log(color("[INFO]", "yellow"), "error writing file", err);
+						} else {
+							console.log(color("[INFO]", "yellow"), "writing thumbnail succeeded");
+						}
+					});
+				}
+				fs.existsSync("./src/rzky-md.jpg")
+					? console.log(color("[INFO]", "yellow"), "failed to create directory", err)
+					: "";
+			} else {
+				console.log(color("[INFO]", "yellow"), `Succes create a "src" file`);
+				fs.writeFile("./src/rzky-md.jpg", (await require("axios")(config.thumb)).data, function (err) {
+					if (err) {
+						console.log(color("[INFO]", "yellow"), "error writing file", err);
+					} else {
+						console.log(color("[INFO]", "yellow"), "writing thumbnail succeeded");
+					}
+				});
+			}
+		});
+	}
 
 	// messages.upsert
 	conn.ev.on("messages.upsert", async (m) => {
@@ -203,10 +208,6 @@ if (!fs.existsSync('./src') || !fs.existsSync('./src/rzky-md.jpg') ) {
 };
 connect();
 
-// Auto Update
-global.reloadFile(__dirname);
-
-// Detect Error'
 process.on("uncaughtException", function (err) {
 	console.error(err);
 });
