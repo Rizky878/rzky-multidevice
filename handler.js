@@ -114,7 +114,7 @@ module.exports = handler = async (m, conn, map) => {
 		};
 
 		// gk tw
-		conn.sendMessage = async (jid, content, options = { isTranslate: true }) => {
+			conn.sendMessage = async (jid, content, options = { isTranslate: true }) => {
 			const cotent = content.caption || content.text || "";
 			if (options.isTranslate) {
 				const footer = content.footer || false;
@@ -133,17 +133,22 @@ module.exports = handler = async (m, conn, map) => {
 			content.withTag
 				? (content.mentions = [...cotent.matchAll(/@([0-9]{5,16}|0)/g)].map((v) => v[1] + "@s.whatsapp.net"))
 				: "";
-			content.contextInfo = {
-				externalAdReply: {
-					title: "© " + config.namebot,
-					mediaType: "VIDEO",
-					renderLargerThumbnail: true,
-					showAdAttribution: true,
-					body: config.namebot + " multi-device whatsapp bot using JavaScript and made by " + config.ownername,
-					thumbnail: await conn.getBuffer(config.thumb),
-					sourceUrl: "https://github.com/Rizky878/rzky-multidevice/",
-				},
-			};
+			options.adReply
+				? (content.contextInfo = {
+						externalAdReply: {
+							title: "© " + config.namebot,
+							mediaType: "VIDEO",
+							renderLargerThumbnail: true,
+							showAdAttribution: true,
+							body:
+								config.namebot +
+								" multi-device whatsapp bot using JavaScript and made by " +
+								config.ownername,
+							thumbnail: await conn.getBuffer(config.thumb),
+							sourceUrl: "https://github.com/Rizky878/rzky-multidevice/",
+						},
+				  })
+				: "";
 			const contentMsg = await Baileys.generateWAMessageContent(content, { upload: conn.waUploadToServer });
 			const fromContent = await Baileys.generateWAMessageFromContent(jid, contentMsg, options);
 			fromContent.key.id = "RZKY" + require("crypto").randomBytes(13).toString("hex").toUpperCase();
