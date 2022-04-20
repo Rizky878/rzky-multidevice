@@ -114,8 +114,8 @@ module.exports = handler = async (m, conn, map) => {
 
 		// gk tw
 		conn.sendMessage = async (jid, content, options = { isTranslate: true }) => {
+                   const cotent = content.caption || content.text || "";
 			if (options.isTranslate) {
-				const cotent = content.caption || content.text || "";
 				const footer = content.footer || false;
 				const customLang = customLanguage.find((x) => x.jid == msg.sender);
 				const language = customLang ? customLang.country : false;
@@ -130,6 +130,7 @@ module.exports = handler = async (m, conn, map) => {
 					}
 				}
 			}
+                        content.withTag ? content.mentions = [...cotent.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + "@s.whatsapp.net") : "";
 			const contentMsg = await Baileys.generateWAMessageContent(content, { upload: conn.waUploadToServer });
 			const fromContent = await Baileys.generateWAMessageFromContent(jid, contentMsg, options);
 			fromContent.key.id = "RZKY" + require("crypto").randomBytes(13).toString("hex").toUpperCase();
