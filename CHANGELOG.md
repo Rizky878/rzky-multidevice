@@ -9,3 +9,5 @@
    > Added fiture set language all text and no need to customize it anymore
 * [fec99f6](https://github.com/Rizky878/rzky-multidevice/commit/fb15e648ca5b50a9f4bc6d7ca32388d2517220c5)
    > Add contextInfo externalAdReply
+* [cb27333](https://github.com/Rizky878/rzky-multidevice/commit/5edea8d86e8f23ee40e5a224837d3dde5780db43)
+   > Add lock command dan unlock command
