@@ -7,3 +7,5 @@
    > Fixed error "cannot of undefined" if it happens again please report
 * [cd990d1](https://github.com/Rizky878/rzky-multidevice/commit/1b1e33b29b47b8b6302bdd2866638204ef13cd0d)<br> 
    > Added fiture set language all text and no need to customize it anymore
+* [fec99f6](https://github.com/Rizky878/rzky-multidevice/commit/fb15e648ca5b50a9f4bc6d7ca32388d2517220c5)
+   > Add contextInfo externalAdReply
