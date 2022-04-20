@@ -13,5 +13,5 @@
    > Add contextInfo externalAdReply
 * [cb27333](https://github.com/Rizky878/rzky-multidevice/commit/5edea8d86e8f23ee40e5a224837d3dde5780db43)
    > Add lock command dan unlock command
-* [](https://github.com/Rizky878/rzky-multidevice/commit/6d08e083f935c20fc5f1949ae263eb11cce13f3e)
+* [5edea8d](https://github.com/Rizky878/rzky-multidevice/commit/6d08e083f935c20fc5f1949ae263eb11cce13f3e)
    > Add options adReply, isTranslate, and withTag, the following options use **Boolean**,<br>Example: conn.sendMessage(msg.from,{ text: "Hallo" }, { adReply: true })<br>&<br>msg.reply("Hallo", { adReply: true })
