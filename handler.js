@@ -259,12 +259,12 @@ module.exports = handler = async (m, conn, map) => {
 			);
 		}
 		if (options.isLimit && !isPremium) {
-			if (isLimit(msg.sender, isPremium, isOwner, limitCount, limit))
+			if (isLimit(msg.sender, isPremium, isOwner, limitCount, limit) && !msg.isSelf)
 				return msg.reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`);
 			limitAdd(msg.sender, limit);
 		}
 		if (options.isLimitGame) {
-			if (isGame(msg.sender, isOwner, gcount, glimit)) return msg.reply(`Limit game kamu sudah habis`);
+			if (isGame(msg.sender, isOwner, gcount, glimit) && !msg.isSelf) return msg.reply(`Limit game kamu sudah habis`);
 			gameAdd(msg.sender, glimit);
 		}
 		if (options.isAdmin && !isAdmin) {
