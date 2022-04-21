@@ -56,8 +56,8 @@ module.exports = {
 											.map((a) => (a ? `*▸ ${cmd.options.noPrefix ? "" : "#"}${a}*` : ""))
 											.join("\n")
 									: ""
-							}\n*Example:* _${cmd.options.noPrefix ? "" : "#"}${cmd.name} ${
-								cmd.category == "private" ? "" : cmd.use ? cmd.use : ""
+							}\n*Example:* _${cmd.options.noPrefix ? "" : "#"}${cmd.name}${
+								cmd.category == "private" ? "" : cmd.use ? " "+cmd.use : ""
 							}_`
 					)
 					.join("\n\n")}\n\n`;
