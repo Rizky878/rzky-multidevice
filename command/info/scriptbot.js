@@ -9,7 +9,7 @@ module.exports = {
 			{
 				image: { url: config.thumb },
 				footer: config.namebot,
-                                // Gausah di ubah kontol najis modal copas sana sini ubah source cih
+				// Gausah di ubah kontol najis modal copas sana sini ubah source cih
 				caption: `Script Bot Is here\ndon't forget fork + star XD`,
 				templateButtons: [
 					{ urlButton: { displayText: "Script Bot", url: "https://github.com/Rizky878/rzky-multidevice/" } },

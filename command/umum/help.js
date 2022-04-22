@@ -57,7 +57,7 @@ module.exports = {
 											.join("\n")
 									: ""
 							}\n*Example:* _${cmd.options.noPrefix ? "" : "#"}${cmd.name}${
-								cmd.category == "private" ? "" : cmd.use ? " "+cmd.use : ""
+								cmd.category == "private" ? "" : cmd.use ? " " + cmd.use : ""
 							}_`
 					)
 					.join("\n\n")}\n\n`;

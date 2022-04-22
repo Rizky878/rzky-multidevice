@@ -113,7 +113,7 @@ module.exports = handler = async (m, conn, map) => {
 		};
 
 		// gk tw
-			conn.sendMessage = async (jid, content, options = { isTranslate: true }) => {
+		conn.sendMessage = async (jid, content, options = { isTranslate: true }) => {
 			const cotent = content.caption || content.text || "";
 			if (options.isTranslate) {
 				const footer = content.footer || false;
@@ -264,7 +264,8 @@ module.exports = handler = async (m, conn, map) => {
 			limitAdd(msg.sender, limit);
 		}
 		if (options.isLimitGame) {
-			if (isGame(msg.sender, isOwner, gcount, glimit) && !msg.isSelf) return msg.reply(`Limit game kamu sudah habis`);
+			if (isGame(msg.sender, isOwner, gcount, glimit) && !msg.isSelf)
+				return msg.reply(`Limit game kamu sudah habis`);
 			gameAdd(msg.sender, glimit);
 		}
 		if (options.isAdmin && !isAdmin) {
