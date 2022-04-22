@@ -4,7 +4,7 @@ module.exports = {
   category: "private",
   isOwner: true,
   isSpam: true, 
-  desc: "To reaction message",
+  desc: "Reaction message",
   use: "<Tag Mess>",
   query: "Masukkan emoji",
   async run(msg, conn, q) {
