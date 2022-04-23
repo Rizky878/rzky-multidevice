@@ -3,6 +3,7 @@ const {
 	makeInMemoryStore,
 	default: Baileys,
 	useSingleFileAuthState,
+jidDecode,
 	DisconnectReason,
 } = require("@adiwajshing/baileys");
 
@@ -108,6 +109,13 @@ const connect = async () => {
 		version,
 	});
 
+const decodeJid = (jid) => {
+		if (/:\d+@/gi.test(jid)) {
+			const decode = jidDecode(jid) || {};
+			return ((decode.user && decode.server && decode.user + "@" + decode.server) || jid).trim();
+		} else return jid.trim();
+	};
+
 	store.bind(conn.ev);
 
 	conn.ev.on("creds.update", saveState);
@@ -167,7 +175,7 @@ const connect = async () => {
 	//contact update
 	conn.ev.on("contacts.update", (m) => {
 		for (let kontak of m) {
-			let jid = conn.decodeJid(kontak.id);
+			let jid = decodeJid(kontak.id);
 			if (store && store.contacts) store.contacts[jid] = { jid, name: kontak.notify };
 		}
 	});
