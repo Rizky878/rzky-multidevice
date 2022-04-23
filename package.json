@@ -10,7 +10,7 @@
     "format": "prettier --write '**/*.{js,json}'"
   },
   "dependencies": {
-    "@adiwajshing/baileys": "github:adiwajshing/Baileys",
+    "@adiwajshing/baileys": "4.1.0",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@vitalets/google-translate-api": "^7.0.0",
     "assert": "^2.0.0",
