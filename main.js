@@ -3,7 +3,7 @@ const {
 	makeInMemoryStore,
 	default: Baileys,
 	useSingleFileAuthState,
-jidDecode,
+	jidDecode,
 	DisconnectReason,
 } = require("@adiwajshing/baileys");
 
@@ -109,7 +109,7 @@ const connect = async () => {
 		version,
 	});
 
-const decodeJid = (jid) => {
+	const decodeJid = (jid) => {
 		if (/:\d+@/gi.test(jid)) {
 			const decode = jidDecode(jid) || {};
 			return ((decode.user && decode.server && decode.user + "@" + decode.server) || jid).trim();
