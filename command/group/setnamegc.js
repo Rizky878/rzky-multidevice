@@ -6,10 +6,10 @@ module.exports = {
 	use: "setname + query",
 	query: "Masukkan teks",
 	isGroup: true,
-	isAdmin: true, 
+	isAdmin: true,
 	isBotAdmin: true,
 	async run(msg, conn, q) {
-		await conn.groupUpdateSubject(msg.from, q)
-		await msg.reply('Success change name group') 
-}
-}
+		await conn.groupUpdateSubject(msg.from, q);
+		await msg.reply("Success change name group");
+	},
+};
