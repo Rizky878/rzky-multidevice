@@ -10,6 +10,6 @@ module.exports = {
 	isBotAdmin: true,
 	async run(msg, conn, q) {
 		await conn.groupUpdateSubject(msg.from, q)
-		await msg.reply('rill') 
+		await msg.reply('Success change name group') 
 }
 }
