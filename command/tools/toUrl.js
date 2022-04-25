@@ -34,6 +34,7 @@ module.exports = {
 		isQAudio: true,
 		isQDocument: true,
 		isQSticker: true,
+isQImage: true,
 	},
 	category: "tools",
 	isSpam: true,
