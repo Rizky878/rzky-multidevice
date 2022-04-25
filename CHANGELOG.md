@@ -15,3 +15,8 @@
    > Add lock command dan unlock command
 * [5edea8d](https://github.com/Rizky878/rzky-multidevice/commit/6d08e083f935c20fc5f1949ae263eb11cce13f3e)
    > Add options adReply, isTranslate, and withTag, the following options use **Boolean**,<br>Example: conn.sendMessage(msg.from,{ text: "Hallo" }, { adReply: true })<br>&<br>msg.reply("Hallo", { adReply: true })
+* [1f9650d](https://github.com/Rizky878/rzky-multidevice/commit/9b64ac0684c8271b043fc2c984024139cebf371e)
+   > Add fiture tourl
+
+
+***pull request feature in [here](https://github.com/Rizky878/rzky-multidevice/pulls), how to pull request: fork this repo, after you finish adding features, click the contribute and pull request button***
