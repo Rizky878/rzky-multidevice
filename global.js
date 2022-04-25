@@ -10,6 +10,8 @@ const rzkyClient = require("rzkyfdlh-api");
 global.rzky = new rzkyClient("237991cy34fq2ct245fr2ojoqoset92ooua71r49i121x6b21k");
 global.response = require("./lib/response.json");
 global.config = require("./config.json");
+const Database = require('./lib/Database')
+global.db = new Database()
 
 function nocache(module, cb = () => {}) {
     fs.watchFile(require.resolve(module), async () => {
