@@ -251,15 +251,15 @@ module.exports = handler = async (m, conn, map) => {
 		}
 		if (cmd) {
 			if (!cmd.category == "private") {
-			let comand = dashboard.find((command) => command.name == cmd.name);
-			if (comand) {
-				comand.success += 1;
-				comand.lastUpdate = Date.now();
-				fs.writeFileSync("./database/dashboard.json", JSON.stringify(dashboard));
-			} else {
-				await db.modified("dashboard", { name: cmd.name, success: 1, failed: 0, lastUpdate: Date.now() });
+				let comand = dashboard.find((command) => command.name == cmd.name);
+				if (comand) {
+					comand.success += 1;
+					comand.lastUpdate = Date.now();
+					fs.writeFileSync("./database/dashboard.json", JSON.stringify(dashboard));
+				} else {
+					await db.modified("dashboard", { name: cmd.name, success: 1, failed: 0, lastUpdate: Date.now() });
+				}
 			}
-}
 		}
 		if (options.isPremium && !isPremium) {
 			await conn.sendMessage(msg.from, { text: response.OnlyPrem }, { quoted: msg });
