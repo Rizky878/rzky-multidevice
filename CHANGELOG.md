@@ -19,5 +19,6 @@
    > Add fiture tourl
 
 <p>
-**pull request feature in [here](https://github.com/Rizky878/rzky-multidevice/pulls),<br>how to pull request: fork this repo, after you finish adding features, click the contribute and pull request button**
+<hr>
+<b>pull request feature in [here](https://github.com/Rizky878/rzky-multidevice/pulls),<br>how to pull request: fork this repo, after you finish adding features, click the contribute and pull request button</b>
 </p>
