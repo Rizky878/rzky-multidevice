@@ -22,7 +22,7 @@
 
 Options pada command, yang akan mempermudah kamu untuk membuat/menambahkan fitur<br />
 ```js
-{
+module.exports = {
    name: <String>, // Ex: "menu"
    alias: <Array>, // Ex: ["cmd","help"]
    desc: <String>, // Ex: "Menu adalah command"
