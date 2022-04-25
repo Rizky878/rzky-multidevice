@@ -16,6 +16,7 @@ function printSpam(isGc, sender, groupName) {
 		return console.log(color("[SPAM]", "red"), color(sender.split("@")[0], "lime"));
 	}
 }
+
 function printLog(isCmd, sender, msg, body, groupName, isGc) {
 	addBalance(msg.sender, Math.floor(Math.random() * 20), balance);
 	if (isCmd && isGc) {
@@ -56,6 +57,7 @@ module.exports = handler = async (m, conn, map) => {
 			return;
 
 		let { body, type } = msg;
+    global.dashboard = JSON.parse(fs.readFileSync("./database/dashboard.json"))
 		global.customLanguage = JSON.parse(fs.readFileSync("./database/language.json"));
 		const { isGroup, sender, from } = msg;
 		const groupMetadata = isGroup ? await conn.groupMetadata(from) : "";
@@ -235,6 +237,7 @@ module.exports = handler = async (m, conn, map) => {
 				}
 			}
 		}
+		
 		setTimeout(() => timestamps.delete(from), cdAmount);
 		const options = cmd.options;
 		if (options.noPrefix) {
@@ -245,6 +248,16 @@ module.exports = handler = async (m, conn, map) => {
 		}
 		if (options.isSpam) {
 			timestamps.set(from, now);
+		}
+		if (cmd) {
+		  let comand = dashboard.find(command => command.name == cmd.name)
+		  if(comand) {
+		    comand.success += 1
+		    comand.lastUpdate = Date.now()
+		    fs.writeFileSync("./database/dashboard.json", JSON.stringify(dashboard))
+		  } else {
+		    await db.modified("dashboard", { name: cmd.name, success: 1, failed: 0, lastUpdate: Date.now()})
+		  }
 		}
 		if (options.isPremium && !isPremium) {
 			await conn.sendMessage(msg.from, { text: response.OnlyPrem }, { quoted: msg });
@@ -264,7 +277,7 @@ module.exports = handler = async (m, conn, map) => {
 			limitAdd(msg.sender, limit);
 		}
 		if (options.isLimitGame) {
-			if (isGame(msg.sender, isOwner, gcount, glimit) && !msg.isSelf)
+			if (isGame(msg.sender, isOwner, gcount, glimit) && !msg.iSelf)
 				return msg.reply(`Limit game kamu sudah habis`);
 			gameAdd(msg.sender, glimit);
 		}
@@ -319,6 +332,11 @@ module.exports = handler = async (m, conn, map) => {
 		try {
 			await cmd.run(msg, conn, q, map, args, arg);
 		} catch (e) {
+     let fail = dashboard.find(command => command.name == cmd.name)
+     fail.failed += 1
+     fail.success -= 1
+     fail.lastUpdate = Date.now()
+     fs.writeFileSync("./database/dashboard.json", JSON.stringify(dashboard))
 			await msg.reply(require("util").format(e), { isTranslate: false });
 		}
 	} catch (e) {
