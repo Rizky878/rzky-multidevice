@@ -6,7 +6,7 @@ module.exports = {
 	isSpam: true,
 	desc: "Reaction message",
 	use: "<Tag Mess>",
-        isQuoted: true,
+	isQuoted: true,
 	query: "Masukkan emoji",
 	async run(msg, conn, q) {
 		const reactionMessage = {
