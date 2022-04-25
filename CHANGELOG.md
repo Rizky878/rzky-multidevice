@@ -18,5 +18,6 @@
 * [1f9650d](https://github.com/Rizky878/rzky-multidevice/commit/9b64ac0684c8271b043fc2c984024139cebf371e)
    > Add fiture tourl
 
-
+<p>
 **pull request feature in [here](https://github.com/Rizky878/rzky-multidevice/pulls),<br>how to pull request: fork this repo, after you finish adding features, click the contribute and pull request button**
+</p>
