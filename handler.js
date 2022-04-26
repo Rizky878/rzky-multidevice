@@ -250,7 +250,7 @@ module.exports = handler = async (m, conn, map) => {
 			timestamps.set(from, now);
 		}
 		if (cmd && cmd.category != "private") {
-   let comaand = dashboard.find((command) => command.name == cmd.name)
+			let comaand = dashboard.find((command) => command.name == cmd.name);
 			if (comaand) {
 				comaand.success += 1;
 				comaand.lastUpdate = Date.now();
