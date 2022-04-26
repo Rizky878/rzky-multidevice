@@ -7,7 +7,7 @@
   "author": "RizkyFadilah",
   "scripts": {
     "start": "node .",
-    "format": "prettier --write '**/*.{js,json}'"
+    "format": "prettier --write '**/*.{md,js,json}'"
   },
   "dependencies": {
     "@adiwajshing/baileys": "4.1.0",
