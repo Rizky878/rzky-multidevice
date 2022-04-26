@@ -16,11 +16,10 @@
 </div><br />
 <br />
 
-
-
 ## Options
 
 Options pada command, yang akan mempermudah kamu untuk membuat/menambahkan fitur<br />
+
 ```js
 module.exports = {
    name: <String>, // Ex: "menu"
@@ -41,7 +40,7 @@ module.exports = {
    isLimitGame: <Boolean>, // Ex: false
    noPrefix: <Boolean>, // Ex: true
    isPremium: <Boolean>, // Ex: false
-   isMedia: { 
+   isMedia: {
       isQVideo: <Boolean>, // Ex: false
       isQAudio: <Boolean>, // Ex: false
       isQImage: <Boolean>, // Ex: false
@@ -55,6 +54,7 @@ module.exports = {
 ## Contoh Options
 
 Contoh Command : [`./command/umum/help.js`](https://github.com/Rizky878/rzky-multidevice/blob/main/command/umum/help.js)<br />
+
 ```js
 {
   name: "help",
@@ -67,15 +67,17 @@ Contoh Command : [`./command/umum/help.js`](https://github.com/Rizky878/rzky-mul
 
 ## Highlights
 
-- [x] Simple Penggunaan,
-- [x] Mudah digunakan,
-- [x] Mudah untuk dirawat/diperbaiki,
-- [x] Dan ringan
+-   [x] Simple Penggunaan,
+-   [x] Mudah digunakan,
+-   [x] Mudah untuk dirawat/diperbaiki,
+-   [x] Dan ringan
 
 ## Config
+
 Isi semua yang dibutuhkan di file [`config.json`](https://github.com/Rizky878/rzky-multidevice/blob/main/config.json)<br />
 
 ## Request atau report bug
+
 Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/6282387804410)
 
 ## Instalasi On Termux
@@ -98,13 +100,15 @@ Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/628
 ## Instalasi
 
 ### Dibutuhkan
+
 1. [Nodejs](https://nodejs.org/en/download) 16x/17x
 2. [FFmpeg](https://ffmpeg.org)
 3. [libWebP](https://developers.google.com/speed/webp/download)
 
 ### Install Ffmpeg
-- Untuk pengguna Windows, kamu bisa lihat tutorial disini [WikiHow](https://www.wikihow.com/Install-Ffmpeg-on-Windows)<br />
-- Untuk pengguna Linux, kamu bisa pakai manager paket kamu sendiri. Contohnya;
+
+-   Untuk pengguna Windows, kamu bisa lihat tutorial disini [WikiHow](https://www.wikihow.com/Install-Ffmpeg-on-Windows)<br />
+-   Untuk pengguna Linux, kamu bisa pakai manager paket kamu sendiri. Contohnya;
 
 ```bash
 # apt (Ubuntu)
@@ -115,7 +119,9 @@ pacman -S ffmpeg
 ```
 
 ### Install libWebP
-- Untuk pengguna Windows,
+
+-   Untuk pengguna Windows,
+
 1. Unduh libWebP untuk Windows dari [sini](https://developers.google.com/speed/webp/download)
 2. Ekstrak ke C:\
 3. Ganti nama folder yang diekstrak ke `libwebp`
@@ -124,12 +130,15 @@ pacman -S ffmpeg
 ```cmd
 setx /m PATH "C:\libwebp\bin;%PATH%"
 ```
+
 > Bila sukses terinstal dengan baik, silahkan check dengan perintah berikut di Command Prompt
+
 ```cmd
 webpmux -version
 ```
 
-- Untuk pengguna Linux, kamu bisa pakai manager paket kamu. Contohnya;
+-   Untuk pengguna Linux, kamu bisa pakai manager paket kamu. Contohnya;
+
 ```bash
 # apt (Ubuntu)
 apt install libwebp-dev -y
@@ -139,6 +148,7 @@ pacman -S libwebp
 ```
 
 ### Clone Repo
+
 ```bash
 # clone repo
 git clone https://github.com/Rizky878/rzky-multidevice
@@ -159,6 +169,7 @@ npm run build:tsc
 ```
 
 ### Start Bot
+
 Start and Scan QR<br />
 
 ```bash
@@ -167,6 +178,6 @@ npm start
 
 # Thanks To
 
-* [`Faiz Bastomi`](https://github.com/FaizBastomi)
-* [`Dehante`](https://github.com/Dehanjing)
-* [`RzkyFdlh`](https://github.com/Rizky878)
+-   [`Faiz Bastomi`](https://github.com/FaizBastomi)
+-   [`Dehante`](https://github.com/Dehanjing)
+-   [`RzkyFdlh`](https://github.com/Rizky878)
