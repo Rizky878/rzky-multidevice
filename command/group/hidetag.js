@@ -3,7 +3,6 @@ module.exports = {
 	alias: ["ht"],
 	category: "group",
 	isAdmin: true,
-	isBotAdmin: true,
 	isGroup: true,
 	desc: "Buat ngasih informasi / bikin 1 gc kesel :v",
 	use: "<text>",
