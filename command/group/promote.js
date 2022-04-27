@@ -8,9 +8,9 @@ module.exports = {
 	isBotAdmin: true,
 	isAdmin: true,
 	async run(msg, conn) {
-		if (msg.message.extendedTextMessage === undefined || msg.message.extendedTextMessage === null)
+		if (!msg.quoted && msg.mentions[0])
 			return msg.reply("Tag member!");
-		const mm = msg.quoted.sender;
+		const mm = msg.quoted ? msg.mentions : [msg.quoted.sender];
 		for (let i of mm) await conn.groupParticipantsUpdate(msg.from, [i], "promote");
 		await msg.reply("Suksess");
 	},
