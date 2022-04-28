@@ -258,8 +258,8 @@ const connect = async () => {
 	conn.ev.on("messages.upsert", async (m) => {
 		const msg = m.messages[0];
 		const type = msg.message ? Object.keys(msg.message)[0] : "";
-                let dataCek = db.cekDatabase("antidelete", "id", msg.key.remoteJid)
-		if(dataCek) conn.addMessage(msg, type);
+		let dataCek = db.cekDatabase("antidelete", "id", msg.key.remoteJid);
+		if (dataCek) conn.addMessage(msg, type);
 		if (msg && type == "protocolMessage") conn.ev.emit("message.delete", msg.message.protocolMessage.key);
 		handler(m, conn, attribute);
 	});
