@@ -37,7 +37,7 @@ module.exports = {
 	wait: true,
 	query: "Enter Emoji\nExample: #emojimix 😅+😅",
 	isSpam: true,
-	async run(msg, conn, q, map, args) {
+	async run({ msg, conn }, { q, map, args }) {
 		try {
 			const [teks1, teks2, teks3] = q;
 			if (!isEmoji(teks1) && !isEmoji(teks3)) throw "Enter Emojis Correctly";

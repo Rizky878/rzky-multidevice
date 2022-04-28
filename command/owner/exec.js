@@ -8,7 +8,7 @@ module.exports = {
 	category: "private",
 	noPrefix: true,
 	isOwner: true,
-	async run(msg, conn, q) {
+	async run({ msg, conn }, { q }) {
 		await msg.reply("Executing...");
 		let o;
 		try {

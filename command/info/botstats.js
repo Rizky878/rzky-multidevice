@@ -14,7 +14,7 @@ module.exports = {
 	desc: "Bot status",
 	isSpam: true,
 	wait: true,
-	async run(msg) {
+	async run({ msg }) {
 		let text = "";
 		text += `HOST:\n- Arch: ${os.arch()}\n- CPU: ${os.cpus()[0].model}${
 			os.cpus().length > 1 ? " (" + os.cpus().length + "x)" : ""

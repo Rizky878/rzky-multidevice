@@ -7,7 +7,7 @@ module.exports = {
 	isOwner: true,
 	query: "Penggunaan :\n*#addprem* @tag waktu\n*#addprem* nomor waktu\n\nContoh : #addprem @tag 30d",
 	use: "@tag 30d",
-	async run(msg, conn, q, map, args) {
+	async run({ msg, conn }, { q, map, args }) {
 		if (args.length < 2)
 			return msg.reply(
 				`Penggunaan :\n*#addprem* @tag waktu\n*#addprem* nomor waktu\n\nContoh : #addprem @tag 30d`

@@ -6,7 +6,7 @@ const filetype = require("file-type");
 //end module
 
 //function upload file
-const uploadFile = (path) =>
+const uploadFile = path =>
 	new Promise((resolve, reject) => {
 		const fd = new FormData();
 		fd.append("file", fs.createReadStream(path));
@@ -40,7 +40,7 @@ module.exports = {
 	isSpam: true,
 	isLimit: true,
 	wait: true,
-	async run(msg, conn, q) {
+	async run({ msg, conn }, { q }) {
 		let type = await filetype.fromBuffer(await msg.quoted.download());
 		let filename = `./temp/${Date.now()}.${type.ext}`;
 		fs.writeFileSync(filename, await msg.quoted.download());

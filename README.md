@@ -101,9 +101,9 @@ Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/628
 
 ### Dibutuhkan
 
-1. [Nodejs](https://nodejs.org/en/download) 16x/17x
-2. [FFmpeg](https://ffmpeg.org)
-3. [libWebP](https://developers.google.com/speed/webp/download)
+1.  [Nodejs](https://nodejs.org/en/download) 16x/17x
+2.  [FFmpeg](https://ffmpeg.org)
+3.  [libWebP](https://developers.google.com/speed/webp/download)
 
 ### Install Ffmpeg
 
@@ -122,10 +122,10 @@ pacman -S ffmpeg
 
 -   Untuk pengguna Windows,
 
-1. Unduh libWebP untuk Windows dari [sini](https://developers.google.com/speed/webp/download)
-2. Ekstrak ke C:\
-3. Ganti nama folder yang diekstrak ke `libwebp`
-4. Buka PowerShell dan jalankan perintah berikut;
+1.  Unduh libWebP untuk Windows dari [sini](https://developers.google.com/speed/webp/download)
+2.  Ekstrak ke C:\
+3.  Ganti nama folder yang diekstrak ke `libwebp`
+4.  Buka PowerShell dan jalankan perintah berikut;
 
 ```cmd
 setx /m PATH "C:\libwebp\bin;%PATH%"

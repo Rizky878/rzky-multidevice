@@ -17,7 +17,7 @@ module.exports = {
 	],
 	category: "converter",
 	desc: "Create a sticker from image or video",
-	async run(msg, conn) {
+	async run({ msg, conn }) {
 		const { quoted, from, type } = msg;
 
 		const content = JSON.stringify(quoted);
@@ -58,8 +58,8 @@ module.exports = {
 				let ext = /image/.test(quoted.message.documentMessage.mimetype)
 					? { isImage: true }
 					: /video/.test(quoted.message.documentMessage.mimetype)
-					? { isVideo: true }
-					: null;
+						? { isVideo: true }
+						: null;
 				if (!ext) return await msg.reply("Document mimetype unknown");
 				buffer = await quoted.download();
 				stickerBuff = await sticker(buffer, { ...ext, withPackInfo: true, packInfo, cmdType: "1" });

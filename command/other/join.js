@@ -5,10 +5,10 @@ module.exports = {
 	alias: ["joingroup", "invite"],
 	category: "other",
 	desc: "Join to group using invite url.",
-	async run(msg, conn, q) {
+	async run({ msg, conn }, { q }) {
 		// search for invite url
 		const rex1 = /chat.whatsapp.com\/([\w\d]*)/g;
-		const queryInvite = async (code) => {
+		const queryInvite = async code => {
 			const results = await conn.query({
 				tag: "iq",
 				attrs: {

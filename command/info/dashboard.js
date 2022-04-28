@@ -5,12 +5,12 @@ module.exports = {
 	category: "info",
 	isSpam: true,
 	wait: true,
-	async run(msg, conn) {
-		dashboard.sort(function (a, b) {
+	async run({ msg, conn }) {
+		dashboard.sort(function(a, b) {
 			return b.success - a.success;
 		});
-		let success = dashboard.map((a) => a.success);
-		let failed = dashboard.map((a) => a.failed);
+		let success = dashboard.map(a => a.success);
+		let failed = dashboard.map(a => a.failed);
 		let jumlah = require("mathjs").evaluate(success.join("+")) + require("mathjs").evaluate(failed.join("+"));
 		let teks = `*➤ Global HIT*\n\n`;
 		teks += `*➢ HIT*\n`;

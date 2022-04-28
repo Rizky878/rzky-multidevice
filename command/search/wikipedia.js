@@ -7,7 +7,7 @@ module.exports = {
 	use: "<topik>",
 	query: `Masukan sesuatu topik yang ingin dicari`,
 	desc: "Mencari hal hal yang berkaitan di Wikipedia",
-	async run(msg, conn, q, isOwner, body, map, config, args) {
+	async run({ msg, conn }, { q, map, args }) {
 		var wiki = await rzky.search.wiki(q);
 		if (wiki.img == "https://telegra.ph/file/1cde98e7bc902331edc90.png") return msg.reply(`Tidak ditemukan`);
 		var img = wiki.img;

@@ -3,7 +3,7 @@ module.exports = {
 	alias: ["listprem", "listvip"],
 	category: "info",
 	isSpam: true,
-	async run(msg, conn) {
+	async run({ msg, conn }) {
 		let txt = `List Prem\nAmount : ${premium.length}\n\n`;
 		if (premium[0]) {
 			for (let i of premium) {

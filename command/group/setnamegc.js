@@ -8,7 +8,7 @@ module.exports = {
 	isGroup: true,
 	isAdmin: true,
 	isBotAdmin: true,
-	async run(msg, conn, q) {
+	async run({ msg, conn }, { q }) {
 		await conn.groupUpdateSubject(msg.from, q);
 		await msg.reply("Success change name group");
 	},

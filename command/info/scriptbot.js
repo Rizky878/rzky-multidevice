@@ -3,7 +3,7 @@ module.exports = {
 	alias: ["script", "sc", "scbot"],
 	category: "info",
 	isSpam: true,
-	async run(msg, conn, q, map, args) {
+	async run({ msg, conn }, { q, map, args }) {
 		await conn.sendMessage(
 			msg.from,
 			{

@@ -3,7 +3,7 @@ module.exports = {
 	alias: ["randomloli", "lolianime"],
 	category: "random",
 	isSpam: true,
-	async run(msg, conn) {
+	async run({ msg, conn }) {
 		await msg.reply(response.wait);
 		const buttons = [{ buttonId: "#loli", buttonText: { displayText: "Get Again" }, type: 1 }];
 		const buttonMessage = {

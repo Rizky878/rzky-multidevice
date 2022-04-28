@@ -4,7 +4,7 @@ module.exports = {
 	category: "info",
 	desc: "check limit",
 	isSpam: true,
-	async run(msg, conn, q, map) {
+	async run({ msg, conn }, { q, map }) {
 		prefix = map.prefix;
 		if (msg.mentions.length !== 0) {
 			msg.reply(

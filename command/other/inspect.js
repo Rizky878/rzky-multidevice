@@ -8,9 +8,9 @@ module.exports = {
 	query: "No invite url.",
 	wait: true,
 	isSpam: true,
-	async run(msg, conn, q) {
+	async run({ msg, conn }, { q }) {
 		const rex1 = /chat.whatsapp.com\/([\w\d]*)/g;
-		const queryInvite = async (code) => {
+		const queryInvite = async code => {
 			const results = await conn.query({
 				tag: "iq",
 				attrs: {
@@ -41,7 +41,7 @@ module.exports = {
 	},
 };
 
-const extractGroupInviteMetadata = (content) => {
+const extractGroupInviteMetadata = content => {
 	const group = getBinaryNodeChild(content, "group");
 	const descChild = getBinaryNodeChild(group, "description");
 	let desc, descId;

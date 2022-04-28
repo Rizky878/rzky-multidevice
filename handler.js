@@ -8,12 +8,12 @@ const cooldown = new Map();
 const prefix = "#";
 const multi_pref = new RegExp("^[" + "!#%&?/;:,.~-+=".replace(/[|\\{}()[\]^$+*?.\-\^]/g, "\\$&") + "]");
 const owner = config.owner;
-function printSpam(isGc, sender, groupName) {
+function printSpam(conn, isGc, sender, groupName) {
 	if (isGc) {
-		return console.log(color("[SPAM]", "red"), color(sender.split("@")[0], "lime"), "in", color(groupName, "lime"));
+		return conn.logger.warn("Detect SPAM", color(sender.split("@")[0], "lime"), "in", color(groupName, "lime"));
 	}
 	if (!isGc) {
-		return console.log(color("[SPAM]", "red"), color(sender.split("@")[0], "lime"));
+		return conn.logger.warn("Detect SPAM", color(sender.split("@")[0], "lime"));
 	}
 }
 
@@ -21,7 +21,7 @@ function printLog(isCmd, sender, msg, body, groupName, isGc) {
 	addBalance(msg.sender, Math.floor(Math.random() * 20), balance);
 	if (isCmd && isGc) {
 		return console.log(
-			color("[EXEC]", "aqua"),
+			color("[ COMMAND GC ]", "aqua"),
 			color(sender, "lime"),
 			color(body, "aqua"),
 			"in",
@@ -29,7 +29,7 @@ function printLog(isCmd, sender, msg, body, groupName, isGc) {
 		);
 	}
 	if (isCmd && !isGc) {
-		return console.log(color("[EXEC]", "aqua"), color(sender, "lime"), color(body, "aqua"));
+		return console.log(color("[ COMMAND PC ]", "aqua"), color(sender, "lime"), color(body, "aqua"));
 	}
 }
 module.exports = handler = async (m, conn, map) => {
@@ -75,7 +75,10 @@ module.exports = handler = async (m, conn, map) => {
 		}
 
 		const arg = body.substring(body.indexOf(" ") + 1);
-		const args = body.trim().split(/ +/).slice(1);
+		const args = body
+			.trim()
+			.split(/ +/)
+			.slice(1);
 		const comand = body.trim().split(/ +/)[0];
 		q = args.join(" ");
 		const isCmd = body.startsWith(temp_pref);
@@ -92,8 +95,8 @@ module.exports = handler = async (m, conn, map) => {
 		const isQSticker = type === "extendedTextMessage" && contentQ.includes("stickerMessage");
 		const isQLocation = type === "extendedTextMessage" && contentQ.includes("locationMessage");
 		global.isPremium = prem.checkPremiumUser(msg.sender, premium);
-		global.gcount = isPremium ? 30 : 10;
-		global.limitCount = 30;
+		global.gcount = isPremium ? config.limit.gameLimitPremium : config.limit.gameLimitUser;
+		global.limitCount = config.limit.limitUser;
 		const Media = (media = {}) => {
 			list = [];
 			if (media.isQAudio) {
@@ -119,7 +122,7 @@ module.exports = handler = async (m, conn, map) => {
 			const cotent = content.caption || content.text || "";
 			if (options.isTranslate) {
 				const footer = content.footer || false;
-				const customLang = customLanguage.find((x) => x.jid == msg.sender);
+				const customLang = customLanguage.find(x => x.jid == msg.sender);
 				const language = customLang ? customLang.country : false;
 				if (customLang) {
 					if (footer) footer = await rzky.tools.translate(footer, language);
@@ -132,13 +135,13 @@ module.exports = handler = async (m, conn, map) => {
 				}
 			}
 			content.withTag
-				? (content.mentions = [...cotent.matchAll(/@([0-9]{5,16}|0)/g)].map((v) => v[1] + "@s.whatsapp.net"))
+				? (content.mentions = [...cotent.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + "@s.whatsapp.net"))
 				: "";
 			options.adReply
 				? (content.contextInfo = {
 						externalAdReply: {
 							title: "© " + config.namebot,
-							mediaType: "VIDEO",
+							mediaType: 3,
 							renderLargerThumbnail: true,
 							showAdAttribution: true,
 							body:
@@ -152,7 +155,12 @@ module.exports = handler = async (m, conn, map) => {
 				: "";
 			const contentMsg = await Baileys.generateWAMessageContent(content, { upload: conn.waUploadToServer });
 			const fromContent = await Baileys.generateWAMessageFromContent(jid, contentMsg, options);
-			fromContent.key.id = "RZKY" + require("crypto").randomBytes(13).toString("hex").toUpperCase();
+			fromContent.key.id =
+				"RZKY" +
+				require("crypto")
+					.randomBytes(13)
+					.toString("hex")
+					.toUpperCase();
 			await conn.relayMessage(jid, fromContent.message, { messageId: fromContent.key.id });
 			conn.ev.emit("messages.upsert", {
 				messages: [fromContent],
@@ -163,48 +171,72 @@ module.exports = handler = async (m, conn, map) => {
 
 		//Prem expired
 		prem.expiredCheck(conn, msg, premium);
+
 		// Log
 		printLog(isCmd, sender, msg, body, groupName, isGroup);
 
 		//waktu
 		require("./lib/optiongame").cekWaktu(conn, map, "tebakbendera");
+
 		//game
 		if (isGroup) {
 			await require("./lib/game")(msg, conn, map);
 		}
 
-		const cmdName = body.slice(temp_pref.length).trim().split(/ +/).shift().toLowerCase();
+		const cmdName = body
+			.slice(temp_pref.length)
+			.trim()
+			.split(/ +/)
+			.shift()
+			.toLowerCase();
 		const cmd =
-			map.command.get(msg.body.trim().split(/ +/).shift().toLowerCase()) ||
-			[...map.command.values()].find((x) =>
-				x.alias.find((x) => x.toLowerCase() == msg.body.trim().split(/ +/).shift().toLowerCase())
+			map.command.get(
+				msg.body
+					.trim()
+					.split(/ +/)
+					.shift()
+					.toLowerCase()
+			) ||
+			[...map.command.values()].find(x =>
+				x.alias.find(
+					x =>
+						x.toLowerCase() ==
+						msg.body
+							.trim()
+							.split(/ +/)
+							.shift()
+							.toLowerCase()
+				)
 			) ||
 			map.command.get(cmdName) ||
-			[...map.command.values()].find((x) => x.alias.find((x) => x.toLowerCase() == cmdName));
+			[...map.command.values()].find(x => x.alias.find(x => x.toLowerCase() == cmdName));
 		if (isCmd && !cmd) {
 			var data = [...map.command.keys()];
 			[...map.command.values()]
-				.map((x) => x.alias)
+				.map(x => x.alias)
 				.join(" ")
 				.replace(/ +/gi, ",")
 				.split(",")
-				.map((a) => data.push(a));
+				.map(a => data.push(a));
 			var result = rzky.tools.detectTypo(cmdName, data);
-			if (result.status == 404) return;
+			if (result.status != 200) return;
 			teks = "";
 			angka = 1;
-			for (let i of result.result) {
-				var alias =
-					[...map.command.values()].find((x) => x.name == i.teks) ||
-					[...map.command.values()].find((x) => x.alias.find((x) => x.toLowerCase() == i.teks));
-				teks += `Mungkin ini yang kamu maksud?\n\n`;
-				teks += `*${angka++}. ${map.prefix}${i.teks}*\n`;
-				teks += `Alias: *${alias.alias.join(", ")}*\n`;
-				teks += `Keakuratan: *${i.keakuratan}*\n\n`;
+			if (typeof result.result == "object" && typeof result.result != "undefined") {
+				for (let i of result.result) {
+					var alias =
+						[...map.command.values()].find(x => x.name == i.teks) ||
+						[...map.command.values()].find(x => x.alias.find(x => x.toLowerCase() == i.teks));
+					teks += `Mungkin ini yang kamu maksud?\n\n`;
+					teks += `*${angka++}. ${map.prefix}${i.teks}*\n`;
+					teks += `Alias: *${alias.alias.join(", ")}*\n`;
+					teks += `Keakuratan: *${i.keakuratan}*\n\n`;
+				}
+				teks += `Jika benar silahkan command ulang`;
+				await msg.reply(teks);
 			}
-			teks += `Jika benar silahkan command ulang`;
-			await msg.reply(teks);
-		} else if (!cmd) return;
+		}
+		if (!cmd) return;
 		if (!cooldown.has(from)) {
 			cooldown.set(from, new Map());
 		}
@@ -216,7 +248,7 @@ module.exports = handler = async (m, conn, map) => {
 			if (now < expiration) {
 				if (isGroup) {
 					let timeLeft = (expiration - now) / 1000;
-					printSpam(isGroup, sender, groupName);
+					printSpam(conn, isGroup, sender, groupName);
 					return await conn.sendMessage(
 						from,
 						{
@@ -226,7 +258,7 @@ module.exports = handler = async (m, conn, map) => {
 					);
 				} else if (!isGroup) {
 					let timeLeft = (expiration - now) / 1000;
-					printSpam(isGroup, sender);
+					printSpam(conn, isGroup, sender);
 					return await conn.sendMessage(
 						from,
 						{
@@ -242,7 +274,10 @@ module.exports = handler = async (m, conn, map) => {
 		const options = cmd.options;
 		if (options.noPrefix) {
 			if (isCmd) return;
-			q = msg.body.split(" ").splice(1).join(" ");
+			q = msg.body
+				.split(" ")
+				.splice(1)
+				.join(" ");
 		} else if (!options.noPrefix) {
 			if (!isCmd) return;
 		}
@@ -250,10 +285,10 @@ module.exports = handler = async (m, conn, map) => {
 			timestamps.set(from, now);
 		}
 		if (cmd && cmd.category != "private") {
-			let comaand = dashboard.find((command) => command.name == cmd.name);
-			if (comaand) {
-				comaand.success += 1;
-				comaand.lastUpdate = Date.now();
+			let comand = dashboard.find(command => command.name == cmd.name);
+			if (comand) {
+				comand.success += 1;
+				comand.lastUpdate = Date.now();
 				fs.writeFileSync("./database/dashboard.json", JSON.stringify(dashboard));
 			} else {
 				await db.modified("dashboard", { name: cmd.name, success: 1, failed: 0, lastUpdate: Date.now() });
@@ -266,9 +301,9 @@ module.exports = handler = async (m, conn, map) => {
 		if (map.lockcmd.has(cmdName)) {
 			let alasan = map.lockcmd.get(cmdName);
 			return msg.reply(
-				`Maaf kak "${conn.getName(sender)}"" command "${cmdName}" telah dinonaktifkan oleh owner\nAlasan: *${
-					alasan || "-"
-				}*`
+				`Maaf kak "${conn.getName(
+					sender
+				)}"" command "${cmdName}" telah dinonaktifkan oleh owner\nAlasan: *${alasan || "-"}*`
 			);
 		}
 		if (options.isLimit && !isPremium) {
@@ -282,7 +317,7 @@ module.exports = handler = async (m, conn, map) => {
 			gameAdd(msg.sender, glimit);
 		}
 		if (options.isAdmin && !isAdmin) {
-			await conn.sendMessage(msg.from, { text: response.GroupAdmin }, { quoted: msg });
+			await conn.sendMessage(msg.from, { text: response.GrupAdmin }, { quoted: msg });
 			return true;
 		}
 		if (options.isQuoted && !msg.quoted) {
@@ -294,7 +329,7 @@ module.exports = handler = async (m, conn, map) => {
 			if (typeof medianya[0] != "undefined" && !medianya.includes(msg.quoted ? msg.quoted.mtype : []))
 				return msg.reply(
 					`Silahkan reply *${medianya
-						.map((a) => `${((aa = a.charAt(0).toUpperCase()), aa + a.slice(1).replace(/message/gi, ""))}`)
+						.map(a => `${((aa = a.charAt(0).toUpperCase()), aa + a.slice(1).replace(/message/gi, ""))}`)
 						.join("/")}*`
 				);
 		}
@@ -330,9 +365,12 @@ module.exports = handler = async (m, conn, map) => {
 			);
 		}
 		try {
-			await cmd.run(msg, conn, q, map, args, arg);
+			await cmd.run(
+				{ msg, conn },
+				{ q, map, args, arg, Baileys, prefix: temp_pref, response, chat: m, command: comand }
+			);
 		} catch (e) {
-			let fail = dashboard.find((command) => command.name == cmd.name);
+			let fail = dashboard.find(command => command.name == cmd.name);
 			fail.failed += 1;
 			fail.success -= 1;
 			fail.lastUpdate = Date.now();

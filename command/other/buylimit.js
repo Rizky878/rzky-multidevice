@@ -4,7 +4,7 @@ module.exports = {
 	isSpam: true,
 	use: "<angka>",
 	query: "Send an order *#buylimit* the limit amount you want to buy\n\nPrice 1 limit = $150 balance",
-	async run(msg, conn, q) {
+	async run({ msg, conn }, { q }) {
 		if (q.includes("-")) throw `Don't use -`;
 		if (isNaN(q)) throw `Must be a number`;
 		let ane = Number(Math.floor(q) * 150);

@@ -5,7 +5,7 @@ module.exports = {
 	desc: "Merubah self and public",
 	isSpam: true,
 	isOwner: true,
-	async run(msg, conn, q, map) {
+	async run({ msg, conn }, { q, map }) {
 		var command = msg.body.split(/ +/)[0].slice(1);
 		switch (command) {
 			case "public":

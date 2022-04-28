@@ -4,7 +4,7 @@ module.exports = {
 	category: "random",
 	isSpam: true,
 	wait: true,
-	async run(msg, conn, q, map, args) {
+	async run({ msg, conn }, { q, map, args }) {
 		var animquote = await rzky.random.quotesAnime();
 		var animrandom = animquote.result[Math.floor(Math.random() * animquote.result.length)];
 		var img = animrandom.img;

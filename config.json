@@ -1,12 +1,14 @@
 {
-	"owner": ["YouNumberPhone@s.whatsapp.net Example: 6282387804410@s.whatsapp.net"],
+	"owner": ["YourPhoneNumber@s.whatsapp.net example: 6282387804410@s.whatsapp.net"],
 	"thumbvideo": "https://uploader.caliph.my.id/file/hU0F0HZ9K4.mp4",
 	"thumb": "https://telegra.ph/file/d8dba7eee759ff82b35be.jpg",
 	"session": "rzkyfdlh-md.json",
 	"ownername": "Rizky",
 	"self": false,
+	"limit": { "limitUser": 30, "gameLimitUser": 10, "gameLimitPremium": 30 },
 	"packInfo": { "packname": "@rizkyfadilah8", "author": "6282387804410" },
 	"namebot": "KurumiBot",
+	"timezone": "Asia/Jakarta",
 	"ignore": {
 		"directory": ["umum"]
 	}

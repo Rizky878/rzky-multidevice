@@ -10,13 +10,13 @@ module.exports = {
 	wait: true,
 	query: true,
 	isSpam: true,
-	async run(msg, conn, q, map, args) {
+	async run({ msg, conn }, { q, map, args }) {
 		var pilih = msg.body.split(/ +/)[0].slice(1);
 		var teks = args[0];
 		if (pilih == "play" || pilih == "youtube") {
 			yets = await yts(args[0]);
-			var results = await yets.all.filter((s) => s.type == "video");
-			var vid = results.find((video) => video.seconds < 3600);
+			var results = await yets.all.filter(s => s.type == "video");
+			var vid = results.find(video => video.seconds < 3600);
 			teks = vid.url;
 		}
 		var yt = await y2mateV(teks, "480");

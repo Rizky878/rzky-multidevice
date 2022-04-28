@@ -6,7 +6,7 @@ module.exports = {
 	desc: "See Who I am who reads messages",
 	category: "info",
 	isQuoted: true,
-	async run(msg, conn) {
+	async run({ msg, conn }) {
 		let message = await msg.getQuotedObj();
 		if (!msg.quoted.isSelf) throw "The message was not sent by a bot!";
 		let teks = "";
