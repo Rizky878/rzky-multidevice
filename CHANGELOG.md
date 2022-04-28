@@ -30,6 +30,11 @@
 -   [5cae22c](https://github.com/Rizky878/rzky-multidevice/commit/641eecd4389c380ec37082db21f0ccbbcc171a43)
     > add fiture dashboard.js
 
+### [v2.1.0](https://github.com/Rizky878/rzky-multidevice/tree/v2.0.4) (28/04/2022)
+
+-   [9390253](https://github.com/Rizky878/rzky-multidevice/commit/63e6da9c991ce31bdbe8570b157f64870d0f7377)
+    > add anti delete, welcome, left, setleft, setwelcome, and some new functions
+
 <div>
 <br>
 <hr>
