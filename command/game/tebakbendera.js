@@ -14,9 +14,7 @@ module.exports = {
 		if (tebakbendera) {
 			addSesi(msg.from, tebakbendera.jawaban, waktugame, map, "tebakbendera");
 			await msg.reply(
-				`*Game Tebak Bendera*\n\nBendera: ${tebakbendera.bendera}\nHint: ${
-					tebakbendera.pertanyaan
-				}\n\nAnswered Immediately, Time only 1 minute!`
+				`*Game Tebak Bendera*\n\nBendera: ${tebakbendera.bendera}\nHint: ${tebakbendera.pertanyaan}\n\nAnswered Immediately, Time only 1 minute!`
 			);
 		} else msg.reply("Error");
 	},

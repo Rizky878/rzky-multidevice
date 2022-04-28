@@ -75,10 +75,7 @@ module.exports = handler = async (m, conn, map) => {
 		}
 
 		const arg = body.substring(body.indexOf(" ") + 1);
-		const args = body
-			.trim()
-			.split(/ +/)
-			.slice(1);
+		const args = body.trim().split(/ +/).slice(1);
 		const comand = body.trim().split(/ +/)[0];
 		q = args.join(" ");
 		const isCmd = body.startsWith(temp_pref);
@@ -122,7 +119,7 @@ module.exports = handler = async (m, conn, map) => {
 			const cotent = content.caption || content.text || "";
 			if (options.isTranslate) {
 				const footer = content.footer || false;
-				const customLang = customLanguage.find(x => x.jid == msg.sender);
+				const customLang = customLanguage.find((x) => x.jid == msg.sender);
 				const language = customLang ? customLang.country : false;
 				if (customLang) {
 					if (footer) footer = await rzky.tools.translate(footer, language);
@@ -135,7 +132,7 @@ module.exports = handler = async (m, conn, map) => {
 				}
 			}
 			content.withTag
-				? (content.mentions = [...cotent.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + "@s.whatsapp.net"))
+				? (content.mentions = [...cotent.matchAll(/@([0-9]{5,16}|0)/g)].map((v) => v[1] + "@s.whatsapp.net"))
 				: "";
 			options.adReply
 				? (content.contextInfo = {
@@ -155,12 +152,7 @@ module.exports = handler = async (m, conn, map) => {
 				: "";
 			const contentMsg = await Baileys.generateWAMessageContent(content, { upload: conn.waUploadToServer });
 			const fromContent = await Baileys.generateWAMessageFromContent(jid, contentMsg, options);
-			fromContent.key.id =
-				"RZKY" +
-				require("crypto")
-					.randomBytes(13)
-					.toString("hex")
-					.toUpperCase();
+			fromContent.key.id = "RZKY" + require("crypto").randomBytes(13).toString("hex").toUpperCase();
 			await conn.relayMessage(jid, fromContent.message, { messageId: fromContent.key.id });
 			conn.ev.emit("messages.upsert", {
 				messages: [fromContent],
@@ -183,41 +175,22 @@ module.exports = handler = async (m, conn, map) => {
 			await require("./lib/game")(msg, conn, map);
 		}
 
-		const cmdName = body
-			.slice(temp_pref.length)
-			.trim()
-			.split(/ +/)
-			.shift()
-			.toLowerCase();
+		const cmdName = body.slice(temp_pref.length).trim().split(/ +/).shift().toLowerCase();
 		const cmd =
-			map.command.get(
-				msg.body
-					.trim()
-					.split(/ +/)
-					.shift()
-					.toLowerCase()
-			) ||
-			[...map.command.values()].find(x =>
-				x.alias.find(
-					x =>
-						x.toLowerCase() ==
-						msg.body
-							.trim()
-							.split(/ +/)
-							.shift()
-							.toLowerCase()
-				)
+			map.command.get(msg.body.trim().split(/ +/).shift().toLowerCase()) ||
+			[...map.command.values()].find((x) =>
+				x.alias.find((x) => x.toLowerCase() == msg.body.trim().split(/ +/).shift().toLowerCase())
 			) ||
 			map.command.get(cmdName) ||
-			[...map.command.values()].find(x => x.alias.find(x => x.toLowerCase() == cmdName));
+			[...map.command.values()].find((x) => x.alias.find((x) => x.toLowerCase() == cmdName));
 		if (isCmd && !cmd) {
 			var data = [...map.command.keys()];
 			[...map.command.values()]
-				.map(x => x.alias)
+				.map((x) => x.alias)
 				.join(" ")
 				.replace(/ +/gi, ",")
 				.split(",")
-				.map(a => data.push(a));
+				.map((a) => data.push(a));
 			var result = rzky.tools.detectTypo(cmdName, data);
 			if (result.status != 200) return;
 			teks = "";
@@ -225,8 +198,8 @@ module.exports = handler = async (m, conn, map) => {
 			if (typeof result.result == "object" && typeof result.result != "undefined") {
 				for (let i of result.result) {
 					var alias =
-						[...map.command.values()].find(x => x.name == i.teks) ||
-						[...map.command.values()].find(x => x.alias.find(x => x.toLowerCase() == i.teks));
+						[...map.command.values()].find((x) => x.name == i.teks) ||
+						[...map.command.values()].find((x) => x.alias.find((x) => x.toLowerCase() == i.teks));
 					teks += `Mungkin ini yang kamu maksud?\n\n`;
 					teks += `*${angka++}. ${map.prefix}${i.teks}*\n`;
 					teks += `Alias: *${alias.alias.join(", ")}*\n`;
@@ -274,10 +247,7 @@ module.exports = handler = async (m, conn, map) => {
 		const options = cmd.options;
 		if (options.noPrefix) {
 			if (isCmd) return;
-			q = msg.body
-				.split(" ")
-				.splice(1)
-				.join(" ");
+			q = msg.body.split(" ").splice(1).join(" ");
 		} else if (!options.noPrefix) {
 			if (!isCmd) return;
 		}
@@ -285,7 +255,7 @@ module.exports = handler = async (m, conn, map) => {
 			timestamps.set(from, now);
 		}
 		if (cmd && cmd.category != "private") {
-			let comand = dashboard.find(command => command.name == cmd.name);
+			let comand = dashboard.find((command) => command.name == cmd.name);
 			if (comand) {
 				comand.success += 1;
 				comand.lastUpdate = Date.now();
@@ -301,9 +271,9 @@ module.exports = handler = async (m, conn, map) => {
 		if (map.lockcmd.has(cmdName)) {
 			let alasan = map.lockcmd.get(cmdName);
 			return msg.reply(
-				`Maaf kak "${conn.getName(
-					sender
-				)}"" command "${cmdName}" telah dinonaktifkan oleh owner\nAlasan: *${alasan || "-"}*`
+				`Maaf kak "${conn.getName(sender)}"" command "${cmdName}" telah dinonaktifkan oleh owner\nAlasan: *${
+					alasan || "-"
+				}*`
 			);
 		}
 		if (options.isLimit && !isPremium) {
@@ -329,7 +299,7 @@ module.exports = handler = async (m, conn, map) => {
 			if (typeof medianya[0] != "undefined" && !medianya.includes(msg.quoted ? msg.quoted.mtype : []))
 				return msg.reply(
 					`Silahkan reply *${medianya
-						.map(a => `${((aa = a.charAt(0).toUpperCase()), aa + a.slice(1).replace(/message/gi, ""))}`)
+						.map((a) => `${((aa = a.charAt(0).toUpperCase()), aa + a.slice(1).replace(/message/gi, ""))}`)
 						.join("/")}*`
 				);
 		}
@@ -370,7 +340,7 @@ module.exports = handler = async (m, conn, map) => {
 				{ q, map, args, arg, Baileys, prefix: temp_pref, response, chat: m, command: comand }
 			);
 		} catch (e) {
-			let fail = dashboard.find(command => command.name == cmd.name);
+			let fail = dashboard.find((command) => command.name == cmd.name);
 			fail.failed += 1;
 			fail.success -= 1;
 			fail.lastUpdate = Date.now();

@@ -8,7 +8,7 @@ module.exports = {
 			const data = [];
 			const name = q.toLowerCase();
 			const { command, prefix } = map;
-			const cmd = command.get(name) || [...command.values()].find(x => x.alias.find(x => x == args[0]));
+			const cmd = command.get(name) || [...command.values()].find((x) => x.alias.find((x) => x == args[0]));
 			if (!cmd || (cmd.category === "private" && !config.owner.includes(msg.sender)))
 				return await msg.reply("Command tidak ditemukan");
 			else data.push(`*Nama:* ` + cmd.name);
@@ -16,9 +16,7 @@ module.exports = {
 			if (cmd.desc) data.push(`*Deskripsi:* ${cmd.desc}`);
 			if (cmd.use)
 				data.push(
-					`*Penggunaan:* ${prefix}${cmd.name} ${
-						cmd.use
-					}\n\nCatatan: [] = opsional, | = atau, <> = harus diisi`
+					`*Penggunaan:* ${prefix}${cmd.name} ${cmd.use}\n\nCatatan: [] = opsional, | = atau, <> = harus diisi`
 				);
 
 			return await msg.reply(data.join("\n"));
@@ -55,7 +53,7 @@ module.exports = {
 								cmd.alias[0]
 									? "\n" +
 									  cmd.alias
-											.map(a => (a ? `*▸ ${cmd.options.noPrefix ? "" : "#"}${a}*` : ""))
+											.map((a) => (a ? `*▸ ${cmd.options.noPrefix ? "" : "#"}${a}*` : ""))
 											.join("\n")
 									: ""
 							}\n*Example:* _${cmd.options.noPrefix ? "" : "#"}${cmd.name}${

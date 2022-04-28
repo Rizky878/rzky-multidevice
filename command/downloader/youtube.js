@@ -15,8 +15,8 @@ module.exports = {
 		var teks = args[0];
 		if (pilih == "play" || pilih == "youtube") {
 			yets = await yts(args[0]);
-			var results = await yets.all.filter(s => s.type == "video");
-			var vid = results.find(video => video.seconds < 3600);
+			var results = await yets.all.filter((s) => s.type == "video");
+			var vid = results.find((video) => video.seconds < 3600);
 			teks = vid.url;
 		}
 		var yt = await y2mateV(teks, "480");

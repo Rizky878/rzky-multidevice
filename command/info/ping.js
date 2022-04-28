@@ -1,6 +1,6 @@
 const moment = require("moment-timezone");
 
-const ping = function(timestamp, now) {
+const ping = function (timestamp, now) {
 	return moment.duration(now - moment(timestamp * 1000)).asSeconds();
 };
 

@@ -51,8 +51,8 @@ const chatsData = cron.schedule(
 const ReadFitur = () => {
 	let pathdir = path.join(__dirname, "./command");
 	let fitur = fs.readdirSync(pathdir);
-	fitur.forEach(async res => {
-		const commands = fs.readdirSync(`${pathdir}/${res}`).filter(file => file.endsWith(".js"));
+	fitur.forEach(async (res) => {
+		const commands = fs.readdirSync(`${pathdir}/${res}`).filter((file) => file.endsWith(".js"));
 		for (let file of commands) {
 			const command = require(`${pathdir}/${res}/${file}`);
 			if (typeof command.run != "function") continue;
@@ -91,8 +91,8 @@ const ReadFitur = () => {
 				typeof cmd[k] == "boolean"
 					? (options[k] = cmd[k])
 					: k == "query" || k == "isMedia"
-						? (options[k] = cmd[k])
-						: "";
+					? (options[k] = cmd[k])
+					: "";
 			let cmdObject = {
 				name: cmd.name,
 				alias: cmd.alias,
@@ -125,7 +125,7 @@ const connect = async () => {
 	// start
 	chatsData.start();
 
-	const decodeJid = jid => {
+	const decodeJid = (jid) => {
 		if (/:\d+@/gi.test(jid)) {
 			const decode = jidDecode(jid) || {};
 			return ((decode.user && decode.server && decode.user + "@" + decode.server) || jid).trim();
@@ -135,7 +135,7 @@ const connect = async () => {
 	store.bind(conn.ev);
 
 	conn.ev.on("creds.update", saveState);
-	conn.ev.on("connection.update", async up => {
+	conn.ev.on("connection.update", async (up) => {
 		const { lastDisconnect, connection } = up;
 		if (connection) {
 			console.log("Connection Status: ", connection);
@@ -178,12 +178,12 @@ const connect = async () => {
 	};
 
 	//anticall
-	conn.ws.on("CB:call", async json => {
+	conn.ws.on("CB:call", async (json) => {
 		if (json.content[0].tag == "offer") {
 			conn.sendMessage(json.content[0].attrs["call-creator"], {
 				text: `Terdeteksi Menelpon BOT!\nSilahkan Hubungi Owner Untuk Membuka Block !\n\nNomor Owner: \n${config.owner
 					.map(
-						a =>
+						(a) =>
 							`*wa.me/${a.split(`@`)[0]}* | ${
 								conn.getName(a).includes("+62") ? "No Detect" : conn.getName(a)
 							}`
@@ -196,7 +196,7 @@ const connect = async () => {
 	});
 
 	//contact update
-	conn.ev.on("contacts.update", m => {
+	conn.ev.on("contacts.update", (m) => {
 		for (let kontak of m) {
 			let jid = decodeJid(kontak.id);
 			if (store && store.contacts) store.contacts[jid] = { jid, name: kontak.notify };
@@ -205,10 +205,10 @@ const connect = async () => {
 
 	// I don't know what's the point hehe
 	if (!fs.existsSync("./src") || !fs.existsSync("./src/rzky-md.jpg")) {
-		fs.mkdir("./src", async function(err) {
+		fs.mkdir("./src", async function (err) {
 			if (err) {
 				if (!fs.existsSync("./src/rzky-md.jpg")) {
-					fs.writeFile("./src/rzky-md.jpg", (await require("axios")(config.thumb)).data, function(err) {
+					fs.writeFile("./src/rzky-md.jpg", (await require("axios")(config.thumb)).data, function (err) {
 						if (err) {
 							console.log(color("[INFO]", "yellow"), "error writing file", err);
 						} else {
@@ -221,7 +221,7 @@ const connect = async () => {
 					: "";
 			} else {
 				console.log(color("[INFO]", "yellow"), `Succes create a "src" file`);
-				fs.writeFile("./src/rzky-md.jpg", (await require("axios")(config.thumb)).data, function(err) {
+				fs.writeFile("./src/rzky-md.jpg", (await require("axios")(config.thumb)).data, function (err) {
 					if (err) {
 						console.log(color("[INFO]", "yellow"), "error writing file", err);
 					} else {
@@ -233,11 +233,11 @@ const connect = async () => {
 	}
 
 	// Anti delete dek
-	conn.ev.on("message.delete", async m => {
+	conn.ev.on("message.delete", async (m) => {
 		let data2 = db.cekDatabase("antidelete", "id", m.remoteJid);
 		if (!data2) return;
 		const dataChat = JSON.parse(fs.readFileSync("./database/mess.json"));
-		let mess = dataChat.find(a => a.id == m.id);
+		let mess = dataChat.find((a) => a.id == m.id);
 		let mek = mess.msg;
 		let participant = mek.key.remoteJid.endsWith("@g.us") ? mek.key.participant : mek.key.remoteJid;
 		let froms = mek.key.remoteJid;
@@ -250,12 +250,12 @@ const connect = async () => {
 	});
 
 	// welcome
-	conn.ev.on("group-participants.update", async msg => {
+	conn.ev.on("group-participants.update", async (msg) => {
 		WelcomeHandler(conn, msg);
 	});
 
 	// messages.upsert
-	conn.ev.on("messages.upsert", async m => {
+	conn.ev.on("messages.upsert", async (m) => {
 		const msg = m.messages[0];
 		const type = msg.message ? Object.keys(msg.message)[0] : "";
 		conn.addMessage(msg, type);
@@ -265,6 +265,6 @@ const connect = async () => {
 };
 connect();
 
-process.on("uncaughtException", function(err) {
+process.on("uncaughtException", function (err) {
 	console.error(err);
 });

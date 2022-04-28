@@ -1,6 +1,6 @@
 const getPosition = (name, _dir) => {
 	let position = null;
-	Object.keys(_dir).forEach(i => {
+	Object.keys(_dir).forEach((i) => {
 		if (_dir[i].id === name) {
 			position = i;
 		}

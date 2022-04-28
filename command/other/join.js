@@ -8,7 +8,7 @@ module.exports = {
 	async run({ msg, conn }, { q }) {
 		// search for invite url
 		const rex1 = /chat.whatsapp.com\/([\w\d]*)/g;
-		const queryInvite = async code => {
+		const queryInvite = async (code) => {
 			const results = await conn.query({
 				tag: "iq",
 				attrs: {

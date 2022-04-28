@@ -6,7 +6,7 @@ const filetype = require("file-type");
 //end module
 
 //function upload file
-const uploadFile = path =>
+const uploadFile = (path) =>
 	new Promise((resolve, reject) => {
 		const fd = new FormData();
 		fd.append("file", fs.createReadStream(path));

@@ -4,7 +4,7 @@ const translate = require("@vitalets/google-translate-api"),
 
 const getPosition = (userId, _dir) => {
 	let position = null;
-	Object.keys(_dir).forEach(i => {
+	Object.keys(_dir).forEach((i) => {
 		if (_dir[i].id === userId) {
 			position = i;
 		}
@@ -24,7 +24,7 @@ module.exports = {
 		language.push("default");
 		if (!language.includes(q))
 			throw "Supported language:\n*Default Language:* default\n\n" + JSON.stringify(translate.languages, null, 2);
-		let user = db.find(x => x.jid == msg.sender);
+		let user = db.find((x) => x.jid == msg.sender);
 		if (user) db.splice(getPosition(msg.sender, db), 1);
 		if (q == "default") db.splice(getPosition(msg.sender, db));
 		q == "default" ? "" : db.push({ jid: msg.sender, country: q });

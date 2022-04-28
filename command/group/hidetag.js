@@ -11,6 +11,6 @@ module.exports = {
 		const gc = await conn.groupMetadata(msg.from);
 		const mem = gc.participants;
 
-		conn.sendMessage(msg.from, { text: `${q}`, mentions: mem.map(a => a.id) });
+		conn.sendMessage(msg.from, { text: `${q}`, mentions: mem.map((a) => a.id) });
 	},
 };

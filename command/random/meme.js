@@ -9,9 +9,7 @@ module.exports = {
 		const meme = await rzky.random.meme();
 		const buttonMessage = {
 			image: { url: meme.url },
-			caption: `Link Post: ${meme.postLink}\nSubreddit: *${meme.subreddit}*\nTitle: *${meme.title}*\nNsfw: *${
-				meme.nsfw
-			}*\nSpoiler: *${meme.spoiler}*\nAuthor: *${meme.author}*`,
+			caption: `Link Post: ${meme.postLink}\nSubreddit: *${meme.subreddit}*\nTitle: *${meme.title}*\nNsfw: *${meme.nsfw}*\nSpoiler: *${meme.spoiler}*\nAuthor: *${meme.author}*`,
 			buttons: buttons,
 			headerType: 4,
 		};

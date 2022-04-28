@@ -16,7 +16,7 @@ function start(file) {
 	let p = spawn(process.argv[0], args, {
 		stdio: ["inherit", "inherit", "inherit", "ipc"],
 	});
-	p.on("message", data => {
+	p.on("message", (data) => {
 		console.log("[RECEIVED]", data);
 		switch (data) {
 			case "reset":
@@ -29,7 +29,7 @@ function start(file) {
 				break;
 		}
 	});
-	p.on("exit", code => {
+	p.on("exit", (code) => {
 		isRunning = false;
 		console.error("Exited with code:", code);
 		if (code === 0) return;
