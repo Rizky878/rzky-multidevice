@@ -14,7 +14,7 @@ module.exports = {
 	name: "left",
 	desc: "activate the new member left feature",
 	use: "<1 / 0>",
-category: "group",
+	category: "group",
 	query: "enter options\n1 = aktif\n0 = nonaktif",
 	isAdmin: true,
 	isSpam: true,

@@ -2,7 +2,7 @@ module.exports = {
 	name: "setleft",
 	desc: "Change Text On Left",
 	use: "<text>",
-category: "group",
+	category: "group",
 	query: "enter text\n@subject subject group\n@ownergc owner group\n@user tag participant is left\n@creation when was the group created\n@desc descripdescription",
 	isAdmin: true,
 	isSpam: true,
