@@ -31,20 +31,21 @@ const getBuffer = async (url, options) => {
 
 module.exports = {
 	name: "emojimix",
-	use: "<emoji+emoji>",
+	use: "<emoji || emoji+emoji>",
 	category: "fun",
 	desc: "Sending Emoji stickers plus other emojis",
 	wait: true,
-	query: "Enter Emoji\nExample: #emojimix 😅+😅",
+	query: "Enter Emojis Correctly, \ntype\n• #emojimix 👻\n- if you want to show some stickers\n• #emojimix 😅+😅\n- if you want to bring up a special sticker",
 	isSpam: true,
 	async run({ msg, conn }, { q, map, args }) {
 		try {
-			const [teks1, teks2, teks3] = q;
-			if (!isEmoji(teks1) && !isEmoji(teks3)) throw "Enter Emojis Correctly";
-			const result = await rzky.fun.emojimix(teks1, teks3);
-			if (result.status !== 200) throw "Emojis not found";
-			stickerBuff = await sticker(await getBuffer(result.url), { isImage: true, cmdType: "1" });
+		    const [teks1, teks2, teks3] = q
+			const result = teks3 ? await rzky.fun.emojimix(teks1, teks3) : await rzky.fun.emojimix(teks1)
+		   if (result.status == 404) throw "Emojis not found";
+			for(let i of result) {
+			stickerBuff = await sticker(await getBuffer(i.url), { isImage: true, cmdType: "1", withPackInfo: true, packInfo: config.packInfo });
 			await conn.sendMessage(msg.from, { sticker: stickerBuff }, { quoted: msg });
+			}
 		} catch (e) {
 			console.log(e);
 			await msg.reply(String(e));
