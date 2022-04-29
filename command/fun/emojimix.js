@@ -39,12 +39,17 @@ module.exports = {
 	isSpam: true,
 	async run({ msg, conn }, { q, map, args }) {
 		try {
-		    const [teks1, teks2, teks3] = q
-			const result = teks3 ? await rzky.fun.emojimix(teks1, teks3) : await rzky.fun.emojimix(teks1)
-		   if (result.status == 404) throw "Emojis not found";
-			for(let i of result) {
-			stickerBuff = await sticker(await getBuffer(i.url), { isImage: true, cmdType: "1", withPackInfo: true, packInfo: config.packInfo });
-			await conn.sendMessage(msg.from, { sticker: stickerBuff }, { quoted: msg });
+			const [teks1, teks2, teks3] = q;
+			const result = teks3 ? await rzky.fun.emojimix(teks1, teks3) : await rzky.fun.emojimix(teks1);
+			if (result.status == 404) throw "Emojis not found";
+			for (let i of result) {
+				stickerBuff = await sticker(await getBuffer(i.url), {
+					isImage: true,
+					cmdType: "1",
+					withPackInfo: true,
+					packInfo: config.packInfo,
+				});
+				await conn.sendMessage(msg.from, { sticker: stickerBuff }, { quoted: msg });
 			}
 		} catch (e) {
 			console.log(e);
