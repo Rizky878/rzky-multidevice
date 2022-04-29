@@ -14,6 +14,7 @@ module.exports = {
 	name: "antidelete",
 	desc: "activate anti delete messages in the group",
 	use: "<1 / 0>",
+        category: "group",
 	query: "enter options\n1 = aktif\n0 = nonaktif",
 	isAdmin: true,
 	isSpam: true,
