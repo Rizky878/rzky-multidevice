@@ -18,9 +18,13 @@ const handler = require("./handler");
 const WelcomeHandler = require("./lib/welcome");
 const utils = require("./utils");
 const cron = require("node-cron");
+const moment = require("moment");
 const { self } = require("./config.json");
 const { state, saveState } = useSingleFileAuthState(path.join(__dirname, `./${session}`), log({ level: "silent" }));
 attribute.prefix = "#";
+
+// Set country code
+moment.locale("id")
 
 // command
 attribute.command = new Map();
@@ -234,7 +238,7 @@ const connect = async () => {
 
 	// Anti delete dek
 	conn.ev.on("message.delete", async (m) => {
-		let data2 = db.cekDatabase("antidelete", "id", m.remoteJid);
+		let data2 = db.cekDatabase("antidelete", "id", m.remoteJid || "");
 		if (!data2) return;
 		const dataChat = JSON.parse(fs.readFileSync("./database/mess.json"));
 		let mess = dataChat.find((a) => a.id == m.id);
@@ -243,7 +247,7 @@ const connect = async () => {
 		let froms = mek.key.remoteJid;
 		await conn.sendMessage(
 			froms,
-			{ text: "Hayoloh ngapus apaan @" + participant.split("@")[0], mentions: [participant] },
+			{ text: "Hayoloh ngapus apaan @" + participant.split("@")[0] + `\n\n*➤ Info*\n*• Participant:* ${participant.split("@")[0]}\n*• Delete message On:* ${require("moment")(Date.now()).format("dddd, DD/MM/YYYY")}\n*• Message send date:* ${require("moment")(mek.messageTimestamp * 1000).format("dddd, DD/MM/YY")}\n*• Type:* ${Object.keys(mek.message)[0]}`,mentions: [participant] },
 			{ quoted: mek }
 		);
 		await conn.sendMessage(froms, { forward: mek }, { quoted: mek });
