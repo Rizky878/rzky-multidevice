@@ -2,7 +2,7 @@ module.exports = {
 	name: "setwelcome",
 	desc: "Change Text On Welcome",
 	use: "<text>",
-category: "group",
+	category: "group",
 	query: "enter text\n@subject subject group\n@ownergc owner group\n@user tag participant is left\n@creation when was the group created\n@desc descripdescription",
 	isAdmin: true,
 	isSpam: true,
