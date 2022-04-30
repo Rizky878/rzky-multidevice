@@ -238,7 +238,7 @@ const connect = async () => {
 
 	// Anti delete dek
 	conn.ev.on("message.delete", async (m) => {
-		let data2 = db.cekDatabase("antidelete", "id", m ?  m.remoteJid : "");
+		let data2 = db.cekDatabase("antidelete", "id", m ? m.remoteJid : "");
 		if (!data2) return;
 		const dataChat = JSON.parse(fs.readFileSync("./database/mess.json"));
 		let mess = dataChat.find((a) => a.id == m.id);
