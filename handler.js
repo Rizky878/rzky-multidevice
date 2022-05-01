@@ -193,14 +193,13 @@ module.exports = handler = async (m, conn, map) => {
 				.map((a) => data.push(a));
 			var result = rzky.tools.detectTypo(cmdName, data);
 			if (result.status != 200) return;
-			teks = "";
+			teks = `Mungkin ini yang kamu maksud?\n\n`;
 			angka = 1;
 			if (typeof result.result == "object" && typeof result.result != "undefined") {
 				for (let i of result.result) {
 					var alias =
 						[...map.command.values()].find((x) => x.name == i.teks) ||
 						[...map.command.values()].find((x) => x.alias.find((x) => x.toLowerCase() == i.teks));
-					teks += `Mungkin ini yang kamu maksud?\n\n`;
 					teks += `*${angka++}. ${map.prefix}${i.teks}*\n`;
 					teks += `Alias: *${alias.alias.join(", ")}*\n`;
 					teks += `Keakuratan: *${i.keakuratan}*\n\n`;
