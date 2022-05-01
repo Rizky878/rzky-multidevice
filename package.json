@@ -15,7 +15,7 @@
     "@vitalets/google-translate-api": "^7.0.0",
     "assert": "^2.0.0",
     "awesome-phonenumber": "^2.70.0",
-    "axios": "^0.26.1",
+    "axios": "^0.27.0",
     "brainly-scraper-v2": "1.1.2",
     "chalk": "4.1.2",
     "cheerio": "1.0.0-rc.10",
