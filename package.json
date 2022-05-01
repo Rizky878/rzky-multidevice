@@ -32,7 +32,7 @@
     "ms": "2.1.3",
     "nhentai-js": "^4.0.0",
     "node-cron": "^3.0.0",
-    "node-fetch": "^2.0.0",
+    "node-fetch": "^3.0.0",
     "parse-ms": "^2.1.0",
     "rzkyfdlh-api": "latest",
     "string-crypto": "^2.0.2",
