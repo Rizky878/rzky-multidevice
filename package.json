@@ -16,7 +16,7 @@
     "assert": "^2.0.0",
     "awesome-phonenumber": "^2.70.0",
     "axios": "^0.27.0",
-    "brainly-scraper-v2": "1.1.2",
+    "brainly-scraper-v2": "2.0.12",
     "chalk": "4.1.2",
     "cheerio": "1.0.0-rc.10",
     "country-language": "^0.1.7",
