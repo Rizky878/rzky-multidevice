@@ -114,7 +114,7 @@ module.exports = handler = async (m, conn, map) => {
 			return list;
 		};
 
-		// hayoloh dekk nyari adreply foto gede yahh ups
+		// hayoloh dekk nyari adreply foto gede yahh ups:v
 		conn.sendMessage = async (jid, content, options = { isTranslate: true }) => {
 			await conn.presenceSubscribe(jid);
 			const typeMes =
