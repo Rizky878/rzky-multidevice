@@ -36,6 +36,7 @@
     > add anti delete, welcome, left, setleft, setwelcome, and some new functions
 
 ### [v3.0.0](https://github.com/Rizky878/rzky-multidevice/tree/V3.0.0)
+
     > update all Fiture and fixed all error
 
 <div>
