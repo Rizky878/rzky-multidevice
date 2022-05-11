@@ -30,7 +30,7 @@
     "fs": "0.0.1-security",
     "fs-extra": "^10.1.0",
     "human-readable": "0.2.1",
-    "ikyy": "^0.0.7",
+    "ikyy": "latest",
     "image-to-base64": "^2.2.0",
     "image-to-pdf": "^1.0.0",
     "jsdom": "^19.0.0",
