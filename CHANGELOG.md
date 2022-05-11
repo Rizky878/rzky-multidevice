@@ -35,7 +35,7 @@
 -   [9390253](https://github.com/Rizky878/rzky-multidevice/commit/63e6da9c991ce31bdbe8570b157f64870d0f7377)
     > add anti delete, welcome, left, setleft, setwelcome, and some new functions
 
-### [v3.0.0](https://github.com/Rizky878/rzky-multidevice/tree/V3.0.0)
+### [v3.0.0](https://github.com/Rizky878/rzky-multidevice/tree/V3.0.0) (11/05/2022)
 
 -   [93892](https://github.com/Rizky878/rzky-multidevice/tree/V3.0.0)
     > update all Fiture and fixed all error
