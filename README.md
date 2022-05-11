@@ -27,6 +27,7 @@ module.exports = {
    desc: <String>, // Ex: "Menu adalah command"
    use: <String>,  // Ex: "<teks>"
    category: <String>, // Ex: "umum"
+   type: <String>, // Ex: "changelog"
    wait: <Boolean>, // Ex: true
    isOwner: <Boolean>, // Ex: false
    isAdmin: <Boolean>, // Ex: false
