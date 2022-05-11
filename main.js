@@ -166,7 +166,7 @@ const ReadFitur = () => {
 			global.reloadFile(`./command/${res}/${file}`);
 		}
 	});
-	//spinnies.succeed('spinner-1', { text: 'Command loaded successfully', color: 'yellow' })
+	spinnies.succeed('spinner-1', { text: 'Command loaded successfully', color: 'yellow' })
 };
 // cmd
 ReadFitur();
