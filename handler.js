@@ -77,7 +77,7 @@ module.exports = handler = async (m, conn, map) => {
 		const arg = body.substring(body.indexOf(" ") + 1);
 		const args = body.trim().split(/ +/).slice(1);
 		const comand = body.trim().split(/ +/)[0];
-		const q = arg
+		const q = arg;
 		const isCmd = body.startsWith(temp_pref);
 
 		//type message
