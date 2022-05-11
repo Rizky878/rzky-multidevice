@@ -1,0 +1,13 @@
+{
+	"wait": "_Wait a minute, data is being processed!_",
+	"error": {
+		"Iv": "The link you provided is not valid",
+		"api": "Sorry an error occurred"
+	},
+	"OnlyGrup": "This command can only be used in groups",
+	"OnlyPM": "This command can only be used in private messages",
+	"GrupAdmin": "This command can only be used by Group Admin",
+	"BotAdmin": "Bot Must be admin",
+	"OnlyOwner": "This command can only be used by the bot owner",
+	"OnlyPrem": "This command is only for premium members"
+}
