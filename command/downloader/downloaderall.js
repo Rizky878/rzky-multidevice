@@ -16,23 +16,24 @@ module.exports = {
 	async run({ msg, conn }, { q, map, args }) {
 		var pilih = msg.body.split(/ +/)[0].slice(1);
 		var teks = args[0];
-		var tiktok = await rzky.downloader.tiktok(teks);
+		let tiktok;
+		if(pilih == "tiktok" || pilih == "tiktokaudio") tiktok = await rzky.downloader.tiktok(teks);
 		var yt = await rzky.downloader.downloaderAll(teks);
 		if (pilih == "downloaderall") return msg.reply("Silahkan Pilih Downloader: tiktok,soundcloud,facebook");
 		var mp3 = yt.mp3[yt.mp3.length - 1];
 		var mp4 = yt.mp4[yt.mp4.length - 1];
 		var img = yt.image;
-		var audio = yt.result;
-		var resu = tiktok.result;
+		let resu;
+		if(pilih == "tiktok" || pilih == "tiktokaudio") resu = tiktok.result;
 		yt.size_audio = mp3 ? mp3.formattedSize : "";
-		tiktok.size = resu.video.nowm.size;
-		tiktok.audio_name = resu.audio.audio_name;
+		if(pilih == "tiktok" || pilih == "tiktokaudio") tiktok.size = resu.video.nowm.size;
+		if(pilih == "tiktok" || pilih == "tiktokaudio") tiktok.audio_name = resu.audio.audio_name;
 		yt.size_video = mp4 ? mp4.formattedSize : "";
 		delete yt.image;
 		delete yt.mp4;
 		delete yt.mp3;
 		delete yt.status;
-		delete tiktok.result;
+		if(pilih == "tiktok" || pilih == "tiktokaudio") delete tiktok.result;
 		var result = await rzky.tools.parseResult(yt, {
 			title: "Downloader",
 		});
