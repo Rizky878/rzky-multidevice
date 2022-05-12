@@ -20,7 +20,7 @@ module.exports = {
 	],
 	category: "converter",
 	desc: "Create a sticker from image or video",
-	async run({ msg, conn }) {
+	async run({ msg, conn }, { q }) {
 		const { quoted, from, type } = msg;
 
 		const content = JSON.stringify(quoted);
