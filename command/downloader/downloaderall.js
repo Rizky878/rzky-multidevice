@@ -17,23 +17,23 @@ module.exports = {
 		var pilih = msg.body.split(/ +/)[0].slice(1);
 		var teks = args[0];
 		let tiktok;
-		if(pilih == "tiktok" || pilih == "tiktokaudio") tiktok = await rzky.downloader.tiktok(teks);
+		if (pilih == "tiktok" || pilih == "tiktokaudio") tiktok = await rzky.downloader.tiktok(teks);
 		var yt = await rzky.downloader.downloaderAll(teks);
 		if (pilih == "downloaderall") return msg.reply("Silahkan Pilih Downloader: tiktok,soundcloud,facebook");
 		var mp3 = yt.mp3[yt.mp3.length - 1];
 		var mp4 = yt.mp4[yt.mp4.length - 1];
 		var img = yt.image;
 		let resu;
-		if(pilih == "tiktok" || pilih == "tiktokaudio") resu = tiktok.result;
+		if (pilih == "tiktok" || pilih == "tiktokaudio") resu = tiktok.result;
 		yt.size_audio = mp3 ? mp3.formattedSize : "";
-		if(pilih == "tiktok" || pilih == "tiktokaudio") tiktok.size = resu.video.nowm.size;
-		if(pilih == "tiktok" || pilih == "tiktokaudio") tiktok.audio_name = resu.audio.audio_name;
+		if (pilih == "tiktok" || pilih == "tiktokaudio") tiktok.size = resu.video.nowm.size;
+		if (pilih == "tiktok" || pilih == "tiktokaudio") tiktok.audio_name = resu.audio.audio_name;
 		yt.size_video = mp4 ? mp4.formattedSize : "";
 		delete yt.image;
 		delete yt.mp4;
 		delete yt.mp3;
 		delete yt.status;
-		if(pilih == "tiktok" || pilih == "tiktokaudio") delete tiktok.result;
+		if (pilih == "tiktok" || pilih == "tiktokaudio") delete tiktok.result;
 		var result = await rzky.tools.parseResult(yt, {
 			title: "Downloader",
 		});
