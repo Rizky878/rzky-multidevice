@@ -91,7 +91,7 @@ Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/628
 > pkg install git
 > pkg install ffmpeg && pkg install libwebp
 > pkg install nodejs
-> git clone https://github.com/Rizky878/rzky-multidevice/
+> git clone --depth=1 https://github.com/Rizky878/rzky-multidevice/
 > cd rzky-multidevice
 > npm install --arch=x64 --platform=linux sharp
 > npm start
@@ -152,7 +152,7 @@ pacman -S libwebp
 
 ```bash
 # clone repo
-git clone https://github.com/Rizky878/rzky-multidevice
+git clone --depth=1 https://github.com/Rizky878/rzky-multidevice
 
 # ubah posisi direktori kamu
 cd rzky-multidevice
