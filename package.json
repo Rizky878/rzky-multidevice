@@ -44,7 +44,6 @@
     "node-fetch": "^2.0.0",
     "parse-ms": "^2.1.0",
     "pdfkit": "^0.12.1",
-    "pet-pet-gif": "^1.0.9",
     "prettier": "^2.6.2",
     "qrcode": "^1.5.0",
     "spinnies": "^0.5.1",
