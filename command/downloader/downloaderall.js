@@ -101,7 +101,7 @@ module.exports = {
 						msg.from,
 						{
 							video: {
-								url: await expand(resu.video.nowm.video_url),
+								url: await resu.video.nowm.video_url,
 							},
 							caption: await rzky.tools.parseResult(tiktok, { title: "Tiktok Download" }),
 							mimetype: "video/mp4",
@@ -121,13 +121,13 @@ module.exports = {
 					await conn.sendMessage(
 						msg.from,
 						{
-							image: { url: await expand(tiktok.thumbnail) },
+							image: { url: await tiktok.thumbnail },
 							fileName: "tiktok.jpg",
 							caption: await rzky.tools.parseResult(tiktok, { title: "Tiktok Download" }),
 						},
 						{ quoted: msg }
 					);
-					await conn.sendFile(msg.from, await expand(resu.audio.audio_url), tiktok.author + ".mp3", "", msg);
+					await conn.sendFile(msg.from, await resu.audio.audio_url, tiktok.author + ".mp3", "", msg);
 					break;
 			}
 		} catch (err) {
