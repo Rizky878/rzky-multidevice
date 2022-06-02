@@ -12,14 +12,16 @@ module.exports = {
 	isSpam: true,
 	async run({ msg, conn }, { q, map, args }) {
 		var pilih = msg.body.split(/ +/)[0].slice(1);
-		var teks = args[0];
+		var teks = q.replace(/ --doc/gi, "");
 		if (pilih == "play" || pilih == "youtube") {
-			yets = await yts(args[0]);
+			yets = await yts(teks);
 			var results = await yets.all.filter((s) => s.type == "video");
 			var vid = results.find((video) => video.seconds < 3600);
 			teks = vid.url;
 		}
 		var yt = await y2mateV(teks, "480");
+		if (yt[0].link == "https://app.y2mate.com/download") yt = await y2mateV(teks, "360");
+		if (yt[0].link == "https://app.y2mate.com/download") yt = await y2mateV(teks, "144");
 		if (pilih == "play" || pilih == "ytmp3" || pilih == "youtube") {
 			yt = await y2mateA(teks, "256");
 		}
@@ -30,31 +32,55 @@ module.exports = {
 					caption: await rzky.tools.parseResult(yt[0], { title: "Youtube" }),
 					templateButtons: [
 						{ urlButton: { displayText: "Source", url: teks } },
-						{ urlButton: { displayText: "Downloader", url: "https://downloader.rzkyfdlh.tech" } },
-						{ quickReplyButton: { displayText: "Audio🎶", id: "#ytmp3 " + teks } },
-						{ quickReplyButton: { displayText: "Video🎥", id: "#ytmp4 " + teks } },
-						{ quickReplyButton: { displayText: "Dashboard📊", id: "#db" } },
+						{ urlButton: { displayText: "Short Link", url: "https://sl.rzkyfdlh.tech" } },
+						{ quickReplyButton: { displayText: "Audio 🎶", id: "#ytmp3 " + teks } },
+						{ quickReplyButton: { displayText: "Video 🎥", id: "#ytmp4 " + teks } },
+						{ quickReplyButton: { displayText: "Document Audio 📄", id: "#ytmp3 " + teks + " --doc" } },
 					],
 				});
 				break;
 			case "ytmp3":
-				await conn.sendFile(msg.from, yt[0].link, yt[0].judul + ".mp3", "", msg);
+				await conn.sendFile(msg.from, yt[0].link, yt[0].judul + ".mp3", "", msg, false, {
+					asDocument: q.endsWith("--doc"),
+				});
 				break;
 			case "ytmp4":
-				await conn.sendMessage(
-					msg.from,
-					{
-						video: {
-							url: yt[0].link,
-						},
-						mimetype: "video/mp4",
-						caption: await rzky.tools.parseResult(yt[0], { title: "Youtube" }),
-						fileName: yt.title + ".mp4",
-					},
-					{
-						quoted: msg,
+				if (q.endsWith("--doc")) {
+					await conn.sendFile(msg.from, yt[0].link, yt[0].judul + ".mp4", "", msg, false, {
+						asDocument: true,
+					});
+				} else {
+					try {
+						await conn.sendMessage(
+							msg.from,
+							{
+								video: {
+									url: yt[0].link,
+								},
+								mimetype: "video/mp4",
+								caption: await rzky.tools.parseResult(yt[0], { title: "Youtube" }),
+								fileName: yt.title + ".mp4",
+								templateButtons: [
+									{ urlButton: { displayText: "Source", url: teks } },
+									{
+										quickReplyButton: {
+											displayText: "Document 📄",
+											id: "#ytmp4 " + teks + " --doc",
+										},
+									},
+								],
+							},
+							{
+								quoted: msg,
+							}
+						);
+					} catch {
+						await msg.reply("Size Terlalu besar, media akan dikirim melalui document");
+						await conn.sendFile(msg.from, yt[0].link, yt[0].judul + ".mp4", "", msg, false, {
+							asDocument: true,
+						});
 					}
-				);
+				}
 				break;
 		}
 	},
