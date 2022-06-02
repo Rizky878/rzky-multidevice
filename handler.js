@@ -236,10 +236,10 @@ module.exports = handler = async (m, conn, map) => {
 		if (
 			!isCmd &&
 			isUrl(msg.body) &&
-			/tiktok.com|soundcloud.com|imgur.com|pin.it|pinterest.com|youtube.com|youtu.be/i.test(msg.body)
+			/tiktok.com|soundcloud.com|facebook.com|imgur.com|pin.it|pinterest.com|youtube.com|youtu.be/i.test(msg.body)
 		) {
 			try {
-				var bod = msg.body.split(" ");
+				var bod = isUrl(msg.body);
 				var link = bod.find(
 					(a) =>
 						a.includes("tiktok.com") ||
@@ -278,7 +278,7 @@ module.exports = handler = async (m, conn, map) => {
 							caption: await rzky.tools.parseResult(rz, { title: "Auto Download" }),
 							templateButtons: [
 								{ urlButton: { displayText: "Source", url: link } },
-								{ urlButton: { displayText: "Downloader", url: "https://downloader.rzkyfdlh.tech" } },
+								{ urlButton: { displayText: "Downloader", url: "https://down.rzkyfdlh.tech" } },
 								{ quickReplyButton: { displayText: "Audio🎶", id: "#tiktokaudio " + link } },
 							],
 						},
@@ -418,14 +418,16 @@ module.exports = handler = async (m, conn, map) => {
 		try {
 			await cmd.run(
 				{ msg, conn },
-				{ q, map, args, arg, Baileys, prefix: temp_pref, response, chat: m, command: comand }
+				{ owner: isOwner, q, map, args, arg, Baileys, prefix: temp_pref, response, chat: m, command: comand }
 			);
 		} catch (e) {
+                        if(cmd.category != "private") {
 			let fail = dashboard.find((command) => command.name == cmd.name);
 			fail.failed += 1;
 			fail.success -= 1;
 			fail.lastUpdate = Date.now();
 			fs.writeFileSync("./database/dashboard.json", JSON.stringify(dashboard));
+                        }
 			await msg.reply(require("util").format(e), { isTranslate: false });
 		}
 	} catch (e) {
