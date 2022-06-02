@@ -300,17 +300,20 @@ const connect = async () => {
 
 	// detect Reaction message
 	conn.ev.on("messages.reaction", async (m) => {
+		if (m.reaction.key.id.startsWith("BAE5") && m.reaction.key.id.length === 16) return;
 		let mesg = await store.loadMessage(m.reaction.key.remoteJid, m.key.id, conn);
+		let frem = m.reaction.key.remoteJid.endsWith("@g.us") ? m.reaction.key.participant : m.reaction.key.remoteJid
+		let frum = m.key.remoteJid.endsWith("@g.us") ? m.key.participant : m.key.remoteJid
 		await conn.sendMessage(
 			m.reaction.key.remoteJid,
 			{
-				text: `Terdeteksi @${
-					(m.reaction.key.fromMe ? decodeJid(conn.user.id) : decodeJid(m.reaction.key.participant)).split(
+				text: `*【﻿ ${m.operation == "add" ? "ADD" : "DELETE"} REACTION 】*\n\n*_Tagged:_* @${
+					(m.reaction.key.fromMe ? decodeJid(conn.user.id) : decodeJid(frem)).split(
 						"@"
 					)[0]
-				} Mengirim Reaction Message ${
-					m.key.participant ? `ke @${m.key.participant.split("@")[0]}` : ``
-				}\n*Emoji Reaction:* ${m.reaction.text}`,
+				}\n*_To:_* ${
+					frum ? `@${frum.split("@")[0]}` : `-`
+				}\n*_Emoji:_* ${m.operation == "add" ? m.reaction.text : "-"}`,
 				withTag: true,
 			},
 			{ quoted: mesg }
@@ -389,6 +392,10 @@ const connect = async () => {
 	});
 };
 connect();
+
+if(config.server) {
+  require("http").createServer((__, res) => res.end("Server Running!")).listen(8080)
+}
 
 process.on("uncaughtException", function (err) {
 	console.error(err);
