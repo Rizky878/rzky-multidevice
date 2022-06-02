@@ -421,13 +421,13 @@ module.exports = handler = async (m, conn, map) => {
 				{ owner: isOwner, q, map, args, arg, Baileys, prefix: temp_pref, response, chat: m, command: comand }
 			);
 		} catch (e) {
-                        if(cmd.category != "private") {
-			let fail = dashboard.find((command) => command.name == cmd.name);
-			fail.failed += 1;
-			fail.success -= 1;
-			fail.lastUpdate = Date.now();
-			fs.writeFileSync("./database/dashboard.json", JSON.stringify(dashboard));
-                        }
+			if (cmd.category != "private") {
+				let fail = dashboard.find((command) => command.name == cmd.name);
+				fail.failed += 1;
+				fail.success -= 1;
+				fail.lastUpdate = Date.now();
+				fs.writeFileSync("./database/dashboard.json", JSON.stringify(dashboard));
+			}
 			await msg.reply(require("util").format(e), { isTranslate: false });
 		}
 	} catch (e) {
