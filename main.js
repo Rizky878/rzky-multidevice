@@ -197,7 +197,7 @@ const connect = async () => {
 	conn.ev.on("creds.update", saveState);
 	conn.ev.on("connection.update", async (up) => {
 		const { lastDisconnect, connection } = up;
-		spinnies.add("spinner-2", { text: "Running System...", color: "cyan" });
+		if (connection) spinnies.add("spinner-2", { text: "Running System...", color: "cyan" });
 		if (connection == "connecting")
 			spinnies.update("spinner-2", { text: "Connecting to the WhatsApp bot...", color: "cyan" });
 		if (connection) {
