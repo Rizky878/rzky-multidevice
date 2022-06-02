@@ -142,8 +142,7 @@ module.exports = handler = async (m, conn, map) => {
 				? (content.contextInfo = {
 						externalAdReply: {
 							title: "© " + config.namebot,
-							mediaType: 3,
-							renderLargerThumbnail: true,
+							mediaType: 1,
 							showAdAttribution: true,
 							body:
 								config.namebot +
