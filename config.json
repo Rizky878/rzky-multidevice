@@ -5,6 +5,8 @@
 	"session": "rzkyfdlh-md.json",
 	"ownername": "Rizky",
 	"self": false,
+        "server": false,
+        "comment_server": "change 'server' with 'true', if you run in replit!",
 	"limit": { "limitUser": 30, "gameLimitUser": 10, "gameLimitPremium": 30 },
 	"packInfo": { "packname": "@rizkyfadilah8", "author": "6282387804410" },
 	"namebot": "KurumiBot",
