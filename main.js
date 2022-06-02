@@ -348,7 +348,7 @@ const connect = async () => {
 	conn.ev.on("message.delete", async (m) => {
 		if (!m) m = false;
 		let data2 = db.cekDatabase("antidelete", "id", m.remoteJid || "");
-		if (data2 == "empty data") return;
+		if (typeof data2 != "object") return;
 		const dataChat = JSON.parse(fs.readFileSync("./database/mess.json"));
 		let mess = dataChat.find((a) => a.id == m.id);
 		let mek = mess.msg;
