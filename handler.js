@@ -1,6 +1,8 @@
 require("./global.js");
+require("./lib/Proto");
 const { getBinaryNodeChild } = require("@adiwajshing/baileys");
 const Baileys = require("@adiwajshing/baileys");
+const { logger } = Baileys.DEFAULT_CONNECTION_CONFIG;
 const { serialize } = require("./lib/serialize");
 const fs = require("fs");
 const { color, getAdmin, isUrl } = require("./lib");
@@ -20,6 +22,7 @@ function printSpam(conn, isGc, sender, groupName) {
 function printLog(isCmd, sender, msg, body, groupName, isGc) {
 	addBalance(msg.sender, Math.floor(Math.random() * 20), balance);
 	if (isCmd && isGc) {
+		addAchievementChat(msg.sender, 1);
 		return console.log(
 			color("[ COMMAND GC ]", "aqua"),
 			color(sender.split("@")[0], "lime"),
@@ -35,7 +38,10 @@ function printLog(isCmd, sender, msg, body, groupName, isGc) {
 module.exports = handler = async (m, conn, map) => {
 	try {
 		if (m.type !== "notify") return;
-		let msg = await serialize(JSON.parse(JSON.stringify(m.messages[0])), conn);
+		let ms = m.messages[0];
+		ms.message =
+			Object.keys(ms.message)[0] === "ephemeralMessage" ? ms.message.ephemeralMessage.message : ms.message;
+		let msg = await serialize(JSON.parse(JSON.stringify(ms)), conn);
 		if (!msg.message) return;
 
 		//self
@@ -114,6 +120,8 @@ module.exports = handler = async (m, conn, map) => {
 			return list;
 		};
 
+		require("./res/EmitEvent.js")(msg, conn);
+
 		// hayoloh dekk nyari adreply foto gede yahh ups:v
 		conn.sendMessage = async (jid, content, options = { isTranslate: true }) => {
 			await conn.presenceSubscribe(jid);
@@ -135,6 +143,12 @@ module.exports = handler = async (m, conn, map) => {
 					}
 				}
 			}
+			if (content.location) {
+				content.location.jpegThumbnail = await conn.imageSize(content.location.jpegThumbnail, 200, 200);
+			}
+			if (content.jpegThumbnail) {
+				content.jpegThumbnail = await conn.imageSize(content.jpegThumbnail, 200, 200);
+			}
 			content.withTag
 				? (content.mentions = [...cotent.matchAll(/@([0-9]{5,16}|0)/g)].map((v) => v[1] + "@s.whatsapp.net"))
 				: "";
@@ -143,6 +157,7 @@ module.exports = handler = async (m, conn, map) => {
 						externalAdReply: {
 							title: "© " + config.namebot,
 							mediaType: 1,
+							//renderLargerThumbnail: true,
 							showAdAttribution: true,
 							body:
 								config.namebot +
@@ -153,21 +168,55 @@ module.exports = handler = async (m, conn, map) => {
 						},
 				  })
 				: "";
-			const contentMsg = await Baileys.generateWAMessageContent(content, { upload: conn.waUploadToServer });
-			const fromContent = await Baileys.generateWAMessageFromContent(jid, contentMsg, options);
-			fromContent.key.id = "RZKY" + require("crypto").randomBytes(13).toString("hex").toUpperCase();
-			await conn.relayMessage(jid, fromContent.message, { messageId: fromContent.key.id });
-			conn.ev.emit("messages.upsert", {
-				messages: [fromContent],
-				type: "append",
-			});
-			await conn.sendPresenceUpdate("paused", jid);
-			return fromContent;
+			if (
+				typeof content === "object" &&
+				"disappearingMessagesInChat" in content &&
+				typeof content["disappearingMessagesInChat"] !== "undefined" &&
+				Baileys.isJidGroup(jid)
+			) {
+				const { disappearingMessagesInChat } = content;
+				const value =
+					typeof disappearingMessagesInChat === "boolean"
+						? disappearingMessagesInChat
+							? Baileys.WA_DEFAULT_EPHEMERAL
+							: 0
+						: disappearingMessagesInChat;
+				await conn.groupToggleEphemeral(jid, value);
+			} else {
+				const isDeleteMsg = "delete" in content && !!content.delete;
+				const additionalAttributes = {};
+				// required for delete
+				if (isDeleteMsg) {
+					additionalAttributes.edit = "7";
+				}
+				const contentMsg = await Baileys.generateWAMessageContent(content, {
+					logger,
+					userJid: conn.decodeJid(conn.user.id),
+					upload: conn.waUploadToServer,
+					...options,
+				});
+				const fromContent = await Baileys.generateWAMessageFromContent(jid, contentMsg, options);
+				fromContent.key.id = "RZKY" + require("crypto").randomBytes(13).toString("hex").toUpperCase();
+				await conn.relayMessage(jid, fromContent.message, {
+					messageId: fromContent.key.id,
+					additionalAttributes,
+				});
+				process.nextTick(() => {
+					conn.ev.emit("messages.upsert", {
+						messages: [fromContent],
+						type: "append",
+					});
+				});
+				await conn.sendPresenceUpdate("paused", jid);
+				return fromContent;
+			}
 		};
 
 		// auto read
-
 		await conn.readMessages([msg.key]);
+
+		// topdf
+		require("./lib/topdf")(msg, conn, map);
 
 		// anti +212
 		if (!isGroup && require("awesome-phonenumber")("+" + msg.sender.split("@")[0]).getCountryCode() == "212") {
@@ -236,7 +285,7 @@ module.exports = handler = async (m, conn, map) => {
 		if (
 			!isCmd &&
 			isUrl(msg.body) &&
-			/tiktok.com|soundcloud.com|facebook.com|imgur.com|pin.it|pinterest.com|youtube.com|youtu.be/i.test(msg.body)
+			/tiktok.com|soundcloud.com|imgur.com|pin.it|pinterest.com|youtube.com|youtu.be/i.test(msg.body)
 		) {
 			try {
 				var bod = isUrl(msg.body);
@@ -325,14 +374,14 @@ module.exports = handler = async (m, conn, map) => {
 		}
 
 		setTimeout(() => timestamps.delete(from), cdAmount);
-		const options = cmd.options;
-		if (options.noPrefix) {
+		let optionsCmd = cmd.options;
+		if (optionsCmd.noPrefix) {
 			if (isCmd) return;
 			q = msg.body.split(" ").splice(1).join(" ");
-		} else if (!options.noPrefix) {
+		} else if (!optionsCmd.noPrefix) {
 			if (!isCmd) return;
 		}
-		if (options.isSpam) {
+		if (optionsCmd.isSpam) {
 			timestamps.set(from, now);
 		}
 		if (cmd && cmd.category != "private") {
@@ -345,7 +394,7 @@ module.exports = handler = async (m, conn, map) => {
 				await db.modified("dashboard", { name: cmd.name, success: 1, failed: 0, lastUpdate: Date.now() });
 			}
 		}
-		if (options.isPremium && !isPremium) {
+		if (optionsCmd.isPremium && !isPremium) {
 			await conn.sendMessage(msg.from, { text: response.OnlyPrem }, { quoted: msg });
 			return true;
 		}
@@ -357,26 +406,26 @@ module.exports = handler = async (m, conn, map) => {
 				}*`
 			);
 		}
-		if (options.isLimit && !isPremium) {
+		if (optionsCmd.isLimit && !isPremium) {
 			if (isLimit(msg.sender, isPremium, isOwner, limitCount, limit) && !msg.isSelf)
 				return msg.reply(`Your limit has run out, please send ${prefix}limit to check the limit`);
 			limitAdd(msg.sender, limit);
 		}
-		if (options.isLimitGame) {
+		if (optionsCmd.isLimitGame) {
 			if (isGame(msg.sender, isOwner, gcount, glimit) && !msg.iSelf)
 				return msg.reply(`Your game limit has run out`);
 			gameAdd(msg.sender, glimit);
 		}
-		if (options.isAdmin && !isAdmin) {
+		if (optionsCmd.isAdmin && !isAdmin) {
 			await conn.sendMessage(msg.from, { text: response.GrupAdmin }, { quoted: msg });
 			return true;
 		}
-		if (options.isQuoted && !msg.quoted) {
+		if (optionsCmd.isQuoted && !msg.quoted) {
 			await msg.reply(`Please reply message`);
 			return true;
 		}
-		if (options.isMedia) {
-			let medianya = Media(options.isMedia ? options.isMedia : {});
+		if (optionsCmd.isMedia) {
+			let medianya = Media(optionsCmd.isMedia ? optionsCmd.isMedia : {});
 			if (typeof medianya[0] != "undefined" && !medianya.includes(msg.quoted ? msg.quoted.mtype : []))
 				return msg.reply(
 					`Please reply *${medianya
@@ -384,34 +433,36 @@ module.exports = handler = async (m, conn, map) => {
 						.join("/")}*`
 				);
 		}
-		if (options.isOwner && !isOwner) {
+		if (optionsCmd.isOwner && !isOwner && !msg.isSelf) {
 			await conn.sendMessage(msg.from, { text: response.OnlyOwner }, { quoted: msg });
 			return true;
 		}
-		if (options.isGroup && !isGroup) {
+		if (optionsCmd.isGroup && !isGroup) {
 			await conn.sendMessage(msg.from, { text: response.OnlyGrup }, { quoted: msg });
 			return true;
 		}
-		if (options.isBotAdmin && !botAdmin) {
+		if (optionsCmd.isBotAdmin && !botAdmin) {
 			await conn.sendMessage(msg.from, { text: response.BotAdmin }, { quoted: msg });
 			return true;
 		}
-		if (options.query && !q) {
-			await msg.reply(typeof options.query == "boolean" && options.query ? `Masukan query` : options.query);
+		if (optionsCmd.query && !q) {
+			await msg.reply(
+				typeof optionsCmd.query == "boolean" && optionsCmd.query ? `Masukan query` : optionsCmd.query
+			);
 			return true;
 		}
-		if (options.isPrivate && !isPrivate) {
+		if (optionsCmd.isPrivate && !isPrivate) {
 			await conn.sendMessage(msg.from, { text: response.OnlyPM }, { quoted: msg });
 			return true;
 		}
-		if (options.isUrl && !isUrl(q ? q : "p")) {
+		if (optionsCmd.isUrl && !isUrl(q ? q : "p")) {
 			await conn.sendMessage(msg.from, { text: response.error.Iv }, { quoted: msg });
 			return true;
 		}
-		if (options.wait) {
+		if (optionsCmd.wait) {
 			await conn.sendMessage(
 				msg.from,
-				{ text: typeof options.wait == "string" ? options.wait : response.wait },
+				{ text: typeof optionsCmd.wait == "string" ? optionsCmd.wait : response.wait },
 				{ quoted: msg }
 			);
 		}
