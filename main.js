@@ -433,7 +433,10 @@ const connect = async () => {
 };
 connect();
 
-if (config.server) require("http").createServer((__, res) => res.end("Server Running!")).listen(8080)
+if (config.server)
+	require("http")
+		.createServer((__, res) => res.end("Server Running!"))
+		.listen(8080);
 
 process.on("uncaughtException", function (err) {
 	console.error(err);
