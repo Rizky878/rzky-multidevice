@@ -1,4 +1,3 @@
-
 module.exports = async (msg, conn) => {
 	const { from, isGroup, msgType, sender, key, body } = msg;
 
@@ -11,5 +10,5 @@ module.exports = async (msg, conn) => {
 			message: messagee,
 		};
 		ikyEvent.emit("viewOnceMessage", opt);
-}
+	}
 };
