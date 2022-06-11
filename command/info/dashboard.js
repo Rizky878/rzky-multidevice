@@ -19,7 +19,7 @@ module.exports = {
 			teks += `*⌘ Last Used:* ${require("moment")(findData.lastUpdate).fromNow()}\n\n`;
 			await msg.reply(teks, { adReply: true });
 		} else {
-			dashboard.sort(function (a, b) {
+			dashboard = dashboard.sort(function (a, b) {
 				return b.success - a.success;
 			});
 			let success = dashboard.map((a) => a.success);
