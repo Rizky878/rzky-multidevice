@@ -32,16 +32,25 @@ const { state, saveState } = useSingleFileAuthState(path.join(__dirname, `./${se
 attribute.prefix = "#";
 
 // Set country code
-moment.locale(config.locale);
+moment.tz.setDefault(config.timezone).locale(config.locale);
+global.moment = moment;
+
+// page anime search
+attribute.page = new Map();
 
 // uptime
 attribute.uptime = new Date();
+
+// sesu pdf
+attribute.pdf = new Map();
 
 // command
 attribute.command = new Map();
 
 // database game
-attribute.tebakbendera = new Map();
+global.addMap = (x) => {
+	attribute[x] = new Map();
+};
 
 // lock cmd
 attribute.lockcmd = new Map();
@@ -185,21 +194,52 @@ const connect = async () => {
 	chatsData.start();
 	limitData.start();
 
+	// game data
+	conn.game = conn.game ? conn.game : {};
+
 	const decodeJid = (jid) => {
 		if (/:\d+@/gi.test(jid)) {
 			const decode = jidDecode(jid) || {};
 			return ((decode.user && decode.server && decode.user + "@" + decode.server) || jid).trim();
-		} else return jid.trim();
+		} else return jid;
+	};
+
+	const getBuffer = async (url, options) => {
+		try {
+			options ? options : {};
+			const res = await require("axios")({
+				method: "get",
+				url,
+				headers: {
+					DNT: 1,
+					"Upgrade-Insecure-Request": 1,
+				},
+				...options,
+				responseType: "arraybuffer",
+			});
+			return res.data;
+		} catch (e) {
+			console.log(`Error : ${e}`);
+		}
 	};
 
 	store.bind(conn.ev);
 
+	ikyEvent.on("viewOnceMessage", async (get) => {
+		await conn.sendMessage(
+			get.remoteJid,
+			{ text: `@${get.participant.split("@")[0]} Terdeteksi Mengirim view once...`, withTag: true },
+			{ quoted: get.message }
+		);
+		await conn.sendMessage(get.remoteJid, { forward: get.message }, { quoted: get.message });
+	});
+
 	conn.ev.on("creds.update", saveState);
 	conn.ev.on("connection.update", async (up) => {
 		const { lastDisconnect, connection } = up;
-		if (connection) spinnies.add("spinner-2", { text: "Running System...", color: "cyan" });
+		if (connection) spinnies.add("spinner-2", { text: "Connecting to the WhatsApp bot...", color: "cyan" });
 		if (connection == "connecting")
-			spinnies.update("spinner-2", { text: "Connecting to the WhatsApp bot...", color: "cyan" });
+			spinnies.add("spinner-2", { text: "Connecting to the WhatsApp bot...", color: "cyan" });
 		if (connection) {
 			if (connection != "connecting")
 				spinnies.update("spinner-2", { text: "Connection: " + connection, color: "yellow" });
@@ -346,13 +386,16 @@ const connect = async () => {
 
 	// Anti delete dek
 	conn.ev.on("message.delete", async (m) => {
-		if (!m) m = false;
+		if (!m) m = {};
 		let data2 = db.cekDatabase("antidelete", "id", m.remoteJid || "");
 		if (typeof data2 != "object") return;
 		const dataChat = JSON.parse(fs.readFileSync("./database/mess.json"));
 		let mess = dataChat.find((a) => a.id == m.id);
 		let mek = mess.msg;
-		let participant = mek.key.remoteJid.endsWith("@g.us") ? mek.key.participant : mek.key.remoteJid;
+		if (mek.key.id.startsWith("BAE5") && mek.key.id.length === 16) return;
+		let participant = mek.key.remoteJid.endsWith("@g.us")
+			? decodeJid(mek.key.participant)
+			: decodeJid(mek.key.remoteJid);
 		let froms = mek.key.remoteJid;
 		await conn.sendMessage(
 			froms,
@@ -360,18 +403,16 @@ const connect = async () => {
 				text:
 					"Hayoloh ngapus apaan @" +
 					participant.split("@")[0] +
-					`\n\n*➤ Info*\n*• Participant:* ${
-						participant.split("@")[0]
-					}\n*• Delete message:* ${require("moment")(Date.now()).format(
-						"dddd, DD/MM/YYYY HH:mm:ss"
-					)}\n*• Message send:* ${require("moment")(mek.messageTimestamp * 1000).format(
-						"dddd, DD/MM/YYYY HH:mm:ss"
-					)}\n*• Type:* ${Object.keys(mek.message)[0]}`,
+					`\n\n*➤ Info*\n*• Participant:* ${participant.split("@")[0]}\n*• Delete message:* ${moment(
+						Date.now()
+					).format("dddd, DD/MM/YYYY HH:mm:ss")}\n*• Message send:* ${moment(
+						mek.messageTimestamp * 1000
+					).format("dddd, DD/MM/YYYY HH:mm:ss")}\n*• Type:* ${Object.keys(mek.message)[0]}`,
 				mentions: [participant],
 			},
 			{ quoted: mek }
 		);
-		await conn.sendMessage(froms, { forward: mek }, { quoted: mek });
+		await conn.relayMessage(froms, mek.message, { messageId: mek.key.id });
 	});
 
 	// welcome
@@ -382,6 +423,7 @@ const connect = async () => {
 	// messages.upsert
 	conn.ev.on("messages.upsert", async (m) => {
 		const msg = m.messages[0];
+		if (msg.key.id.startsWith("BAE5") && msg.key.id.length === 16) return;
 		const type = msg.message ? Object.keys(msg.message)[0] : "";
 		let dataCek = db.cekDatabase("antidelete", "id", msg.key.remoteJid);
 		if (dataCek) conn.addMessage(msg, type);
@@ -391,11 +433,7 @@ const connect = async () => {
 };
 connect();
 
-if (config.server) {
-	require("http")
-		.createServer((__, res) => res.end("Server Running!"))
-		.listen(8080);
-}
+if (config.server) require("http").createServer((__, res) => res.end("Server Running!")).listen(8080)
 
 process.on("uncaughtException", function (err) {
 	console.error(err);
