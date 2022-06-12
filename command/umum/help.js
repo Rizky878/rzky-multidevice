@@ -66,9 +66,21 @@ module.exports = {
 ${isPremium ? `❏ Expired: 「 ${xes.days} D ${xes.hours} H ${xes.minutes} M 」\n` : ""}
 
 ◪ *Fitur terpopuler saat ini*
-${dashboard[0] ? `1. *${prefix}${dashboard[0].name}* dipakai sebanyak *${dashboard[0].success + dashboard[0].failed}* kali` : ``}
-${dashboard[1] ? `2. *${prefix}${dashboard[1].name}* dipakai sebanyak *${dashboard[1].success + dashboard[1].failed}* kali` : ``}
-${dashboard[2] ? `3. *${prefix}${dashboard[2].name}* dipakai sebanyak *${dashboard[2].success + dashboard[2].failed}* kali\n\n` : ``}`
+${
+	dashboard[0]
+		? `1. *${prefix}${dashboard[0].name}* dipakai sebanyak *${dashboard[0].success + dashboard[0].failed}* kali`
+		: ``
+}
+${
+	dashboard[1]
+		? `2. *${prefix}${dashboard[1].name}* dipakai sebanyak *${dashboard[1].success + dashboard[1].failed}* kali`
+		: ``
+}
+${
+	dashboard[2]
+		? `3. *${prefix}${dashboard[2].name}* dipakai sebanyak *${dashboard[2].success + dashboard[2].failed}* kali\n\n`
+		: ``
+}`;
 			const keys = Object.keys(category);
 			//var a = 1
 			for (const key of keys) {
