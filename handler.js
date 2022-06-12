@@ -142,12 +142,6 @@ module.exports = handler = async (m, conn, map) => {
 					}
 				}
 			}
-			if (content.location) {
-				content.location.jpegThumbnail = await conn.imageSize(content.location.jpegThumbnail, 200, 200);
-			}
-			if (content.jpegThumbnail) {
-				content.jpegThumbnail = await conn.imageSize(content.jpegThumbnail, 200, 200);
-			}
 			content.withTag
 				? (content.mentions = [...cotent.matchAll(/@([0-9]{5,16}|0)/g)].map((v) => v[1] + "@s.whatsapp.net"))
 				: "";
