@@ -22,7 +22,6 @@ function printSpam(conn, isGc, sender, groupName) {
 function printLog(isCmd, sender, msg, body, groupName, isGc) {
 	addBalance(msg.sender, Math.floor(Math.random() * 20), balance);
 	if (isCmd && isGc) {
-		addAchievementChat(msg.sender, 1);
 		return console.log(
 			color("[ COMMAND GC ]", "aqua"),
 			color(sender.split("@")[0], "lime"),
