@@ -103,7 +103,7 @@ ${
 				{
 					video: { url: await conn.getBuffer(config.thumb) },
 					caption: str,
-gifPlayback: true,
+					gifPlayback: true,
 					footer: config.namebot + " • " + config.ownername,
 					templateButtons: [
 						{ urlButton: { displayText: "Shortlink", url: "https://sl.rzkyfdlh.tech" } },
