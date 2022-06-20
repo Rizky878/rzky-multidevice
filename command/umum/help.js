@@ -101,7 +101,7 @@ ${
 			await conn.sendMessage(
 				msg.from,
 				{
-					video: { url: await conn.getBuffer(config.thumb) },
+					video: { url: await conn.getBuffer(config.thumbvideo) },
 					caption: str,
 					gifPlayback: true,
 					footer: config.namebot + " • " + config.ownername,
