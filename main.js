@@ -126,7 +126,7 @@ const ReadFitur = () => {
 				alias: [""],
 				desc: "",
 				use: "",
-cooldown: 5,
+				cooldown: 5,
 				type: "", // default: changelog
 				category: typeof command.category == "undefined" ? "" : res.toLowerCase(),
 				wait: false,
