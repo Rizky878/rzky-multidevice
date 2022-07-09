@@ -338,7 +338,7 @@ module.exports = handler = async (m, conn, map) => {
 		}
 		const now = Date.now();
 		const timestamps = cooldown.get(from);
-		const cdAmount = (cmd.cooldown || 5) * 1000;
+		const cdAmount = (cmd.options.cooldown || 5) * 1000;
 		if (timestamps.has(from)) {
 			const expiration = timestamps.get(from) + cdAmount;
 			if (now < expiration) {
