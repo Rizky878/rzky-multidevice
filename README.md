@@ -15,10 +15,11 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Rizky878/rzky-multidevice)
 
-| Build Pack | Link |
-|--------|--------|
-| **FFMPEG** |[url](https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest) |
+| Build Pack  | Link                                                                 |
+| ----------- | -------------------------------------------------------------------- |
+| **FFMPEG**  | [url](https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest) |
 | **LIBWEBP** | [url](https://github.com/clhuang/heroku-buildpack-webp-binaries.git) |
+
 </div><br />
 <br />
 
