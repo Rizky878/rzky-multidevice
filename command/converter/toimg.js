@@ -1,10 +1,9 @@
 const fs = require("fs");
 module.exports = {
-	name: "Toimg",
+	name: "toimg",
 	alias: ["toimg"],
 	category: "converter",
 	desc: "Convert a sticker to image",
-	
 	async run({ msg, conn }, { q }) {
 		const { quoted, from, type } = msg;
 		const content = JSON.stringify(quoted); 
@@ -14,7 +13,7 @@ module.exports = {
 			if (isQStic) {
 				buffer = await quoted.download();
 				await conn.sendFile(msg.from, buffer, "toimg.jpg", 'Success', msg);
-			} else if {
+			} else {
 			  await msg.reply(`Reply sticker`);
 			}
 		 	 (buffer = null), (stickerBuff = null);
