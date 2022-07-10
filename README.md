@@ -17,8 +17,8 @@
 
 | Build Pack  | Link                                                                 |
 | ----------- | -------------------------------------------------------------------- |
-| **FFMPEG**  | [url](https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest) |
-| **LIBWEBP** | [url](https://github.com/clhuang/heroku-buildpack-webp-binaries.git) |
+| **FFMPEG**  | [HERE](https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest) |
+| **LIBWEBP** | [HERE](https://github.com/clhuang/heroku-buildpack-webp-binaries.git) |
 
 </div><br />
 <br />
