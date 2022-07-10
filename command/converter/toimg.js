@@ -2,7 +2,6 @@ let { webp2png } = require("../../lib/webp2");
 
 module.exports = {
 	name: "toimg",
-	alias: ["toimg"],
 	category: "converter",
 	desc: "Convert a sticker to image",
 	wait: true,
@@ -10,7 +9,6 @@ module.exports = {
 		const { quoted, from, type } = msg;
 		const content = JSON.stringify(quoted);
 		const isQStic = type === "extendedTextMessage" && content.includes("stickerMessage");
-
 		try {
 			if (isQStic) {
 				let media = await quoted.download();
