@@ -15,8 +15,8 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Rizky878/rzky-multidevice)
 
-| Build Pack  | Link                                                                 |
-| ----------- | -------------------------------------------------------------------- |
+| Build Pack  | Link                                                                  |
+| ----------- | --------------------------------------------------------------------- |
 | **FFMPEG**  | [HERE](https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest) |
 | **LIBWEBP** | [HERE](https://github.com/clhuang/heroku-buildpack-webp-binaries.git) |
 
