@@ -2,7 +2,7 @@ let { webp2mp4 } = require("../../lib/webp2");
 
 module.exports = {
 	name: "togif",
-	alias: ["togif", "tomp4"],
+	alias: ["tomp4"],
 	category: "converter",
 	desc: "Convert a sticker to gif",
 	wait: true,
