@@ -15,7 +15,7 @@ module.exports = {
 	isQuoted: true,
 	query: "Enter number!",
 	isSpam: true,
-	async run({ msg, conn }) {
+	async run({ msg, conn }, { q }) {
 		if (!msg.quoted.text.split("*").includes("• Chord Music Search"))
 			return msg.reply("Pesan bukan dari chord music search!");
 		if (isNaN(q)) throw "Enter the correct number";
