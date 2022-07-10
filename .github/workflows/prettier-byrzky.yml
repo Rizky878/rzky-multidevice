@@ -3,8 +3,6 @@ name: Prettier By RzkyFdlh
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 jobs:
   format:
     runs-on: ubuntu-latest
