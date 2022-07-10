@@ -12,9 +12,9 @@
 <a href="https://chat.whatsapp.com/KsD1fbs8M4t37ZcI5rqVbv"> <img src="https://img.shields.io/badge/whatsapp-Support_Group-blue?style=social&logo=whatsapp" alt="support" /></a>
 
 > Dibuat dengan Baileys dan Map() ( sebagai command handler ) <br />
-<b> Heroku Server </b>
-<br/>
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Rizky878/rzky-multidevice)
+> <b> Heroku Server </b>
+> <br/>
+> [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Rizky878/rzky-multidevice)
 
 | Build Pack  | Link                                                                  |
 | ----------- | --------------------------------------------------------------------- |
