@@ -1,7 +1,6 @@
 const fs = require("fs");
 module.exports = {
 	name: "toimg",
-	alias: ["toimg"],
 	category: "converter",
 	desc: "Convert a sticker to image",
 	async run({ msg, conn }, { q }) {
