@@ -1,4 +1,4 @@
-let { webp2mp4 } = require('../../lib/webp2')
+let { webp2png } = require('../../lib/webp2')
 
 module.exports = {
 	name: "toimg",
@@ -14,8 +14,8 @@ module.exports = {
 	try {
 	  if (isQStic) { 
         let media = await quoted.download()
-        out = await webp2mp4(media)
-        await conn.sendFile(msg.from, out, "image.mp4", 'Success', msg);
+        out = await webp2png(media)
+        await conn.sendFile(msg.from, out, "image.jpeg", 'Success', msg);
 	  } else {
 	    await msg.reply(`Reply sticker`);
 	  }
