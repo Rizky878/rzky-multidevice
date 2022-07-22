@@ -188,7 +188,7 @@ module.exports = handler = async (m, conn, map) => {
 					upload: conn.waUploadToServer,
 					...options,
 				});
-options.userJid = conn.user.id
+				options.userJid = conn.user.id;
 				const fromContent = await Baileys.generateWAMessageFromContent(jid, contentMsg, options);
 				fromContent.key.id = "RZKY" + require("crypto").randomBytes(13).toString("hex").toUpperCase();
 				await conn.relayMessage(jid, fromContent.message, {
