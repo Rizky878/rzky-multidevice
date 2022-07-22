@@ -184,7 +184,7 @@ module.exports = handler = async (m, conn, map) => {
 				}
 				const contentMsg = await Baileys.generateWAMessageContent(content, {
 					logger,
-					userJid: conn.decodeJid(conn.user.id),
+					userJid: conn.user.id,
 					upload: conn.waUploadToServer,
 					...options,
 				});
@@ -193,6 +193,7 @@ module.exports = handler = async (m, conn, map) => {
 				await conn.relayMessage(jid, fromContent.message, {
 					messageId: fromContent.key.id,
 					additionalAttributes,
+userJid: conn.user.id,
 				});
 				process.nextTick(() => {
 					conn.ev.emit("messages.upsert", {
