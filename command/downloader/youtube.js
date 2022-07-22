@@ -53,20 +53,20 @@ module.exports = {
 				});
 				break;
 			case "ytmp3":
-			  await conn.sendMessage(
-						msg.from,
-						{
-							[q.endsWith("--doc") ? "document" : "audio"]: {
-								url: yt[0] ? yt[0].link : mp3.url,
-							},
-							mimetype: "audio/mpeg",
-							fileName: yt[0] ? yt[0].judul + ".mp3" : yt.title + ".mp3",
+				await conn.sendMessage(
+					msg.from,
+					{
+						[q.endsWith("--doc") ? "document" : "audio"]: {
+							url: yt[0] ? yt[0].link : mp3.url,
 						},
-						{
-							quoted: msg,
-						}
-					);
-			/*	await conn.sendFile(
+						mimetype: "audio/mpeg",
+						fileName: yt[0] ? yt[0].judul + ".mp3" : yt.title + ".mp3",
+					},
+					{
+						quoted: msg,
+					}
+				);
+				/*	await conn.sendFile(
 					msg.from,
 					yt[0] ? yt[0].link : mp3.url,
 					yt[0] ? yt[0].judul + ".mp3" : yt.title + ".mp3",
