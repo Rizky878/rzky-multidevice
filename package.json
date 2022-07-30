@@ -1,10 +1,10 @@
 {
-  "name": "rzky-multidevice",
-  "version": "4.0.0",
+  "name": "Chika bot",
+  "version": "1.0.0",
   "main": "index.js",
   "depecrated": false,
   "license": "MIT",
-  "author": "RizkyFadilah",
+  "author": "Zixy",
   "scripts": {
     "start": "node .",
     "format": "prettier --write '**/*.{md,js,json}'"
