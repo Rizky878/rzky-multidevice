@@ -1,18 +1,18 @@
 {
-	"owner": ["6282387804410@s.whatsapp.net"],
+	"owner": ["6285691686671@s.whatsapp.net"],
 	"thumbvideo": "http://fzcdn.cf/file/MlIffJXpr01~aGq2NSE~.mp4",
 	"thumb": "https://telegra.ph/file/d8dba7eee759ff82b35be.jpg",
 	"session": "rzkyfdlh-md.json",
-	"ownername": "Rizky",
+	"ownername": "Zixy",
 	"self": false,
 	"server": false,
 	"comment_server": "change 'server' with 'true', if you run in replit!",
 	"limit": { "limitUser": 30, "gameLimitUser": 10, "gameLimitPremium": 30 },
-	"packInfo": { "packname": "@rizkyfadilah8", "author": "6282387804410" },
+	"packInfo": { "packname": "@𝙕𝙞𝙭𝙮.𝙚𝘼𝙨𝙥𝙊𝙧𝙏.𝙭𝙭𝙭", "author": "チカボット Chika Botz" },
 	"namebot": "KurumiBot",
 	"timezone": "Asia/Jakarta",
-	"email": "admin@rzkyfdlh.tech",
-	"instagram": "https://instagram.com/rizkyfadilah8_",
+	"email": "admin@ZixySky22.tech",
+	"instagram": "https://instagram.com/sih_bot_",
 	"locale": "id",
 	"ignore": {
 		"directory": ["umum"]
