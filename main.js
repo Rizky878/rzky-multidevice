@@ -181,7 +181,10 @@ const ReadFitur = () => {
 ReadFitur();
 
 const connect = async () => {
-const { state, saveCreds } = await useMultiFileAuthState(path.join(__dirname, `./${session}`), log({ level: "silent" }));
+	const { state, saveCreds } = await useMultiFileAuthState(
+		path.join(__dirname, `./${session}`),
+		log({ level: "silent" })
+	);
 	let { version, isLatest } = await fetchLatestBaileysVersion();
 	console.log(color(`Using: ${version}, newer: ${isLatest}`, "yellow"));
 	const conn = Baileys({
