@@ -2,7 +2,7 @@ const {
 	fetchLatestBaileysVersion,
 	makeInMemoryStore,
 	default: Baileys,
-	useSingleFileAuthState,
+	useMultiFileAuthState,
 	jidDecode,
 	DisconnectReason,
 	delay,
@@ -28,7 +28,6 @@ const spinnies = new Spinnies({
 });
 const moment = require("moment");
 const { self } = require("./config.json");
-const { state, saveState } = useSingleFileAuthState(path.join(__dirname, `./${session}`), log({ level: "silent" }));
 attribute.prefix = "#";
 
 // Set country code
@@ -182,6 +181,7 @@ const ReadFitur = () => {
 ReadFitur();
 
 const connect = async () => {
+const { state, saveCreds } = await useMultiFileAuthState(path.join(__dirname, `./${session}`), log({ level: "silent" }));
 	let { version, isLatest } = await fetchLatestBaileysVersion();
 	console.log(color(`Using: ${version}, newer: ${isLatest}`, "yellow"));
 	const conn = Baileys({
@@ -235,7 +235,7 @@ const connect = async () => {
 		await conn.sendMessage(get.remoteJid, { forward: get.message }, { quoted: get.message });
 	});
 
-	conn.ev.on("creds.update", saveState);
+	conn.ev.on("creds.update", saveCreds);
 	conn.ev.on("connection.update", async (up) => {
 		const { lastDisconnect, connection } = up;
 		if (connection) spinnies.add("spinner-2", { text: "Connecting to the WhatsApp bot...", color: "cyan" });
