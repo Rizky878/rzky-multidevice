@@ -184,6 +184,25 @@ Start and Scan QR<br />
 npm start
 ```
 
+### Jika versi nodejs bukan v16.x 
+silakan ikuti cara ini untuk memasang nodejs v16.x
+
+> ### linux
+```
+curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+sudo bash nodesource_setup.sh
+sudo apt-get install nodejs
+```
+> ### termux
+```
+pkg install nodejs-lts
+```
+
+selanjutnya cek apakah sudah versi 16.x
+```
+node -v
+```
+
 # Thanks To
 
 -   [`Faiz Bastomi`](https://github.com/FaizBastomi)
