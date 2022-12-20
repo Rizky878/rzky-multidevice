@@ -87,8 +87,8 @@ Isi semua yang dibutuhkan di file [`config.json`](https://github.com/Rizky878/rz
 ## Request atau report bug
 
 Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/6282387804410)
-## Instalasi
 
+## Instalasi
 
 ## Instalasi On Termux
 
@@ -104,8 +104,6 @@ Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/628
 > npm start
 # Scan QR
 ```
-
-
 
 ### Dibutuhkan
 
