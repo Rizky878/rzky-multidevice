@@ -87,6 +87,8 @@ Isi semua yang dibutuhkan di file [`config.json`](https://github.com/Rizky878/rz
 ## Request atau report bug
 
 Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/6282387804410)
+## Instalasi
+
 
 ## Instalasi On Termux
 
@@ -95,9 +97,7 @@ Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/628
 ```bash
 > pkg install
 > pkg upgrade
-> pkg install git
-> pkg install ffmpeg && pkg install libwebp
-> pkg install nodejs
+> pkg install git ffmpeg libwebp nodejs
 > git clone --depth=1 https://github.com/Rizky878/rzky-multidevice/
 > cd rzky-multidevice
 > npm install --arch=x64 --platform=linux sharp
@@ -105,7 +105,7 @@ Untuk request atau report bug bisa chat saya disini [Whatsapp](https://wa.me/628
 # Scan QR
 ```
 
-## Instalasi
+
 
 ### Dibutuhkan
 
